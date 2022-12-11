@@ -6,10 +6,18 @@ OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 ARGS=-g
 TEST=tests
 
+test: test-productions test-items
+
 test-productions: $(TEST)/bin/testproductions
 	$<
 
 $(TEST)/bin/testproductions: $(TEST)/testproductions.c $(OBJ)/grammar.o
+	$(CC) $^ -o $@ -lcriterion
+
+test-items: $(TEST)/bin/testitems
+	$<
+
+$(TEST)/bin/testitems: $(TEST)/testitems.c $(OBJ)/grammar.o
 	$(CC) $^ -o $@ -lcriterion
 
 lexer: $(OBJ)/lexdriver.o $(OBJ)/lex.yy.o $(OBJ)/util.o

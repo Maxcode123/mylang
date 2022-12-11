@@ -9,7 +9,7 @@ Production production(symbol lhs, symbol* rhs, int len) {
 }
 
 Production *productions() {
-    symbol p1[] = {S_NT_STM, S_T_EOF};
+    symbol p1[] = {S_NT_STM};
     symbol p2[] = {S_NT_STM, S_T_SEMICOLON, S_NT_STM};
     symbol p3[] = {S_T_ID, S_T_EQ, S_NT_EXP};
     symbol p4[] = {S_T_PRINT, S_T_LPAREN, S_NT_EXPLIST, S_T_RPAREN};
@@ -24,9 +24,9 @@ Production *productions() {
     symbol p13[] = {S_T_TIMES};
     symbol p14[] = {S_T_DIV};
 
-    Production *p = malloc(14*sizeof(Production));
+    Production *p = malloc(PRODUCTIONS*sizeof(Production));
     
-    p[0] = production(S_NT_PROGRAM, p1, 2);
+    p[0] = production(S_NT_PROGRAM, p1, 1);
     p[1] = production(S_NT_STM, p2, 3);
     p[2] = production(S_NT_STM, p3, 3);
     p[3] = production(S_NT_STM, p4, 4);
@@ -40,13 +40,32 @@ Production *productions() {
     p[11] = production(S_NT_BINOP, p12, 1);
     p[12] = production(S_NT_BINOP, p13, 1);
     p[13] = production(S_NT_BINOP, p14, 1);
-    
+
     return p;
 }
 
 Item item(Production p, int before) {
+    if (before < -1 || before > p->len) {
+        fprintf(stderr, "Cannot initialize Item. Invalid 'before' index.");
+        exit(1);
+    }
     Item i = malloc(sizeof(_Item));
     i->p = p;
     i->before = before;
+    return i;
+}
+
+Item *items(Production *prods) {
+
+    Item *i = malloc(ITEMS*sizeof(Item));
+    int c = 0;
+    for (int j = 0; j < PRODUCTIONS; j++) {
+        for (int k = 0; k < prods[j]->len; k++) {
+            Item tmp = item(prods[j], k);
+            i[c++] = tmp;
+        }
+        Item _tmp = item(prods[j], -1); // last item, where dot is after last symbol
+        i[c++] = _tmp;
+    }
     return i;
 }

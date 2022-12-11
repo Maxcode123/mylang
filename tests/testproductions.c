@@ -17,6 +17,8 @@ Test(testproductions, testarray)
 {
     Production *p = productions();
     cr_assert(p[0]->lhs == S_NT_PROGRAM);
+    cr_assert(p[0]->len == 1);
     cr_assert(p[1]->rhs[0] == S_NT_STM);
     cr_assert(p[2]->len == 3);
+    cr_assert(p[PRODUCTIONS-1]->lhs == S_NT_BINOP);
 }

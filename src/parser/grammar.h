@@ -1,5 +1,6 @@
 #pragma once
 #include <stdlib.h>
+#include <stdio.h>
 
 // Non terminal symbols
 # define S_NT_PROGRAM 10
@@ -23,6 +24,9 @@
 # define S_T_EQ 26
 # define S_T_EOF 27
 
+# define PRODUCTIONS 14
+# define ITEMS 43
+
 typedef int symbol;
 
 // Production rule
@@ -33,12 +37,12 @@ typedef struct _Production {
 } _Production;
 typedef _Production *Production;
 
+// Production constructor
+Production production(symbol lhs, symbol* rhs, int len);
+
 /* Allocates memory for array of productions, creates and inserts productions,
 returns pointer. */
 Production *productions();
-
-// constructor
-Production production(symbol lhs, symbol* rhs, int len);
 
 // Item
 typedef struct _Item {
@@ -47,8 +51,9 @@ typedef struct _Item {
 } _Item;
 typedef _Item *Item;
 
-// Item items[43];
-void init_items();
-
-// constructor
+// Item constructor
 Item item(Production p, int before);
+
+/* Allocates memory for array of items, creates and inserts items, returns 
+pointer. */
+Item *items(Production *prods);
