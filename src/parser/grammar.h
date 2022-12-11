@@ -33,8 +33,9 @@ typedef struct _Production {
 } _Production;
 typedef _Production *Production;
 
-// Production productions[14];
-void init_productions();
+/* Allocates memory for array of productions, creates and inserts productions,
+returns pointer. */
+Production *productions();
 
 // constructor
 Production production(symbol lhs, symbol* rhs, int len);

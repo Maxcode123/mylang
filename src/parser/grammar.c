@@ -8,7 +8,7 @@ Production production(symbol lhs, symbol* rhs, int len) {
     return p;
 }
 
-void init_productions() {
+Production *productions() {
     symbol p1[] = {S_NT_STM, S_T_EOF};
     symbol p2[] = {S_NT_STM, S_T_SEMICOLON, S_NT_STM};
     symbol p3[] = {S_T_ID, S_T_EQ, S_NT_EXP};
@@ -23,21 +23,25 @@ void init_productions() {
     symbol p12[] = {S_T_MINUS};
     symbol p13[] = {S_T_TIMES};
     symbol p14[] = {S_T_DIV};
+
+    Production *p = malloc(14*sizeof(Production));
     
-    // productions[0] = production(S_NT_PROGRAM, p1, 2);
-    // productions[1] = production(S_NT_STM, p2, 3);
-    // productions[2] = production(S_NT_STM, p3, 3);
-    // productions[3] = production(S_NT_STM, p4, 4);
-    // productions[4] = production(S_NT_EXP, p5, 1);
-    // productions[5] = production(S_NT_EXP, p6, 1);
-    // productions[6] = production(S_NT_EXP, p7, 3);
-    // productions[7] = production(S_NT_EXP, p8, 5);
-    // productions[8] = production(S_NT_EXPLIST, p9, 3);
-    // productions[9] = production(S_NT_EXPLIST, p10, 1);
-    // productions[10] = production(S_NT_BINOP, p11, 1);
-    // productions[11] = production(S_NT_BINOP, p12, 1);
-    // productions[12] = production(S_NT_BINOP, p13, 1);
-    // productions[13] = production(S_NT_BINOP, p14, 1);
+    p[0] = production(S_NT_PROGRAM, p1, 2);
+    p[1] = production(S_NT_STM, p2, 3);
+    p[2] = production(S_NT_STM, p3, 3);
+    p[3] = production(S_NT_STM, p4, 4);
+    p[4] = production(S_NT_EXP, p5, 1);
+    p[5] = production(S_NT_EXP, p6, 1);
+    p[6] = production(S_NT_EXP, p7, 3);
+    p[7] = production(S_NT_EXP, p8, 5);
+    p[8] = production(S_NT_EXPLIST, p9, 3);
+    p[9] = production(S_NT_EXPLIST, p10, 1);
+    p[10] = production(S_NT_BINOP, p11, 1);
+    p[11] = production(S_NT_BINOP, p12, 1);
+    p[12] = production(S_NT_BINOP, p13, 1);
+    p[13] = production(S_NT_BINOP, p14, 1);
+    
+    return p;
 }
 
 Item item(Production p, int before) {
