@@ -6,14 +6,18 @@ SymTable symtable() {
     return st;
 }
 
-void get(SymTable st, key k, Item i) {
+void get(SymTable st, key k, Item *i) {
     ItemNode in = getin(k, st->head);
-    if (in == NULL) i = NULL;
-    i = in->i;
+    if (in == NULL) 
+    {
+        *i = NULL;
+        return;
+    }
+    *i = in->i;
 }
 
 void put(SymTable st, key k, Item i) {
     if (subs(k, i, st->head)) return;
     ItemNode in = node(k, i);
-    addin(in, st->head);
+    addin(in, &st->head);
 }

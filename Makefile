@@ -8,6 +8,12 @@ TEST=tests
 
 test: test-list test-productions test-items
 
+test-symtable: $(TEST)/bin/testsymtable
+	$<
+
+$(TEST)/bin/testsymtable: $(TEST)/testsymtable.c $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
+	$(CC) $^ -o $@ -lcriterion
+
 test-list: $(TEST)/bin/testlist
 	$<
 

@@ -46,13 +46,13 @@ Test(testlist, testadd)
     ItemNode in = node("key1", i);
 
     ItemNode h = list();
-    add(in, &h);
+    addin(in, &h);
     cr_assert(strcmp(h->k, "key1") == 0);
     cr_assert(itemeq(h->i, i));
     cr_assert(h->next == NULL);
 
     ItemNode in2 = node("key2", i);
-    add(in2, &h);
+    addin(in2, &h);
     cr_assert(strcmp(h->k, "key2") == 0);
     cr_assert(itemeq(h->i, i));
     cr_assert(h->next == in);
@@ -69,18 +69,21 @@ Test(testlist, testget)
     ItemNode in2 = node("key2", i);
     ItemNode in3 = node("key3", i2);
     ItemNode h = list();
-    add(in, &h);
-    add(in2, &h);
-    add(in3, &h);
+    addin(in, &h);
+    addin(in2, &h);
+    addin(in3, &h);
 
-    ItemNode _in = get("key1", h);
+    ItemNode _in = getin("key1", h);
     cr_assert(inodeeq(_in, in));
 
-    ItemNode _in2 = get("key2", h);
+    ItemNode _in2 = getin("key2", h);
     cr_assert(inodeeq(_in2, in2));
 
-    ItemNode _in3 = get("key3", h);
+    ItemNode _in3 = getin("key3", h);
     cr_assert(inodeeq(_in3, in3));
+
+    ItemNode _in4 = getin("asdas", h);
+    cr_assert(_in4 == NULL);
 }
 
 Test(testlist, testsubs)
@@ -92,13 +95,13 @@ Test(testlist, testsubs)
 
     ItemNode in = node("key1", i);
     ItemNode h = list();
-    add(in, &h);
+    addin(in, &h);
 
     subs("key1", i2, h);
-    ItemNode _in = get("key1", h);
+    ItemNode _in = getin("key1", h);
     cr_assert(itemeq(_in->i, i2));
 
     subs("key1", i, h);
-    _in = get("key1", h);
+    _in = getin("key1", h);
     cr_assert(itemeq(_in->i, i));
 }

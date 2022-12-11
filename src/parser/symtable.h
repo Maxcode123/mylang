@@ -11,7 +11,7 @@ SymTable symtable();
 
 /* Points the Item of the given key to i. If there is no such key, points i to 
 NULL. */
-void get(SymTable st, key k, Item i);
+void get(SymTable st, key k, Item *i);
 
 /* Associates Item i with key k. If the key already exists, i overwrites the 
 current value. */
