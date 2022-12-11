@@ -1,14 +1,14 @@
-**GRAMMAR**
+**MYLANG GRAMMAR**
 
-*Terminal symbols*\
+*Terminal symbols*
 1) id
 2) num
 3) ,
 4) ;
-5) +
-6) -
-7) *
-8) /
+5) `+`
+6) `-`
+7) `*`
+8) `/`
 9) print
 10) (
 11) )
