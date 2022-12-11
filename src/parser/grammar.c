@@ -8,6 +8,15 @@ Production production(symbol lhs, symbol* rhs, int len) {
     return p;
 }
 
+bool prodeq(Production p1, Production p2) {
+    if (p1->lhs != p2->lhs) return false;
+    if (p1->len != p2->len) return false;
+    for (int i = 0; i < p1->len; i++) {
+        if (p1->rhs[i] != p2->rhs[i]) return false;
+    }
+    return true;
+}
+
 Production *productions() {
     symbol p1[] = {S_NT_STM};
     symbol p2[] = {S_NT_STM, S_T_SEMICOLON, S_NT_STM};
@@ -53,6 +62,10 @@ Item item(Production p, int before) {
     i->p = p;
     i->before = before;
     return i;
+}
+
+bool itemeq(Item i1, Item i2) {
+
 }
 
 Item *items(Production *prods) {

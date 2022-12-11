@@ -1,6 +1,7 @@
 #pragma once
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 // Non terminal symbols
 # define S_NT_PROGRAM 10
@@ -39,6 +40,9 @@ typedef struct _Production {
 // Production constructor
 Production production(symbol lhs, symbol* rhs, int len);
 
+// Equality comparison between two Productions.
+bool prodeq(Production p1, Production p2);
+
 /* Allocates memory for array of productions, creates and inserts productions,
 returns pointer. */
 Production *productions();
@@ -51,6 +55,9 @@ typedef struct _Item {
 
 // Item constructor
 Item item(Production p, int before);
+
+// Equality comparison between two Items.
+bool itemeq(Item i1, Item i2);
 
 /* Allocates memory for array of items, creates and inserts items, returns 
 pointer. */
