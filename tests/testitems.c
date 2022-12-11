@@ -27,3 +27,18 @@ Test(testitems, testarray)
     cr_assert(i[5]->before == -1);
 }
 
+Test(testitems, testeq)
+{
+    symbol rhs[] = {S_NT_STM, S_T_EOF};
+    Production p = production(S_NT_PROGRAM, rhs, 2);
+    Item i1 = item(p, 0);
+    Item i2 = item(p, 0);
+    cr_assert(itemeq(i1, i2));
+
+    Item i3 = item(p, 2);
+    cr_assert(!itemeq(i1, i3));
+
+    Production p4 = production(S_NT_PROGRAM, rhs, 3);
+    Item i4 = item(p4, 0);
+    cr_assert(!itemeq(i1, i4));    
+}

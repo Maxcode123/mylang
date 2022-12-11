@@ -65,7 +65,7 @@ Item item(Production p, int before) {
 }
 
 bool itemeq(Item i1, Item i2) {
-
+    return (prodeq(i1->p, i2->p) & i1->before == i2->before);
 }
 
 Item *items(Production *prods) {
