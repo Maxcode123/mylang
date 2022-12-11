@@ -24,22 +24,20 @@ void init_productions() {
     symbol p13[] = {S_T_TIMES};
     symbol p14[] = {S_T_DIV};
     
-
-    productions[0] = production(S_NT_PROGRAM, p1, 2);
-    productions[1] = production(S_NT_STM, p2, 3);
-    productions[2] = production(S_NT_STM, p3, 3);
-    productions[3] = production(S_NT_STM, p4, 4);
-    productions[4] = production(S_NT_EXP, p5, 1);
-    productions[5] = production(S_NT_EXP, p6, 1);
-    productions[6] = production(S_NT_EXP, p7, 3);
-    productions[7] = production(S_NT_EXP, p8, 5);
-    productions[8] = production(S_NT_EXPLIST, p9, 3);
-    productions[9] = production(S_NT_EXPLIST, p10, 1);
-    productions[10] = production(S_NT_BINOP, p11, 1);
-    productions[11] = production(S_NT_BINOP, p12, 1);
-    productions[12] = production(S_NT_BINOP, p13, 1);
-    productions[13] = production(S_NT_BINOP, p14, 1);
-
+    // productions[0] = production(S_NT_PROGRAM, p1, 2);
+    // productions[1] = production(S_NT_STM, p2, 3);
+    // productions[2] = production(S_NT_STM, p3, 3);
+    // productions[3] = production(S_NT_STM, p4, 4);
+    // productions[4] = production(S_NT_EXP, p5, 1);
+    // productions[5] = production(S_NT_EXP, p6, 1);
+    // productions[6] = production(S_NT_EXP, p7, 3);
+    // productions[7] = production(S_NT_EXP, p8, 5);
+    // productions[8] = production(S_NT_EXPLIST, p9, 3);
+    // productions[9] = production(S_NT_EXPLIST, p10, 1);
+    // productions[10] = production(S_NT_BINOP, p11, 1);
+    // productions[11] = production(S_NT_BINOP, p12, 1);
+    // productions[12] = production(S_NT_BINOP, p13, 1);
+    // productions[13] = production(S_NT_BINOP, p14, 1);
 }
 
 Item item(Production p, int before) {

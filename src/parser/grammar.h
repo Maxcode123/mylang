@@ -33,7 +33,7 @@ typedef struct _Production {
 } _Production;
 typedef _Production *Production;
 
-Production productions[14];
+// Production productions[14];
 void init_productions();
 
 // constructor
@@ -46,7 +46,7 @@ typedef struct _Item {
 } _Item;
 typedef _Item *Item;
 
-Item items[43];
+// Item items[43];
 void init_items();
 
 // constructor
