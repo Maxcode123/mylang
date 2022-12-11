@@ -82,3 +82,23 @@ Test(testlist, testget)
     ItemNode _in3 = get("key3", h);
     cr_assert(inodeeq(_in3, in3));
 }
+
+Test(testlist, testsubs)
+{
+    symbol rhs[] = {S_NT_STM, S_T_EOF};
+    Production p = production(S_NT_PROGRAM, rhs, 2);
+    Item i = item(p, 0);
+    Item i2 = item(p, 2);
+
+    ItemNode in = node("key1", i);
+    ItemNode h = list();
+    add(in, &h);
+
+    subs("key1", i2, h);
+    ItemNode _in = get("key1", h);
+    cr_assert(itemeq(_in->i, i2));
+
+    subs("key1", i, h);
+    _in = get("key1", h);
+    cr_assert(itemeq(_in->i, i));
+}
