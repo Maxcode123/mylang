@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include "tokens.h"
-#include "util.h"
 
 YYSTYPE yylval;
 
