@@ -1,9 +1,20 @@
-**GRAMMAR
+**GRAMMAR**
 
-*Terminal symbols
-id, num, (,), ;, +, -, *, /, print, ), ()
+*Terminal symbols*\
+1) id
+2) num
+3) ,
+4) ;
+5) +
+6) -
+7) *
+8) /
+9) print
+10) (
+11) )
+12) =
 
-*Productions
+*Productions*
 1) program -> Stm $
 
 2) Stm -> Stm ; Stm
@@ -23,74 +34,75 @@ id, num, (,), ;, +, -, *, /, print, ), ()
 13) BinOp -> *
 14) BinOp -> /
 
-*Items
-1) program -> Stm $
-program -> • Stm $
-program -> Stm • $
+*Items*
 
-2) Stm -> Stm ; Stm
-Stm -> • Stm ; Stm
-Stm -> Stm • ; Stm
-Stm -> Stm ; • Stm
-Stm -> Stm ; Stm •
+program -> Stm $
+1) program -> • Stm $
+2) program -> Stm • $
 
-3) Stm -> id = Exp
-Stm -> • id = Exp
-Stm -> id • = Exp
-Stm -> id = • Exp
-Stm -> id = Exp •
+Stm -> Stm ; Stm\
+3) Stm -> • Stm ; Stm\
+4) Stm -> Stm • ; Stm\
+5) Stm -> Stm ; • Stm\
+6) Stm -> Stm ; Stm •
 
-4) Stm -> print ( ExpList )
-Stm -> • print ( ExpList )
-Stm -> print • ( ExpList )
-Stm -> print ( • ExpList )
-Stm -> print ( ExpList • )
-Stm -> print ( ExpList ) •
+Stm -> id = Exp\
+7) Stm -> • id = Exp\
+8) Stm -> id • = Exp\
+9) Stm -> id = • Exp\
+10) Stm -> id = Exp •
 
-5) Exp -> id
-Exp -> • id
-Exp -> id •
+Stm -> print ( ExpList )\
+11) Stm -> • print ( ExpList )\
+12) Stm -> print • ( ExpList )\
+13) Stm -> print ( • ExpList )\
+14) Stm -> print ( ExpList • )\
+15) Stm -> print ( ExpList ) •
 
-6) Exp -> num
-Exp -> • num
-Exp -> num •
+Exp -> id\
+16) Exp -> • id\
+17) Exp -> id •
 
-7) Exp -> Exp BinOp Exp
-Exp -> • Exp BinOp Exp
-Exp -> Exp • BinOp Exp
-Exp -> Exp BinOp • Exp
-Exp -> Exp BinOp Exp •
+Exp -> num\
+18) Exp -> • num\
+19) Exp -> num •
 
-8) Exp -> ( Stm, Exp )
-Exp -> • ( Stm, Exp )
-Exp -> ( • Stm, Exp )
-Exp -> ( Stm •, Exp )
-Exp -> ( Stm, • Exp )
-Exp -> ( Stm, Exp • )
-Exp -> ( Stm, Exp ) •
+Exp -> Exp BinOp Exp\
+20) Exp -> • Exp BinOp Exp\
+21) Exp -> Exp • BinOp Exp\
+22) Exp -> Exp BinOp • Exp\
+23) Exp -> Exp BinOp Exp •
 
-9) ExpList -> Exp, ExpList
-ExpList -> • Exp, ExpList
-ExpList -> Exp •, ExpList
-ExpList -> Exp, • ExpList
-ExpList -> Exp, ExpList •
+Exp -> ( Stm, Exp )\
+24) Exp -> • ( Stm, Exp )\
+25) Exp -> ( • Stm, Exp )\
+26) Exp -> ( Stm •, Exp )\
+27) Exp -> ( Stm, • Exp )\
+28) Exp -> ( Stm, Exp • )\
+29) Exp -> ( Stm, Exp ) •
 
-10) ExpList -> Exp
-ExpList -> • Exp
-ExpList -> Exp •
+ExpList -> Exp, ExpList\
+30) ExpList -> • Exp, ExpList\
+31) ExpList -> Exp •, ExpList\
+32) ExpList -> Exp, • ExpList\
+33) ExpList -> Exp, ExpList •
 
-11) BinOp -> +
-BinOp -> • +
-BinOp -> + •
+ExpList -> Exp\
+34) ExpList -> • Exp\
+35) ExpList -> Exp •
 
-12) BinOp -> -
-BinOp -> • -
-BinOp -> - •
+BinOp -> +\
+36) BinOp -> • +\
+37) BinOp -> + •
 
-13) BinOp -> *
-BinOp -> • *
-BinOp -> * •
+BinOp -> -\
+38) BinOp -> • -\
+39) BinOp -> - •
 
-14) BinOp -> /
-BinOp -> • /
-BinOp -> / •
+BinOp -> *\
+40) BinOp -> • *\
+41) BinOp -> * •
+
+BinOp -> /\
+42) BinOp -> • /\
+43) BinOp -> / •
