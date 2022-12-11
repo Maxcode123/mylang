@@ -6,7 +6,13 @@ OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 ARGS=-g
 TEST=tests
 
-test: test-productions test-items
+test: test-list test-productions test-items
+
+test-list: $(TEST)/bin/testlist
+	$<
+
+$(TEST)/bin/testlist: $(TEST)/testlist.c $(OBJ)/list.o $(OBJ)/grammar.o
+	$(CC) $^ -o $@ -lcriterion
 
 test-productions: $(TEST)/bin/testproductions
 	$<
@@ -20,10 +26,10 @@ test-items: $(TEST)/bin/testitems
 $(TEST)/bin/testitems: $(TEST)/testitems.c $(OBJ)/grammar.o
 	$(CC) $^ -o $@ -lcriterion
 
-lexer: $(OBJ)/lexdriver.o $(OBJ)/lex.yy.o $(OBJ)/util.o
+lex/lexer: $(OBJ)/lexdriver.o $(OBJ)/lex.yy.o $(OBJ)/util.o
 	$(CC) $(ARGS) $^ -o $@
 
-$(SRC)/lex.yy.c: $(SRC)/mylang.lex
+$(SRC)/lex/lex.yy.c: $(SRC)/lex/mylang.lex
 	lex -o $@ $< 
 
 $(OBJ)/%.o: $(SRC)/%.c
@@ -33,4 +39,4 @@ $(OBJ)/%.o: $(SRC)/parser/%.c
 	$(CC) $(ARGS) -c $< -o $@
 
 clean:
-	rm -rf obj/* lexer $(SRC)/lex.yy.c $(TEST)/bin/*
+	rm -rf obj/* lex/lexer $(SRC)/lex/lex.yy.c $(TEST)/bin/*
