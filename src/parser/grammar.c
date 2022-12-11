@@ -1,7 +1,7 @@
 #include "grammar.h"
 
 Production production(symbol lhs, symbol* rhs, int len) {
-    Production p = malloc(sizeof(_Production));
+    Production p = malloc(sizeof(struct _Production));
     p->lhs = lhs;
     p->rhs = rhs;
     p->len = len;
@@ -49,7 +49,7 @@ Item item(Production p, int before) {
         fprintf(stderr, "Cannot initialize Item. Invalid 'before' index.");
         exit(1);
     }
-    Item i = malloc(sizeof(_Item));
+    Item i = malloc(sizeof(struct _Item));
     i->p = p;
     i->before = before;
     return i;

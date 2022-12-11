@@ -34,8 +34,7 @@ typedef struct _Production {
     symbol lhs; // left hand side symbol
     symbol *rhs; // rhs symbols
     int len; // length of rhs symbol array
-} _Production;
-typedef _Production *Production;
+} *Production;
 
 // Production constructor
 Production production(symbol lhs, symbol* rhs, int len);
@@ -48,8 +47,7 @@ Production *productions();
 typedef struct _Item {
     Production p;
     int before; // index of symbol that comes after dot, -1 if dot is last
-} _Item;
-typedef _Item *Item;
+} *Item;
 
 // Item constructor
 Item item(Production p, int before);
