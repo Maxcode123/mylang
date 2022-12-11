@@ -19,7 +19,7 @@ ItemNode list() {
     return NULL;
 }
 
-void add(ItemNode n, ItemNode* headptr) {
+void addin(ItemNode n, ItemNode* headptr) {
     if (*headptr == NULL)
     {
         *headptr = n;
@@ -32,7 +32,7 @@ void add(ItemNode n, ItemNode* headptr) {
     }
 }
 
-ItemNode get(key k, ItemNode head) {
+ItemNode getin(key k, ItemNode head) {
     ItemNode n = head;
     while (n != NULL)
     {

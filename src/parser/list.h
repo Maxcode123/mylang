@@ -25,11 +25,11 @@ the initialization value. */
 ItemNode list();
 
 // Adds a node to the linked list.
-void add(ItemNode n, ItemNode* headptr);
+void addin(ItemNode n, ItemNode* headptr);
 
 /* Returns a pointer to the node in the list matching the given key. If there 
 is no such Node, returns NULL. */
-ItemNode get(key k, ItemNode head);
+ItemNode getin(key k, ItemNode head);
 
 /* Substitutes the value of the Node with the given key. If there is no such
 Node, returns false, otherwise returns true. */
