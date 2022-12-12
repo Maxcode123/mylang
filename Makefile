@@ -6,7 +6,7 @@ OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 ARGS=-g
 TEST=tests
 
-test: test-list test-productions test-items
+test: test-symtable test-list test-productions test-items
 
 test-symtable: $(TEST)/bin/testsymtable
 	$<
@@ -36,7 +36,7 @@ lex/lexer: $(OBJ)/lexdriver.o $(OBJ)/lex.yy.o $(OBJ)/util.o
 	$(CC) $(ARGS) $^ -o $@
 
 $(SRC)/lex/lex.yy.c: $(SRC)/lex/mylang.lex
-	lex -o $@ $< 
+	lex -o $@ $<
 
 $(OBJ)/%.o: $(SRC)/%.c
 	$(CC) $(ARGS) -c $< -o $@

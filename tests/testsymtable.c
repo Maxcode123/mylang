@@ -23,12 +23,12 @@ Test(testsymtable, testget)
     LR0_add(in2, &st->head);
 
     LR0_Item _i, _i2;
- 
-    LR0_get(st, "key", &_i);
+
+    LR0_ST_get(st, "key", &_i);
     cr_assert(_i == NULL);
-    
-    LR0_get(st, "key1", &_i);
-    LR0_get(st, "key2", &_i2);
+
+    LR0_ST_get(st, "key1", &_i);
+    LR0_ST_get(st, "key2", &_i2);
     cr_assert(LR0_itemeq(_i, i));
     cr_assert(LR0_itemeq(_i2, i2));
 }
