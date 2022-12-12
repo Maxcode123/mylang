@@ -31,3 +31,10 @@ int LR0_ST_len(LR0_SymTable st) {
     }
     return c;
 }
+
+LR0_ItemNode LR0_ST_node(LR0_Item i) {
+    key hash = (char*)malloc(sizeof(char)*50);
+    LR0_itemhash(i, hash);
+    LR0_ItemNode in = LR0_node(hash, i);
+    return in;
+}

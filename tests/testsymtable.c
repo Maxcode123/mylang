@@ -72,3 +72,13 @@ Test(testsymtable, testlen)
 
     cr_assert(LR0_ST_len(st) == 2);
 }
+
+Test(testsymtable, testnode)
+{
+    symbol rhs[] = {S_NT_STM, S_T_EOF};
+    Production p = production(S_NT_PROGRAM, rhs, 2);
+    LR0_Item i = LR0_item(p, 0);
+
+    LR0_ItemNode in = LR0_ST_node(i);
+    cr_assert(strcmp(in->k, "1011270") == 0);
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "list.h"
+#include "grammar.h"
 
 typedef struct _LR0_SymTable {
     LR0_ItemNode head;
@@ -19,3 +20,6 @@ void LR0_ST_put(LR0_SymTable st, LR0_ItemNode in);
 
 // Returns length of symbol table.
 int LR0_ST_len(LR0_SymTable st);
+
+// Constructs node for symbol table. Creates hash from given item.
+LR0_ItemNode LR0_ST_node(LR0_Item i); 

@@ -31,6 +31,7 @@
 # define ITEMS 43
 
 typedef int symbol;
+typedef char *key;
 
 // Production rule
 typedef struct _Production {
@@ -62,7 +63,7 @@ LR0_Item LR0_item(Production p, int before);
 bool LR0_itemeq(LR0_Item i1, LR0_Item i2);
 
 // Insert hash of item into given pointer.
-void LR0_itemhash(LR0_Item i, char *hash);
+void LR0_itemhash(LR0_Item i, key hash);
 
 /* Allocates memory for array of items, creates and inserts items, returns 
 pointer. */

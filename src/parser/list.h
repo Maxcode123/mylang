@@ -5,7 +5,6 @@
 
 #include "grammar.h"
 
-typedef char *key;
 
 typedef struct _LR0_ItemNode {
     key k;
