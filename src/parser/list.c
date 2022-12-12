@@ -42,8 +42,7 @@ LR0_ItemNode LR0_get(key k, LR0_ItemNode head) {
     return NULL;
 }
 
-bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head)
-{
+bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head) {
     LR0_ItemNode n = head;
     while (n != NULL)
     {
@@ -52,6 +51,16 @@ bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head)
             n->i = i;
             return true;
         }
+        n = n->next;
+    }
+    return false;
+}
+
+bool LR0_haskey(key k, LR0_ItemNode head) {
+    LR0_ItemNode n = head;
+    while (n != NULL)
+    {
+        if (strcmp(n->k, k) == 0) return true;
         n = n->next;
     }
     return false;

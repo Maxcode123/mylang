@@ -34,3 +34,6 @@ LR0_ItemNode LR0_get(key k, LR0_ItemNode head);
 /* Substitutes the value of the Node with the given key. If there is no such
 Node, returns false, otherwise returns true. */
 bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head);
+
+// Returns true if there exists a Node with key k, false otherwise.
+bool LR0_haskey(key k, LR0_ItemNode head);
