@@ -17,7 +17,7 @@ void LR0_ST_get(LR0_SymTable st, key k, LR0_Item *i) {
 }
 
 void LR0_ST_put(LR0_SymTable st, LR0_ItemNode in) {
-    if (LR0_subs(in->k, in->i, st->head)) return;
+    if (LR0_haskey(in->k, st->head)) return;
     LR0_add(in, &st->head);
 }
 

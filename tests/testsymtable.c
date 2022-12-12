@@ -47,6 +47,7 @@ Test(testsymtable, testput)
 
     LR0_ST_put(st, in);
     LR0_ST_put(st, in2);
+    LR0_ST_put(st, in2);
 
     cr_assert(LR0_itemeq(LR0_get(in->k, st->head)->i, i));
     cr_assert(LR0_itemeq(LR0_get(in2->k, st->head)->i, i2));
