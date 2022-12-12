@@ -16,8 +16,18 @@ void LR0_ST_get(LR0_SymTable st, key k, LR0_Item *i) {
     *i = in->i;
 }
 
-void LR0_ST_put(LR0_SymTable st, key k, LR0_Item i) {
-    if (LR0_subs(k, i, st->head)) return;
-    LR0_ItemNode in = LR0_node(k, i);
+void LR0_ST_put(LR0_SymTable st, LR0_ItemNode in) {
+    if (LR0_subs(in->k, in->i, st->head)) return;
     LR0_add(in, &st->head);
+}
+
+int LR0_ST_len(LR0_SymTable st) {
+    LR0_ItemNode n = st->head;
+    int c = 0;
+    while (n != NULL)
+    {
+        c++;
+        n = n->next;
+    }
+    return c;
 }

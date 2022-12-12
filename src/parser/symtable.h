@@ -15,4 +15,7 @@ void LR0_ST_get(LR0_SymTable st, key k, LR0_Item *i);
 
 /* Associates Item i with key k. If the key already exists, i overwrites the
 current value. */
-void LR0_ST_put(LR0_SymTable st, key k, LR0_Item i);
+void LR0_ST_put(LR0_SymTable st, LR0_ItemNode in);
+
+// Returns length of symbol table.
+int LR0_ST_len(LR0_SymTable st);
