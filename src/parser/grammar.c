@@ -68,6 +68,19 @@ bool LR0_itemeq(LR0_Item i1, LR0_Item i2) {
     return (prodeq(i1->p, i2->p) & i1->before == i2->before);
 }
 
+void LR0_itemhash(LR0_Item i, char *hash) {
+    char *buff = (char*)malloc(sizeof(char)*2);
+    sprintf(hash, "%d", i->p->lhs);
+    for (int j = 0; j < i->p->len; j++)
+    {
+        sprintf(buff, "%d", i->p->rhs[j]);
+        strcat(hash, buff);
+    }
+    sprintf(buff, "%d", i->before);
+    strcat(hash, buff);
+    free(buff);
+}
+
 LR0_Item *LR0_items(Production *prods) {
 
     LR0_Item *i = malloc(ITEMS*sizeof(LR0_Item));
