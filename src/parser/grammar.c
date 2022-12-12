@@ -53,31 +53,31 @@ Production *productions() {
     return p;
 }
 
-Item item(Production p, int before) {
+LR0_Item LR0_item(Production p, int before) {
     if (before < -1 || before > p->len) {
         fprintf(stderr, "Cannot initialize Item. Invalid 'before' index.");
         exit(1);
     }
-    Item i = malloc(sizeof(struct _Item));
+    LR0_Item i = malloc(sizeof(struct _LR0_Item));
     i->p = p;
     i->before = before;
     return i;
 }
 
-bool itemeq(Item i1, Item i2) {
+bool LR0_itemeq(LR0_Item i1, LR0_Item i2) {
     return (prodeq(i1->p, i2->p) & i1->before == i2->before);
 }
 
-Item *items(Production *prods) {
+LR0_Item *LR0_items(Production *prods) {
 
-    Item *i = malloc(ITEMS*sizeof(Item));
+    LR0_Item *i = malloc(ITEMS*sizeof(LR0_Item));
     int c = 0;
     for (int j = 0; j < PRODUCTIONS; j++) {
         for (int k = 0; k < prods[j]->len; k++) {
-            Item tmp = item(prods[j], k);
+            LR0_Item tmp = LR0_item(prods[j], k);
             i[c++] = tmp;
         }
-        Item _tmp = item(prods[j], -1); // last item, where dot is after last symbol
+        LR0_Item _tmp = LR0_item(prods[j], -1); // last item, where dot is after last symbol
         i[c++] = _tmp;
     }
     return i;

@@ -48,17 +48,17 @@ returns pointer. */
 Production *productions();
 
 // Item
-typedef struct _Item {
+typedef struct _LR0_Item {
     Production p;
     int before; // index of symbol that comes after dot, -1 if dot is last
-} *Item;
+} *LR0_Item;
 
 // Item constructor
-Item item(Production p, int before);
+LR0_Item LR0_item(Production p, int before);
 
 // Equality comparison between two Items.
-bool itemeq(Item i1, Item i2);
+bool LR0_itemeq(LR0_Item i1, LR0_Item i2);
 
 /* Allocates memory for array of items, creates and inserts items, returns 
 pointer. */
-Item *items(Production *prods);
+LR0_Item *LR0_items(Production *prods);

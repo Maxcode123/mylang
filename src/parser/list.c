@@ -1,25 +1,25 @@
 #include "list.h"
 
-ItemNode node(key k, Item i) {
-    ItemNode n = (ItemNode)malloc(sizeof(struct _ItemNode));
+LR0_ItemNode LR0_node(key k, LR0_Item i) {
+    LR0_ItemNode n = (LR0_ItemNode)malloc(sizeof(struct _LR0_ItemNode));
     n->k = k;
     n->i = i;
     n->next = NULL;
     return n;
 }
 
-bool inodeeq(ItemNode in1, ItemNode in2) {
+bool LR0_inodeeq(LR0_ItemNode in1, LR0_ItemNode in2) {
     if (strcmp(in1->k, in2->k) != 0) return false;
-    if (!itemeq(in1->i, in2->i)) return false;
+    if (!LR0_itemeq(in1->i, in2->i)) return false;
     if (in1->next != in2->next) return false;
     return true;
 }
 
-ItemNode list() {
+LR0_ItemNode LR0_list() {
     return NULL;
 }
 
-void addin(ItemNode n, ItemNode* headptr) {
+void LR0_add(LR0_ItemNode n, LR0_ItemNode* headptr) {
     if (*headptr == NULL)
     {
         *headptr = n;
@@ -32,8 +32,8 @@ void addin(ItemNode n, ItemNode* headptr) {
     }
 }
 
-ItemNode getin(key k, ItemNode head) {
-    ItemNode n = head;
+LR0_ItemNode LR0_get(key k, LR0_ItemNode head) {
+    LR0_ItemNode n = head;
     while (n != NULL)
     {
         if (strcmp(n->k, k) == 0) return n;
@@ -42,9 +42,9 @@ ItemNode getin(key k, ItemNode head) {
     return NULL;
 }
 
-bool subs(key k, Item i, ItemNode head)
+bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head)
 {
-    ItemNode n = head;
+    LR0_ItemNode n = head;
     while (n != NULL)
     {
         if (strcmp(n->k, k) == 0)

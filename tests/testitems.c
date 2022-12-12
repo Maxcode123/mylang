@@ -6,7 +6,7 @@ Test(testitems, testinit)
 {
     symbol rhs[] = {S_NT_STM, S_T_EOF};
     Production p = production(S_NT_PROGRAM, rhs, 2);
-    Item i = item(p, 0);
+    LR0_Item i = LR0_item(p, 0);
     
     cr_assert(i->p->lhs == S_NT_PROGRAM);
     cr_assert(i->p->rhs[0] == S_NT_STM);
@@ -18,7 +18,7 @@ Test(testitems, testinit)
 Test(testitems, testarray)
 {
     Production *prods = productions();
-    Item *i = items(prods);
+    LR0_Item *i = LR0_items(prods);
     cr_assert(i[0]->before == 0);
     cr_assert(i[1]->before == -1);
     cr_assert(i[2]->before == 0);
@@ -31,14 +31,14 @@ Test(testitems, testeq)
 {
     symbol rhs[] = {S_NT_STM, S_T_EOF};
     Production p = production(S_NT_PROGRAM, rhs, 2);
-    Item i1 = item(p, 0);
-    Item i2 = item(p, 0);
-    cr_assert(itemeq(i1, i2));
+    LR0_Item i1 = LR0_item(p, 0);
+    LR0_Item i2 = LR0_item(p, 0);
+    cr_assert(LR0_itemeq(i1, i2));
 
-    Item i3 = item(p, 2);
-    cr_assert(!itemeq(i1, i3));
+    LR0_Item i3 = LR0_item(p, 2);
+    cr_assert(!LR0_itemeq(i1, i3));
 
     Production p4 = production(S_NT_PROGRAM, rhs, 3);
-    Item i4 = item(p4, 0);
-    cr_assert(!itemeq(i1, i4));    
+    LR0_Item i4 = LR0_item(p4, 0);
+    cr_assert(!LR0_itemeq(i1, i4));    
 }

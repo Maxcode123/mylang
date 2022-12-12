@@ -6,11 +6,11 @@ Test(testlist, testinit)
 {
     symbol rhs[] = {S_NT_STM, S_T_EOF};
     Production p = production(S_NT_PROGRAM, rhs, 2);
-    Item i = item(p, 0);
+    LR0_Item i = LR0_item(p, 0);
 
-    ItemNode in = node("key1", i);
+    LR0_ItemNode in = LR0_node("key1", i);
     cr_assert(strcmp(in->k, "key1") == 0);
-    cr_assert(itemeq(in->i, i));
+    cr_assert(LR0_itemeq(in->i, i));
     cr_assert(in->next == NULL);
 }
 
@@ -18,22 +18,22 @@ Test(testlist, testinodeeq)
 {
     symbol rhs[] = {S_NT_STM, S_T_EOF};
     Production p = production(S_NT_PROGRAM, rhs, 2);
-    Item i = item(p, 0);
-    Item i2 = item(p, 2);
+    LR0_Item i = LR0_item(p, 0);
+    LR0_Item i2 = LR0_item(p, 2);
 
-    ItemNode in = node("key1", i);
-    ItemNode in2 = node("key1", i);
-    ItemNode in3 = node("key2", i);
-    ItemNode in4 = node("key1", i2);
+    LR0_ItemNode in = LR0_node("key1", i);
+    LR0_ItemNode in2 = LR0_node("key1", i);
+    LR0_ItemNode in3 = LR0_node("key2", i);
+    LR0_ItemNode in4 = LR0_node("key1", i2);
 
-    cr_assert(inodeeq(in, in2));
-    cr_assert(!inodeeq(in, in3));
-    cr_assert(!inodeeq(in, in4));
+    cr_assert(LR0_inodeeq(in, in2));
+    cr_assert(!LR0_inodeeq(in, in3));
+    cr_assert(!LR0_inodeeq(in, in4));
 }
 
 Test(testlist, testlistinit)
 {
-    ItemNode in = list();
+    LR0_ItemNode in = LR0_list();
     cr_assert(in == NULL);
 }
 
@@ -41,20 +41,20 @@ Test(testlist, testadd)
 {
     symbol rhs[] = {S_NT_STM, S_T_EOF};
     Production p = production(S_NT_PROGRAM, rhs, 2);
-    Item i = item(p, 0);
+    LR0_Item i = LR0_item(p, 0);
 
-    ItemNode in = node("key1", i);
+    LR0_ItemNode in = LR0_node("key1", i);
 
-    ItemNode h = list();
-    addin(in, &h);
+    LR0_ItemNode h = LR0_list();
+    LR0_add(in, &h);
     cr_assert(strcmp(h->k, "key1") == 0);
-    cr_assert(itemeq(h->i, i));
+    cr_assert(LR0_itemeq(h->i, i));
     cr_assert(h->next == NULL);
 
-    ItemNode in2 = node("key2", i);
-    addin(in2, &h);
+    LR0_ItemNode in2 = LR0_node("key2", i);
+    LR0_add(in2, &h);
     cr_assert(strcmp(h->k, "key2") == 0);
-    cr_assert(itemeq(h->i, i));
+    cr_assert(LR0_itemeq(h->i, i));
     cr_assert(h->next == in);
 }
 
@@ -62,27 +62,27 @@ Test(testlist, testget)
 {
     symbol rhs[] = {S_NT_STM, S_T_EOF};
     Production p = production(S_NT_PROGRAM, rhs, 2);
-    Item i = item(p, 0);
-    Item i2 = item(p, 2);
+    LR0_Item i = LR0_item(p, 0);
+    LR0_Item i2 = LR0_item(p, 2);
 
-    ItemNode in = node("key1", i);
-    ItemNode in2 = node("key2", i);
-    ItemNode in3 = node("key3", i2);
-    ItemNode h = list();
-    addin(in, &h);
-    addin(in2, &h);
-    addin(in3, &h);
+    LR0_ItemNode in = LR0_node("key1", i);
+    LR0_ItemNode in2 = LR0_node("key2", i);
+    LR0_ItemNode in3 = LR0_node("key3", i2);
+    LR0_ItemNode h = LR0_list();
+    LR0_add(in, &h);
+    LR0_add(in2, &h);
+    LR0_add(in3, &h);
 
-    ItemNode _in = getin("key1", h);
-    cr_assert(inodeeq(_in, in));
+    LR0_ItemNode _in = LR0_get("key1", h);
+    cr_assert(LR0_inodeeq(_in, in));
 
-    ItemNode _in2 = getin("key2", h);
-    cr_assert(inodeeq(_in2, in2));
+    LR0_ItemNode _in2 = LR0_get("key2", h);
+    cr_assert(LR0_inodeeq(_in2, in2));
 
-    ItemNode _in3 = getin("key3", h);
-    cr_assert(inodeeq(_in3, in3));
+    LR0_ItemNode _in3 = LR0_get("key3", h);
+    cr_assert(LR0_inodeeq(_in3, in3));
 
-    ItemNode _in4 = getin("asdas", h);
+    LR0_ItemNode _in4 = LR0_get("asdas", h);
     cr_assert(_in4 == NULL);
 }
 
@@ -90,18 +90,18 @@ Test(testlist, testsubs)
 {
     symbol rhs[] = {S_NT_STM, S_T_EOF};
     Production p = production(S_NT_PROGRAM, rhs, 2);
-    Item i = item(p, 0);
-    Item i2 = item(p, 2);
+    LR0_Item i = LR0_item(p, 0);
+    LR0_Item i2 = LR0_item(p, 2);
 
-    ItemNode in = node("key1", i);
-    ItemNode h = list();
-    addin(in, &h);
+    LR0_ItemNode in = LR0_node("key1", i);
+    LR0_ItemNode h = LR0_list();
+    LR0_add(in, &h);
 
-    subs("key1", i2, h);
-    ItemNode _in = getin("key1", h);
-    cr_assert(itemeq(_in->i, i2));
+    LR0_subs("key1", i2, h);
+    LR0_ItemNode _in = LR0_get("key1", h);
+    cr_assert(LR0_itemeq(_in->i, i2));
 
-    subs("key1", i, h);
-    _in = getin("key1", h);
-    cr_assert(itemeq(_in->i, i));
+    LR0_subs("key1", i, h);
+    _in = LR0_get("key1", h);
+    cr_assert(LR0_itemeq(_in->i, i));
 }

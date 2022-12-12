@@ -7,30 +7,30 @@
 
 typedef char *key;
 
-typedef struct _ItemNode {
+typedef struct _LR0_ItemNode {
     key k;
-    Item i;
-    struct _ItemNode *next;    
-} *ItemNode;
+    LR0_Item i;
+    struct _LR0_ItemNode *next;    
+} *LR0_ItemNode;
 
 /* Node constructor; allocates memory for a Node and returns a pointer to a 
 Node with the given values. */
-ItemNode node(key k, Item i);
+LR0_ItemNode LR0_node(key k, LR0_Item i);
 
 // Equality comparison between ItemNodes
-bool inodeeq(ItemNode in1, ItemNode in2);
+bool LR0_inodeeq(LR0_ItemNode in1, LR0_ItemNode in2);
 
 /* Linked list constructor; returns the pointer to the head of the list with
 the initialization value. */
-ItemNode list();
+LR0_ItemNode LR0_list();
 
 // Adds a node to the linked list.
-void addin(ItemNode n, ItemNode* headptr);
+void LR0_add(LR0_ItemNode n, LR0_ItemNode* headptr);
 
 /* Returns a pointer to the node in the list matching the given key. If there 
 is no such Node, returns NULL. */
-ItemNode getin(key k, ItemNode head);
+LR0_ItemNode LR0_get(key k, LR0_ItemNode head);
 
 /* Substitutes the value of the Node with the given key. If there is no such
 Node, returns false, otherwise returns true. */
-bool subs(key k, Item i, ItemNode head);
+bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head);
