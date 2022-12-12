@@ -6,7 +6,13 @@ OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 ARGS=-g
 TEST=tests
 
-test: test-symtable test-list test-productions test-items
+test: test-operations test-symtable test-list test-productions test-items
+
+test-operations: $(TEST)/bin/testoperations
+	$<
+
+$(TEST)/bin/testoperations: $(TEST)/testoperations.c $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
+	$(CC) $^ -o $@ -lcriterion
 
 test-symtable: $(TEST)/bin/testsymtable
 	$<
