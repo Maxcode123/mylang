@@ -101,6 +101,7 @@ Test(testlist, testsubs)
     LR0_ItemNode _in = LR0_get("key1", h);
     cr_assert(LR0_itemeq(_in->i, i2));
 
+    free(LR0_get("key1", h)->i);
     LR0_subs("key1", i, h);
     _in = LR0_get("key1", h);
     cr_assert(LR0_itemeq(_in->i, i));
