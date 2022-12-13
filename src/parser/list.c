@@ -66,12 +66,12 @@ bool LR0_haskey(key k, LR0_ItemNode head) {
     return false;
 }
 
-void LR0_clear(LR0_ItemNode head) {
-
+void LR0_clear(LR0_ItemNode *headptr) {
+    while (*headptr != NULL) LR0_pop(headptr);
 }
 
-void LR0_pop(LR0_ItemNode *head) {
-    LR0_ItemNode tmp = (*head)->next;
-    free(*head);
-    *head = tmp;
+void LR0_pop(LR0_ItemNode *headptr) {
+    LR0_ItemNode tmp = (*headptr)->next;
+    free(*headptr);
+    *headptr = tmp;
 }

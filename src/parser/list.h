@@ -38,7 +38,7 @@ bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head);
 bool LR0_haskey(key k, LR0_ItemNode head);
 
 // Clears list.
-void LR0_clear(LR0_ItemNode head);
+void LR0_clear(LR0_ItemNode *headptr);
 
 // Deletes head node, points head to next node.
-void LR0_pop(LR0_ItemNode *head);
+void LR0_pop(LR0_ItemNode *headptr);
