@@ -68,3 +68,9 @@ void LR0_itemhash(LR0_Item i, key hash);
 /* Allocates memory for array of items, creates and inserts items, returns 
 pointer. */
 LR0_Item *LR0_items(Production *prods);
+
+static LR0_Item *LR0_allitems;
+
+void LR0_inititems();
+
+LR0_Item *LR0_getallitems();

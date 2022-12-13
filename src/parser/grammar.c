@@ -95,3 +95,12 @@ LR0_Item *LR0_items(Production *prods) {
     }
     return i;
 }
+
+void LR0_inititems() {
+    Production *prods = productions();
+    LR0_allitems = LR0_items(prods);
+}
+
+LR0_Item *LR0_getallitems() {
+    return LR0_allitems;
+}

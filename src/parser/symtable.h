@@ -1,7 +1,6 @@
 #pragma once
 
 #include "list.h"
-#include "grammar.h"
 
 typedef struct _LR0_SymTable {
     LR0_ItemNode head;
