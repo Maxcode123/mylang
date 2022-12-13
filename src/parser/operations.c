@@ -5,12 +5,21 @@ void LR0_O_closure(LR0_SymTable I) {
     LR0_SymTable items = LR0_ST_symtable();
     int _len, len_;
     symbol X;
-    while (n != NULL)
+    while ( n != NULL)
     {
         if (n->i->before != -1) // dot is not last symbol
         {
             X = n->i->p->rhs[n->i->before];
-            LR0_O_getitems(X, items);            
+            LR0_O_getitems(X, items);
+            _len = LR0_ST_len(I);
+            // update(I, items)
+            len_ = LR0_ST_len(I);
+            LR0_ST_clear(items);
+            if (_len == len_)
+            {
+                free(items);
+                return;
+            } 
         }
         n = n->next;
     }

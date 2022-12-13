@@ -38,3 +38,7 @@ LR0_ItemNode LR0_ST_node(LR0_Item i) {
     LR0_ItemNode in = LR0_node(hash, i);
     return in;
 }
+
+void LR0_ST_clear(LR0_SymTable st) {
+    LR0_clear(&st->head);
+}
