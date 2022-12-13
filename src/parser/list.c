@@ -75,3 +75,8 @@ void LR0_pop(LR0_ItemNode *headptr) {
     free(*headptr);
     *headptr = tmp;
 }
+
+void LR0_insert(LR0_ItemNode *nptr, LR0_ItemNode *headptr) {
+    (*nptr)->next = (*headptr)->next;
+    (*headptr)->next = *nptr;
+}

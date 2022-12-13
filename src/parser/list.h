@@ -42,3 +42,6 @@ void LR0_clear(LR0_ItemNode *headptr);
 
 // Deletes head node, points head to next node.
 void LR0_pop(LR0_ItemNode *headptr);
+
+// Inserts node after head. So head->next points to n.
+void LR0_insert(LR0_ItemNode* nptr, LR0_ItemNode* headptr);
