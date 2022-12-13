@@ -1,6 +1,6 @@
 #include "symtable.h"
 
-LR0_SymTable LR0_symtable() {
+LR0_SymTable LR0_ST_symtable() {
     LR0_SymTable st = (LR0_SymTable)malloc(sizeof(struct _LR0_SymTable));
     st->head = LR0_list();
     return st;

@@ -8,7 +8,7 @@ typedef struct _LR0_SymTable {
 } *LR0_SymTable;
 
 // Symbol table constructor; allocates memory for the ST and initializes head.
-LR0_SymTable LR0_symtable();
+LR0_SymTable LR0_ST_symtable();
 
 /* Points the Item of the given key to i. If there is no such key, points i to
 NULL. */
