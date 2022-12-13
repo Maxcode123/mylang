@@ -23,4 +23,7 @@ int LR0_ST_len(LR0_SymTable st);
 
 /* Constructs node for symbol table. Allocates memory and creates hash from 
 given item. */
-LR0_ItemNode LR0_ST_node(LR0_Item i); 
+LR0_ItemNode LR0_ST_node(LR0_Item i);
+
+// Clears symbol table.
+void LR0_ST_clear(LR0_SymTable st);

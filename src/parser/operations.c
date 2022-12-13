@@ -13,13 +13,13 @@ void LR0_closure(LR0_SymTable I) {
     }
 }
 
-void LR0_getitems(symbol X, LR0_Item *allitems, LR0_SymTable st) {
+void LR0_getitems(symbol X, LR0_SymTable st) {
     for (int i = 0; i < ITEMS; i++)
     {
-        if (allitems[i]->p->lhs != X) continue;
-        if (allitems[i]->before == 0) 
+        if (LR0_allitems[i]->p->lhs != X) continue;
+        if (LR0_allitems[i]->before == 0) 
         {
-            LR0_ItemNode in = LR0_ST_node(allitems[i]);
+            LR0_ItemNode in = LR0_ST_node(LR0_allitems[i]);
             LR0_ST_put(st, in);
         }
     }

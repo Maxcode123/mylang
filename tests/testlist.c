@@ -125,3 +125,24 @@ Test(testlist, testhaskey)
     cr_assert(LR0_haskey("key2", h));
     cr_assert(!LR0_haskey("key", h));
 }
+
+Test(testlist, testpop)
+{
+    symbol rhs[] = {S_NT_STM, S_T_EOF};
+    Production p = production(S_NT_PROGRAM, rhs, 2);
+    LR0_Item i = LR0_item(p, 0);
+    LR0_Item i2 = LR0_item(p, 2);
+
+    LR0_ItemNode in = LR0_node("key1", i);
+    LR0_ItemNode in2 = LR0_node("key2", i2);
+    LR0_ItemNode h = LR0_list();
+    
+    LR0_add(in, &h);
+    LR0_add(in2, &h);
+
+    cr_assert(LR0_inodeeq(h, in2));
+    LR0_pop(&h);
+    cr_assert(LR0_inodeeq(h, in));
+    LR0_pop(&h);
+    cr_assert(h == NULL);   
+}

@@ -65,3 +65,13 @@ bool LR0_haskey(key k, LR0_ItemNode head) {
     }
     return false;
 }
+
+void LR0_clear(LR0_ItemNode head) {
+
+}
+
+void LR0_pop(LR0_ItemNode *head) {
+    LR0_ItemNode tmp = (*head)->next;
+    free(*head);
+    *head = tmp;
+}
