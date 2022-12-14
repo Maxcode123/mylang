@@ -16,8 +16,11 @@ typedef struct _LR0_ItemNode {
 Node with the given values. */
 LR0_ItemNode LR0_node(key k, LR0_Item i);
 
-// Equality comparison between ItemNodes
+// Equality comparison between ItemNodes of the same list.
 bool LR0_inodeeq(LR0_ItemNode in1, LR0_ItemNode in2);
+
+// Equality comparison between ItemNodes.
+bool LR0_ninodeeq(LR0_ItemNode in1, LR0_ItemNode in2);
 
 /* Linked list constructor; returns the pointer to the head of the list with
 the initialization value. */

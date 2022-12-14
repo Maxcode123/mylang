@@ -9,9 +9,14 @@ LR0_ItemNode LR0_node(key k, LR0_Item i) {
 }
 
 bool LR0_inodeeq(LR0_ItemNode in1, LR0_ItemNode in2) {
+    if (in1->next != in2->next) return false;
+    if (!LR0_ninodeeq(in1, in2)) return false;
+    return true;
+}
+
+bool LR0_ninodeeq(LR0_ItemNode in1 , LR0_ItemNode in2) {
     if (strcmp(in1->k, in2->k) != 0) return false;
     if (!LR0_itemeq(in1->i, in2->i)) return false;
-    if (in1->next != in2->next) return false;
     return true;
 }
 
