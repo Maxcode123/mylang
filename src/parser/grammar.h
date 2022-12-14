@@ -50,6 +50,15 @@ bool prodeq(Production p1, Production p2);
 returns pointer. */
 Production *productions();
 
+// Static array of all productions.
+static Production *prods;
+
+// Initializes all productions.
+void initprods();
+
+// Returns array of all productions.
+Production *getprods();
+
 // Item
 typedef struct _LR0_Item {
     Production p;
@@ -69,8 +78,11 @@ void LR0_itemhash(LR0_Item i, key hash);
 pointer. */
 LR0_Item *LR0_items(Production *prods);
 
+// static array of all items
 static LR0_Item *LR0_allitems;
 
+// Initializes static array of all items.
 void LR0_inititems();
 
+// Returns array of all items.
 LR0_Item *LR0_getallitems();

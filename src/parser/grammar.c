@@ -53,6 +53,14 @@ Production *productions() {
     return p;
 }
 
+void initprods() {
+    prods = productions();
+}
+
+Production *getprods() {
+    return prods;
+}
+
 LR0_Item LR0_item(Production p, int before) {
     if (before < -1 || before > p->len) {
         fprintf(stderr, "Cannot initialize Item. Invalid 'before' index.");
@@ -97,7 +105,7 @@ LR0_Item *LR0_items(Production *prods) {
 }
 
 void LR0_inititems() {
-    Production *prods = productions();
+    initprods();
     LR0_allitems = LR0_items(prods);
 }
 

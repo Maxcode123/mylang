@@ -12,7 +12,7 @@ void LR0_O_closure(LR0_SymTable I) {
             X = n->i->p->rhs[n->i->before];
             LR0_O_getitems(X, st);
             _len = LR0_ST_len(I);
-            // update(I, st)
+            LR0_ST_union(I, st);
             len_ = LR0_ST_len(I);
             LR0_ST_clear(st);
             if (_len == len_)

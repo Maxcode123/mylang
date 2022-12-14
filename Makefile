@@ -5,6 +5,13 @@ OBJ=obj
 OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 ARGS=-g
 TEST=tests
+DB=gdb
+
+debug: $(TEST)/bin/main
+	$(DB) $<
+
+$(TEST)/bin/main: $(TEST)/main.c $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
+	$(CC) $^ -o $@
 
 test: test-operations test-symtable test-list test-productions test-items
 
@@ -13,9 +20,6 @@ test-operations: $(TEST)/bin/testoperations
 
 $(TEST)/bin/testoperations: $(TEST)/testoperations.c $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
 	$(CC) $^ -o $@ -lcriterion
-
-$(TEST)/bin/main: $(TEST)/main.c $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
-	$(CC) $^ -o $@
 
 test-symtable: $(TEST)/bin/testsymtable
 	$<
