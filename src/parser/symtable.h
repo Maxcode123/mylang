@@ -13,8 +13,7 @@ LR0_SymTable LR0_ST_symtable();
 NULL. */
 void LR0_ST_get(LR0_SymTable st, key k, LR0_Item *i);
 
-/* Associates Item i with key k. If the key already exists returns without 
-doing nothing. */
+// Adds a node. If the key already exists returns without doing nothing.
 void LR0_ST_put(LR0_SymTable st, LR0_ItemNode in);
 
 // Returns length of symbol table.
@@ -26,3 +25,6 @@ LR0_ItemNode LR0_ST_node(LR0_Item i);
 
 // Clears symbol table.
 void LR0_ST_clear(LR0_SymTable st);
+
+// Puts the union of st1 and st2 into st1. Inserts all values after head.
+void LR0_ST_union(LR0_SymTable st1, LR0_SymTable st2);

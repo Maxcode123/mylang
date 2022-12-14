@@ -42,3 +42,18 @@ LR0_ItemNode LR0_ST_node(LR0_Item i) {
 void LR0_ST_clear(LR0_SymTable st) {
     LR0_clear(&st->head);
 }
+
+void LR0_ST_union(LR0_SymTable st1, LR0_SymTable st2) {
+    LR0_ItemNode n = st2->head;
+    while (n != NULL) 
+    {
+        if (LR0_haskey(n->k, st1->head)) 
+        {
+            n = n->next;
+            continue;
+        }
+        LR0_ItemNode in = LR0_ST_node(n->i);
+        LR0_insert(&in, &(st1->head));
+        n = n->next;
+    }
+}

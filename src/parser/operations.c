@@ -2,7 +2,7 @@
 
 void LR0_O_closure(LR0_SymTable I) {
     LR0_ItemNode n = I->head;
-    LR0_SymTable items = LR0_ST_symtable();
+    LR0_SymTable st = LR0_ST_symtable();
     int _len, len_;
     symbol X;
     while ( n != NULL)
@@ -10,14 +10,14 @@ void LR0_O_closure(LR0_SymTable I) {
         if (n->i->before != -1) // dot is not last symbol
         {
             X = n->i->p->rhs[n->i->before];
-            LR0_O_getitems(X, items);
+            LR0_O_getitems(X, st);
             _len = LR0_ST_len(I);
-            // update(I, items)
+            // update(I, st)
             len_ = LR0_ST_len(I);
-            LR0_ST_clear(items);
+            LR0_ST_clear(st);
             if (_len == len_)
             {
-                free(items);
+                free(st);
                 return;
             } 
         }
