@@ -14,6 +14,9 @@ test-operations: $(TEST)/bin/testoperations
 $(TEST)/bin/testoperations: $(TEST)/testoperations.c $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
 	$(CC) $^ -o $@ -lcriterion
 
+$(TEST)/bin/main: $(TEST)/main.c $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
+	$(CC) $^ -o $@
+
 test-symtable: $(TEST)/bin/testsymtable
 	$<
 
