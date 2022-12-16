@@ -1,8 +1,8 @@
 #include "operations.h"
 
-void LR0_O_closure(LR0_SymTable I) {
+void LR0_O_closure(SymTable I) {
     LR0_ItemNode n = I->head;
-    LR0_SymTable st = LR0_ST_symtable();
+    SymTable st = LR0_ST_symtable();
     int _len, len_;
     symbol X;
     while ( n != NULL)
@@ -25,7 +25,7 @@ void LR0_O_closure(LR0_SymTable I) {
     }
 }
 
-void LR0_O_getitems(symbol X, LR0_SymTable st) {
+void LR0_O_getitems(symbol X, SymTable st) {
     LR0_Item *allitems = LR0_getallitems();
     for (int i = 0; i < ITEMS; i++)
     {
@@ -38,7 +38,7 @@ void LR0_O_getitems(symbol X, LR0_SymTable st) {
     }
 }
 
-void LR0_O_goto(LR0_SymTable I, LR0_Item X, LR0_SymTable G) {
+void LR0_O_goto(SymTable I, LR0_Item X, SymTable G) {
     LR0_ItemNode n = I->head;
     int i;
     LR0_Item item;

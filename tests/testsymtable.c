@@ -4,7 +4,7 @@
 
 Test(testsymtable, testinit)
 {
-    LR0_SymTable st = LR0_ST_symtable();
+    SymTable st = LR0_ST_symtable();
     cr_assert(st->head == NULL);
 }
 
@@ -18,7 +18,7 @@ Test(testsymtable, testget)
     LR0_ItemNode in = LR0_node("key1", i);
     LR0_ItemNode in2 = LR0_node("key2", i2);
 
-    LR0_SymTable st = LR0_ST_symtable();
+    SymTable st = LR0_ST_symtable();
     LR0_add(in, (LR0_ItemNode*)&st->head);
     LR0_add(in2, (LR0_ItemNode*)&st->head);
 
@@ -43,7 +43,7 @@ Test(testsymtable, testput)
     LR0_ItemNode in = LR0_node("key1", i);
     LR0_ItemNode in2 = LR0_node("key2", i2);
 
-    LR0_SymTable st = LR0_ST_symtable();
+    SymTable st = LR0_ST_symtable();
 
     LR0_ST_put(st, in);
     LR0_ST_put(st, in2);
@@ -63,7 +63,7 @@ Test(testsymtable, testlen)
     LR0_ItemNode in = LR0_node("key1", i);
     LR0_ItemNode in2 = LR0_node("key2", i2);
 
-    LR0_SymTable st = LR0_ST_symtable();
+    SymTable st = LR0_ST_symtable();
 
     cr_assert(LR0_ST_len(st) == 0);
 
@@ -96,8 +96,8 @@ Test(testsymtable, testunion)
     LR0_ItemNode in3 = LR0_ST_node(i3);
     LR0_ItemNode in4 = LR0_ST_node(i3);
 
-    LR0_SymTable st1 = LR0_ST_symtable();
-    LR0_SymTable st2 = LR0_ST_symtable();
+    SymTable st1 = LR0_ST_symtable();
+    SymTable st2 = LR0_ST_symtable();
 
     LR0_ST_put(st1, in);
     LR0_ST_put(st1, in3);

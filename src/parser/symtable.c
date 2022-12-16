@@ -1,12 +1,12 @@
 #include "symtable.h"
 
-LR0_SymTable LR0_ST_symtable() {
-    LR0_SymTable st = (LR0_SymTable)malloc(sizeof(struct _LR0_SymTable));
+SymTable LR0_ST_symtable() {
+    SymTable st = (SymTable)malloc(sizeof(struct _SymTable));
     st->head = LR0_list();
     return st;
 }
 
-void LR0_ST_get(LR0_SymTable st, key k, LR0_Item *i) {
+void LR0_ST_get(SymTable st, key k, LR0_Item *i) {
     LR0_ItemNode in = LR0_get(k, st->head);
     if (in == NULL)
     {
@@ -16,12 +16,12 @@ void LR0_ST_get(LR0_SymTable st, key k, LR0_Item *i) {
     *i = in->i;
 }
 
-void LR0_ST_put(LR0_SymTable st, LR0_ItemNode in) {
+void LR0_ST_put(SymTable st, LR0_ItemNode in) {
     if (LR0_haskey(in->k, st->head)) return;
     LR0_add(in, (LR0_ItemNode*)&st->head);
 }
 
-int LR0_ST_len(LR0_SymTable st) {
+int LR0_ST_len(SymTable st) {
     LR0_ItemNode n = st->head;
     int c = 0;
     while (n != NULL)
@@ -39,11 +39,11 @@ LR0_ItemNode LR0_ST_node(LR0_Item i) {
     return in;
 }
 
-void LR0_ST_clear(LR0_SymTable st) {
+void LR0_ST_clear(SymTable st) {
     LR0_clear((LR0_ItemNode*)&st->head);
 }
 
-void LR0_ST_union(LR0_SymTable st1, LR0_SymTable st2) {
+void LR0_ST_union(SymTable st1, SymTable st2) {
     LR0_ItemNode n = st2->head;
     while (n != NULL) 
     {

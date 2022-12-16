@@ -5,7 +5,7 @@
 
 Test(testoperations, testgetitems)
 {
-    LR0_SymTable st = LR0_ST_symtable();
+    SymTable st = LR0_ST_symtable();
     LR0_inititems();
     LR0_Item *allitems = LR0_getallitems();
 
@@ -21,7 +21,7 @@ Test(testoperations, testclosure)
     LR0_inititems();
     LR0_Item *allitems = LR0_getallitems();
     
-    LR0_SymTable I = LR0_ST_symtable();
+    SymTable I = LR0_ST_symtable();
     LR0_ItemNode in = LR0_ST_node(allitems[4]);
 
     LR0_ST_put(I, in);
