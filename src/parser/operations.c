@@ -2,7 +2,7 @@
 
 void LR0_O_closure(SymTable I) {
     LR0_ItemNode n = I->head;
-    SymTable st = LR0_ST_symtable();
+    SymTable st = ST_symtable();
     int _len, len_;
     symbol X;
     while ( n != NULL)
@@ -11,10 +11,10 @@ void LR0_O_closure(SymTable I) {
         {
             X = n->i->p->rhs[n->i->before];
             LR0_O_getitems(X, st);
-            _len = LR0_ST_len(I);
-            LR0_ST_union(I, st);
-            len_ = LR0_ST_len(I);
-            LR0_ST_clear(st);
+            _len = ST_len(I);
+            ST_union(I, st);
+            len_ = ST_len(I);
+            ST_clear(st);
             if (_len == len_)
             {
                 free(st);
@@ -32,8 +32,8 @@ void LR0_O_getitems(symbol X, SymTable st) {
         if (allitems[i]->p->lhs != X) continue;
         if (allitems[i]->before == 0) 
         {
-            LR0_ItemNode in = LR0_ST_node(allitems[i]);
-            LR0_ST_put(st, in);
+            LR0_ItemNode in = ST_node(allitems[i]);
+            ST_put(st, in);
         }
     }
 }
@@ -52,8 +52,8 @@ void LR0_O_goto(SymTable I, LR0_Item X, SymTable G) {
         }
         i = LR0_getindex(n->i);
         item = allitems[i+1];
-        LR0_ItemNode in = LR0_ST_node(item);
-        LR0_ST_put(G, in);
+        LR0_ItemNode in = ST_node(item);
+        ST_put(G, in);
         n = n->next;
     }
     LR0_O_closure(G);
