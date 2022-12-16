@@ -1,6 +1,6 @@
 #include "list.h"
 
-Node node(key k, LR0_Item i) {
+Node node(key k, void *i) {
     Node n = (Node)malloc(sizeof(struct _Node));
     n->k = k;
     n->i = i;
@@ -47,7 +47,7 @@ Node get(key k, Node head) {
     return NULL;
 }
 
-bool subs(key k, LR0_Item i, Node head) {
+bool subs(key k, void *i, Node head) {
     Node n = head;
     while (n != NULL)
     {

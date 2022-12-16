@@ -14,7 +14,7 @@ typedef struct _Node {
 
 /* Node constructor; allocates memory for a Node and returns a pointer to a 
 Node with the given values. */
-Node node(key k, LR0_Item i);
+Node node(key k, void *i);
 
 // Equality comparison between ItemNodes of the same list.
 bool inodeeq(Node in1, Node in2);
@@ -35,7 +35,7 @@ Node get(key k, Node head);
 
 /* Substitutes the value of the Node with the given key. If there is no such
 Node, returns false, otherwise returns true. */
-bool subs(key k, LR0_Item i, Node head);
+bool subs(key k, void *i, Node head);
 
 // Returns true if there exists a Node with key k, false otherwise.
 bool haskey(key k, Node head);
