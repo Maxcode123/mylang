@@ -3,7 +3,7 @@
 #include "list.h"
 
 typedef struct _LR0_SymTable {
-    LR0_ItemNode head;
+    void *head;
 } *LR0_SymTable;
 
 // Symbol table constructor; allocates memory for the ST and initializes head.

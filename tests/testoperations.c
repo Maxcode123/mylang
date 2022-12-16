@@ -11,9 +11,9 @@ Test(testoperations, testgetitems)
 
     LR0_O_getitems(S_NT_STM, st);
     cr_assert(LR0_ST_len(st) == 3);
-    cr_assert(LR0_itemeq(st->head->i, allitems[10]));
-    cr_assert(LR0_itemeq(st->head->next->i, allitems[6]));
-    cr_assert(LR0_itemeq(st->head->next->next->i, allitems[2]));
+    cr_assert(LR0_itemeq(((LR0_ItemNode)st->head)->i, allitems[10]));
+    cr_assert(LR0_itemeq(((LR0_ItemNode)st->head)->next->i, allitems[6]));
+    cr_assert(LR0_itemeq(((LR0_ItemNode)st->head)->next->next->i, allitems[2]));
 }
 
 Test(testoperations, testclosure)

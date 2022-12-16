@@ -18,7 +18,7 @@ void LR0_ST_get(LR0_SymTable st, key k, LR0_Item *i) {
 
 void LR0_ST_put(LR0_SymTable st, LR0_ItemNode in) {
     if (LR0_haskey(in->k, st->head)) return;
-    LR0_add(in, &st->head);
+    LR0_add(in, (LR0_ItemNode*)&st->head);
 }
 
 int LR0_ST_len(LR0_SymTable st) {
@@ -40,7 +40,7 @@ LR0_ItemNode LR0_ST_node(LR0_Item i) {
 }
 
 void LR0_ST_clear(LR0_SymTable st) {
-    LR0_clear(&st->head);
+    LR0_clear((LR0_ItemNode*)&st->head);
 }
 
 void LR0_ST_union(LR0_SymTable st1, LR0_SymTable st2) {
@@ -53,7 +53,7 @@ void LR0_ST_union(LR0_SymTable st1, LR0_SymTable st2) {
             continue;
         }
         LR0_ItemNode in = LR0_ST_node(n->i);
-        LR0_insert(&in, &(st1->head));
+        LR0_insert(&in, (LR0_ItemNode*)&(st1->head));
         n = n->next;
     }
 }

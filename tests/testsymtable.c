@@ -19,8 +19,8 @@ Test(testsymtable, testget)
     LR0_ItemNode in2 = LR0_node("key2", i2);
 
     LR0_SymTable st = LR0_ST_symtable();
-    LR0_add(in, &st->head);
-    LR0_add(in2, &st->head);
+    LR0_add(in, (LR0_ItemNode*)&st->head);
+    LR0_add(in2, (LR0_ItemNode*)&st->head);
 
     LR0_Item _i, _i2;
 
@@ -108,7 +108,7 @@ Test(testsymtable, testunion)
     LR0_ST_union(st1, st2);
 
     cr_assert(LR0_ninodeeq(st1->head, in3));
-    cr_assert(LR0_ninodeeq(st1->head->next, in2));
-    cr_assert(LR0_ninodeeq(st1->head->next->next, in));
-    cr_assert(st1->head->next->next->next == NULL);
+    cr_assert(LR0_ninodeeq(((LR0_ItemNode)st1->head)->next, in2));
+    cr_assert(LR0_ninodeeq(((LR0_ItemNode)st1->head)->next->next, in));
+    cr_assert(((LR0_ItemNode)st1->head)->next->next->next == NULL);
 }
