@@ -141,3 +141,14 @@ int LR0_getindex(LR0_Item i) {
     }
     return -1; // failure
 }
+
+void printit(LR0_Item i) {
+    printf("%s -> ", symbols[i->p->lhs-10]);
+    for (int j = 0; j < i->p->len; j++)
+    {
+        if (i->before == j) printf("• ");
+        printf("%s ", symbols[i->p->rhs[j]-10]);
+    }
+    if (i->before == -1) printf("•");
+    printf("\n");
+}

@@ -120,3 +120,6 @@ LR0_Item *LR0_getallitems();
 
 // Returns the index of item i in the array of all items.
 int LR0_getindex(LR0_Item i);
+
+// Print item in nice format.
+void printit(LR0_Item i);
