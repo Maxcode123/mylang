@@ -2,6 +2,14 @@
 
 #include "../src/parser/grammar.h"
 
+Test(testproductions, testrhs)
+{
+    symbol *r = sarr(3, S_NT_EXP, S_NT_BINOP, S_T_COMMA);
+    cr_assert(r[0] == S_NT_EXP);
+    cr_assert(r[1] == S_NT_BINOP);
+    cr_assert(r[2] == S_T_COMMA);
+}
+
 Test(testproductions, testinit)
 {
     symbol rhs[] = {S_NT_STM, S_T_EOF};
@@ -18,6 +26,7 @@ Test(testproductions, testarray)
     Production *p = productions();
     cr_assert(p[0]->lhs == S_NT_PROGRAM);
     cr_assert(p[0]->len == 1);
+    cr_assert(p[0]->rhs[0] == S_NT_STM);
     cr_assert(p[1]->rhs[0] == S_NT_STM);
     cr_assert(p[2]->len == 3);
     cr_assert(p[PRODUCTIONS-1]->lhs == S_NT_BINOP);
