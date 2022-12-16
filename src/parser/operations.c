@@ -37,3 +37,24 @@ void LR0_O_getitems(symbol X, LR0_SymTable st) {
         }
     }
 }
+
+void LR0_O_goto(LR0_SymTable I, LR0_Item X, LR0_SymTable G) {
+    LR0_ItemNode n = I->head;
+    int i;
+    LR0_Item item;
+    LR0_Item *allitems = LR0_getallitems();
+    while (n != NULL)
+    {
+        if (n->i->before == -1)
+        {
+            n = n->next;
+            continue;
+        }
+        i = LR0_getindex(n->i);
+        item = allitems[i+1];
+        LR0_ItemNode in = LR0_ST_node(item);
+        LR0_ST_put(G, in);
+        n = n->next;
+    }
+    LR0_O_closure(G);
+}

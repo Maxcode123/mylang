@@ -11,3 +11,7 @@ void LR0_O_getitems(symbol X, LR0_SymTable st);
 
 // Calculates the GOTO set for set I and item X and inserts it into G.
 void LR0_O_goto(LR0_SymTable I, LR0_Item X, LR0_SymTable G);
+
+// void LR0_O_states()
+
+
