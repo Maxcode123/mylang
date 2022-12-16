@@ -51,7 +51,7 @@ lex/lexer: $(OBJ)/lexdriver.o $(OBJ)/lex.yy.o $(OBJ)/util.o
 $(SRC)/lex/lex.yy.c: $(SRC)/lex/mylang.lex
 	lex -o $@ $<
 
-$(OBJ)/%.o: $(SRC)/%.c
+$(OBJ)/%.o: $(SRC)/utils/%.c
 	$(CC) $(ARGS) -c $< -o $@
 
 $(OBJ)/%.o: $(SRC)/parser/%.c

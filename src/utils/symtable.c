@@ -6,7 +6,7 @@ SymTable ST_symtable() {
     return st;
 }
 
-void ST_get(SymTable st, key k, LR0_Item *i) {
+void ST_get(SymTable st, key k, void **i) {
     Node in = get(k, st->head);
     if (in == NULL)
     {
@@ -32,18 +32,11 @@ int ST_len(SymTable st) {
     return c;
 }
 
-Node ST_node(LR0_Item i) {
-    key hash = (char*)malloc(sizeof(char)*50);
-    LR0_itemhash(i, hash);
-    Node in = node(hash, i);
-    return in;
-}
-
 void ST_clear(SymTable st) {
     clear((Node*)&st->head);
 }
 
-void ST_union(SymTable st1, SymTable st2) {
+void ST_union(SymTable st1, SymTable st2, void (*hashf)(void *, key)) {
     Node n = st2->head;
     while (n != NULL) 
     {
@@ -52,8 +45,15 @@ void ST_union(SymTable st1, SymTable st2) {
             n = n->next;
             continue;
         }
-        Node in = ST_node(n->i);
+        Node in = ST_node(n->i, hashf);
         insert(&in, (Node*)&(st1->head));
         n = n->next;
     }
+}
+
+Node ST_node(void *i, void (*hashf)(void *, key)) {
+    key hash = (char*)malloc(sizeof(char)*50);
+    (*hashf)(i, hash);
+    Node in = node(hash, i);
+    return in;
 }

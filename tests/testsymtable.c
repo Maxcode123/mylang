@@ -1,6 +1,7 @@
 #include <criterion/criterion.h>
 
-#include "../src/parser/symtable.h"
+#include "../src/utils/symtable.h"
+#include "../src/parser/grammar.h"
 
 Test(testsymtable, testinit)
 {
@@ -79,7 +80,7 @@ Test(testsymtable, testnode)
     Production p = production(S_NT_PROGRAM, rhs, 2);
     LR0_Item i = LR0_item(p, 0);
 
-    Node in = ST_node(i);
+    Node in = ST_node(i, &LR0_itemhash);
     cr_assert(strcmp(in->k, "1011270") == 0);
 }
 
@@ -91,10 +92,10 @@ Test(testsymtable, testunion)
     LR0_Item i2 = LR0_item(p, 1);
     LR0_Item i3 = LR0_item(p, -1);
 
-    Node in = ST_node(i);
-    Node in2 = ST_node(i2);
-    Node in3 = ST_node(i3);
-    Node in4 = ST_node(i3);
+    Node in = ST_node(i, &LR0_itemhash);
+    Node in2 = ST_node(i2, &LR0_itemhash);
+    Node in3 = ST_node(i3, &LR0_itemhash);
+    Node in4 = ST_node(i3, &LR0_itemhash);
 
     SymTable st1 = ST_symtable();
     SymTable st2 = ST_symtable();
@@ -105,10 +106,10 @@ Test(testsymtable, testunion)
     ST_put(st2, in2);
     ST_put(st2, in4);
 
-    ST_union(st1, st2);
+    ST_union(st1, st2, &LR0_itemhash);
 
-    cr_assert(ninodeeq(st1->head, in3));
-    cr_assert(ninodeeq(((Node)st1->head)->next, in2));
-    cr_assert(ninodeeq(((Node)st1->head)->next->next, in));
+    cr_assert(nodeeq(st1->head, in3, &LR0_itemeq));
+    cr_assert(nodeeq(((Node)st1->head)->next, in2, &LR0_itemeq));
+    cr_assert(nodeeq(((Node)st1->head)->next->next, in, &LR0_itemeq));
     cr_assert(((Node)st1->head)->next->next->next == NULL);
 }
