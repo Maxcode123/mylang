@@ -10,10 +10,16 @@ DB=gdb
 debug: $(TEST)/bin/main
 	$(DB) $<
 
-$(TEST)/bin/main: $(TEST)/main.c $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
+$(TEST)/bin/main: $(TEST)/main.c $(OBJ)/states.o $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
 	$(CC) $^ -o $@
 
 test: test-operations test-symtable test-list test-productions test-items
+
+test-states: $(TEST)/bin/teststates
+	$<
+
+$(TEST)/bin/teststates: $(TEST)/teststates.c $(OBJ)/states.o $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
+	$(CC) $^ -o $@ -lcriterion
 
 test-operations: $(TEST)/bin/testoperations
 	$<
