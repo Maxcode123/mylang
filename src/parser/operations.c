@@ -7,9 +7,9 @@ void LR0_O_closure(SymTable I) {
     symbol X;
     while ( n != NULL)
     {
-        if (n->i->before != -1) // dot is not last symbol
+        if (((LR0_Item)n->i)->before != -1) // dot is not last symbol
         {
-            X = n->i->p->rhs[n->i->before];
+            X = ((LR0_Item)n->i)->p->rhs[((LR0_Item)n->i)->before];
             LR0_O_getitems(X, st);
             _len = ST_len(I);
             ST_union(I, st);
@@ -45,7 +45,7 @@ void LR0_O_goto(SymTable I, LR0_Item X, SymTable G) {
     LR0_Item *allitems = LR0_getallitems();
     while (n != NULL)
     {
-        if (n->i->before == -1)
+        if (((LR0_Item)n->i)->before == -1)
         {
             n = n->next;
             continue;

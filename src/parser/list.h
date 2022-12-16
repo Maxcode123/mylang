@@ -8,7 +8,7 @@
 
 typedef struct _LR0_ItemNode {
     key k;
-    LR0_Item i;
+    void *i;
     struct _LR0_ItemNode *next;    
 } *LR0_ItemNode;
 
