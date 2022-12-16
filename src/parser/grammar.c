@@ -1,5 +1,17 @@
 #include "grammar.h"
 
+symbol *sarr(int count, ...) {
+    va_list ap;
+    symbol *rhs = malloc(count*sizeof(int));
+    va_start(ap, count);
+    for (int i = 0; i < count; i++)
+    {
+        rhs[i] = va_arg(ap, symbol);
+    }
+    va_end(ap);
+    return rhs;
+}
+
 Production production(symbol lhs, symbol* rhs, int len) {
     Production p = malloc(sizeof(struct _Production));
     p->lhs = lhs;
@@ -18,20 +30,20 @@ bool prodeq(Production p1, Production p2) {
 }
 
 Production *productions() {
-    symbol p1[] = {S_NT_STM};
-    symbol p2[] = {S_NT_STM, S_T_SEMICOLON, S_NT_STM};
-    symbol p3[] = {S_T_ID, S_T_EQ, S_NT_EXP};
-    symbol p4[] = {S_T_PRINT, S_T_LPAREN, S_NT_EXPLIST, S_T_RPAREN};
-    symbol p5[] = {S_T_ID};
-    symbol p6[] = {S_T_NUM};
-    symbol p7[] = {S_NT_EXP, S_NT_BINOP, S_NT_EXP};
-    symbol p8[] = {S_T_LPAREN, S_NT_STM, S_T_COMMA, S_NT_EXP, S_T_RPAREN};
-    symbol p9[] = {S_NT_EXP, S_T_COMMA, S_NT_EXPLIST};
-    symbol p10[] = {S_NT_EXP};
-    symbol p11[] = {S_T_PLUS};
-    symbol p12[] = {S_T_MINUS};
-    symbol p13[] = {S_T_TIMES};
-    symbol p14[] = {S_T_DIV};
+    symbol *p1 = sarr(1, S_NT_STM);
+    symbol *p2 = sarr(3, S_NT_STM, S_T_SEMICOLON, S_NT_STM);
+    symbol *p3 = sarr(3, S_T_ID, S_T_EQ, S_NT_EXP);
+    symbol *p4 = sarr(4, S_T_PRINT, S_T_LPAREN, S_NT_EXPLIST, S_T_RPAREN);
+    symbol *p5 = sarr(1, S_T_ID);
+    symbol *p6 = sarr(1, S_T_NUM);
+    symbol *p7 = sarr(3, S_NT_EXP, S_NT_BINOP, S_NT_EXP);
+    symbol *p8 = sarr(5, S_T_LPAREN, S_NT_STM, S_T_COMMA, S_NT_EXP, S_T_RPAREN);
+    symbol *p9 = sarr(3, S_NT_EXP, S_T_COMMA, S_NT_EXPLIST);
+    symbol *p10 = sarr(1, S_NT_EXP);
+    symbol *p11 = sarr(1, S_T_PLUS);
+    symbol *p12 = sarr(1, S_T_MINUS);
+    symbol *p13 = sarr(1, S_T_TIMES);
+    symbol *p14 = sarr(1, S_T_DIV);
 
     Production *p = malloc(PRODUCTIONS*sizeof(Production));
     
@@ -59,6 +71,15 @@ void initprods() {
 
 Production *getprods() {
     return prods;
+}
+
+void printprod(Production p) {
+    printf("%s -> ",symbols[p->lhs-10]);
+    for (int i = 0; i < p->len;  i++)
+    {
+        printf("%s ", symbols[p->rhs[i]-10]);
+    }
+    printf("\n");
 }
 
 LR0_Item LR0_item(Production p, int before) {
@@ -111,4 +132,12 @@ void LR0_inititems() {
 
 LR0_Item *LR0_getallitems() {
     return LR0_allitems;
+}
+
+int LR0_getindex(LR0_Item i) {
+    for (int j = 0; j < ITEMS; j++)
+    {
+        if (LR0_itemeq(i, LR0_allitems[j])) return j;
+    }
+    return -1; // failure
 }

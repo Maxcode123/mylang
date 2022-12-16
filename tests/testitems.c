@@ -31,6 +31,11 @@ Test(testitems, testarray)
     cr_assert(i[3]->before == 1);
     cr_assert(i[4]->before == 2);
     cr_assert(i[5]->before == -1);
+
+    cr_assert(i[15]->before == 0);
+    cr_assert(i[15]->p->len == 1);
+    cr_assert(i[15]->p->lhs == S_NT_EXP);
+    cr_assert(i[15]->p->rhs[0] == S_T_ID);
 }
 
 Test(testitems, testeq)
@@ -70,4 +75,16 @@ Test(testitems, testhash)
 
     LR0_itemhash(i3, hash);
     cr_assert(strcmp(hash, "1123241325-1") == 0);
+}
+
+Test(testitems, testgetindex)
+{
+    LR0_inititems();
+    LR0_Item *allitems = LR0_getallitems();
+
+    symbol p5[] = {S_T_ID};
+    Production p = production(S_NT_EXP, p5, 1);
+    LR0_Item i = LR0_item(p, 0);
+
+    cr_assert(LR0_getindex(i) == 15);
 }

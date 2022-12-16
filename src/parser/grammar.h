@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdarg.h>
 
 // Non terminal symbols
 # define S_NT_PROGRAM 10
@@ -30,6 +31,27 @@
 # define PRODUCTIONS 14
 # define ITEMS 43
 
+static char *symbols[] = {
+    "program",
+    "Stm",
+    "Exp",
+    "ExpList",
+    "BinOp",
+    "id",
+    "num",
+    ",",
+    ";",
+    "+",
+    "-",
+    "*",
+    "/",
+    "print",
+    "(",
+    ")",
+    "=",
+    "$"
+};
+
 typedef int symbol;
 typedef char *key;
 
@@ -40,7 +62,10 @@ typedef struct _Production {
     int len; // length of rhs symbol array
 } *Production;
 
-// Production constructor
+// Production rhs constructor, allocates memory for rhs symbol array.
+symbol *sarr(int count, ...);
+
+// Production constructor, allocates memory for Production.
 Production production(symbol lhs, symbol* rhs, int len);
 
 // Equality comparison between two Productions.
@@ -58,6 +83,9 @@ void initprods();
 
 // Returns array of all productions.
 Production *getprods();
+
+// Prints production in nice format.
+void printprod(Production p);
 
 // Item
 typedef struct _LR0_Item {
@@ -86,3 +114,6 @@ void LR0_inititems();
 
 // Returns array of all items.
 LR0_Item *LR0_getallitems();
+
+// Returns the index of item i in the array of all items.
+int LR0_getindex(LR0_Item i);
