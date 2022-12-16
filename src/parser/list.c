@@ -1,30 +1,30 @@
 #include "list.h"
 
-LR0_ItemNode LR0_node(key k, LR0_Item i) {
-    LR0_ItemNode n = (LR0_ItemNode)malloc(sizeof(struct _LR0_ItemNode));
+Node node(key k, LR0_Item i) {
+    Node n = (Node)malloc(sizeof(struct _Node));
     n->k = k;
     n->i = i;
     n->next = NULL;
     return n;
 }
 
-bool LR0_inodeeq(LR0_ItemNode in1, LR0_ItemNode in2) {
+bool inodeeq(Node in1, Node in2) {
     if (in1->next != in2->next) return false;
-    if (!LR0_ninodeeq(in1, in2)) return false;
+    if (!ninodeeq(in1, in2)) return false;
     return true;
 }
 
-bool LR0_ninodeeq(LR0_ItemNode in1 , LR0_ItemNode in2) {
+bool ninodeeq(Node in1 , Node in2) {
     if (strcmp(in1->k, in2->k) != 0) return false;
     if (!LR0_itemeq(in1->i, in2->i)) return false;
     return true;
 }
 
-LR0_ItemNode LR0_list() {
+Node list() {
     return NULL;
 }
 
-void LR0_add(LR0_ItemNode n, LR0_ItemNode* headptr) {
+void add(Node n, Node* headptr) {
     if (*headptr == NULL)
     {
         *headptr = n;
@@ -37,8 +37,8 @@ void LR0_add(LR0_ItemNode n, LR0_ItemNode* headptr) {
     }
 }
 
-LR0_ItemNode LR0_get(key k, LR0_ItemNode head) {
-    LR0_ItemNode n = head;
+Node get(key k, Node head) {
+    Node n = head;
     while (n != NULL)
     {
         if (strcmp(n->k, k) == 0) return n;
@@ -47,8 +47,8 @@ LR0_ItemNode LR0_get(key k, LR0_ItemNode head) {
     return NULL;
 }
 
-bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head) {
-    LR0_ItemNode n = head;
+bool subs(key k, LR0_Item i, Node head) {
+    Node n = head;
     while (n != NULL)
     {
         if (strcmp(n->k, k) == 0)
@@ -61,8 +61,8 @@ bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head) {
     return false;
 }
 
-bool LR0_haskey(key k, LR0_ItemNode head) {
-    LR0_ItemNode n = head;
+bool haskey(key k, Node head) {
+    Node n = head;
     while (n != NULL)
     {
         if (strcmp(n->k, k) == 0) return true;
@@ -71,17 +71,17 @@ bool LR0_haskey(key k, LR0_ItemNode head) {
     return false;
 }
 
-void LR0_clear(LR0_ItemNode *headptr) {
-    while (*headptr != NULL) LR0_pop(headptr);
+void clear(Node *headptr) {
+    while (*headptr != NULL) pop(headptr);
 }
 
-void LR0_pop(LR0_ItemNode *headptr) {
-    LR0_ItemNode tmp = (*headptr)->next;
+void pop(Node *headptr) {
+    Node tmp = (*headptr)->next;
     free(*headptr);
     *headptr = tmp;
 }
 
-void LR0_insert(LR0_ItemNode *nptr, LR0_ItemNode *headptr) {
+void insert(Node *nptr, Node *headptr) {
     (*nptr)->next = (*headptr)->next;
     (*headptr)->next = *nptr;
 }

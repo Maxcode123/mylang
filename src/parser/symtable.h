@@ -14,14 +14,14 @@ NULL. */
 void ST_get(SymTable st, key k, LR0_Item *i);
 
 // Adds a node. If the key already exists returns without doing nothing.
-void ST_put(SymTable st, LR0_ItemNode in);
+void ST_put(SymTable st, Node in);
 
 // Returns length of symbol table.
 int ST_len(SymTable st);
 
 /* Constructs node for symbol table. Allocates memory and creates hash from 
 given item. */
-LR0_ItemNode ST_node(LR0_Item i);
+Node ST_node(LR0_Item i);
 
 // Clears symbol table.
 void ST_clear(SymTable st);

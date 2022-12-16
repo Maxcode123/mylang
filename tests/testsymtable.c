@@ -15,12 +15,12 @@ Test(testsymtable, testget)
     LR0_Item i = LR0_item(p, 0);
     LR0_Item i2 = LR0_item(p, 2);
 
-    LR0_ItemNode in = LR0_node("key1", i);
-    LR0_ItemNode in2 = LR0_node("key2", i2);
+    Node in = node("key1", i);
+    Node in2 = node("key2", i2);
 
     SymTable st = ST_symtable();
-    LR0_add(in, (LR0_ItemNode*)&st->head);
-    LR0_add(in2, (LR0_ItemNode*)&st->head);
+    add(in, (Node*)&st->head);
+    add(in2, (Node*)&st->head);
 
     LR0_Item _i, _i2;
 
@@ -40,8 +40,8 @@ Test(testsymtable, testput)
     LR0_Item i = LR0_item(p, 0);
     LR0_Item i2 = LR0_item(p, 2);
 
-    LR0_ItemNode in = LR0_node("key1", i);
-    LR0_ItemNode in2 = LR0_node("key2", i2);
+    Node in = node("key1", i);
+    Node in2 = node("key2", i2);
 
     SymTable st = ST_symtable();
 
@@ -49,8 +49,8 @@ Test(testsymtable, testput)
     ST_put(st, in2);
     ST_put(st, in2);
 
-    cr_assert(LR0_itemeq(LR0_get(in->k, st->head)->i, i));
-    cr_assert(LR0_itemeq(LR0_get(in2->k, st->head)->i, i2));
+    cr_assert(LR0_itemeq(get(in->k, st->head)->i, i));
+    cr_assert(LR0_itemeq(get(in2->k, st->head)->i, i2));
 }
 
 Test(testsymtable, testlen)
@@ -60,8 +60,8 @@ Test(testsymtable, testlen)
     LR0_Item i = LR0_item(p, 0);
     LR0_Item i2 = LR0_item(p, 2);
 
-    LR0_ItemNode in = LR0_node("key1", i);
-    LR0_ItemNode in2 = LR0_node("key2", i2);
+    Node in = node("key1", i);
+    Node in2 = node("key2", i2);
 
     SymTable st = ST_symtable();
 
@@ -79,7 +79,7 @@ Test(testsymtable, testnode)
     Production p = production(S_NT_PROGRAM, rhs, 2);
     LR0_Item i = LR0_item(p, 0);
 
-    LR0_ItemNode in = ST_node(i);
+    Node in = ST_node(i);
     cr_assert(strcmp(in->k, "1011270") == 0);
 }
 
@@ -91,10 +91,10 @@ Test(testsymtable, testunion)
     LR0_Item i2 = LR0_item(p, 1);
     LR0_Item i3 = LR0_item(p, -1);
 
-    LR0_ItemNode in = ST_node(i);
-    LR0_ItemNode in2 = ST_node(i2);
-    LR0_ItemNode in3 = ST_node(i3);
-    LR0_ItemNode in4 = ST_node(i3);
+    Node in = ST_node(i);
+    Node in2 = ST_node(i2);
+    Node in3 = ST_node(i3);
+    Node in4 = ST_node(i3);
 
     SymTable st1 = ST_symtable();
     SymTable st2 = ST_symtable();
@@ -107,8 +107,8 @@ Test(testsymtable, testunion)
 
     ST_union(st1, st2);
 
-    cr_assert(LR0_ninodeeq(st1->head, in3));
-    cr_assert(LR0_ninodeeq(((LR0_ItemNode)st1->head)->next, in2));
-    cr_assert(LR0_ninodeeq(((LR0_ItemNode)st1->head)->next->next, in));
-    cr_assert(((LR0_ItemNode)st1->head)->next->next->next == NULL);
+    cr_assert(ninodeeq(st1->head, in3));
+    cr_assert(ninodeeq(((Node)st1->head)->next, in2));
+    cr_assert(ninodeeq(((Node)st1->head)->next->next, in));
+    cr_assert(((Node)st1->head)->next->next->next == NULL);
 }

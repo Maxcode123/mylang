@@ -11,9 +11,9 @@ Test(testoperations, testgetitems)
 
     LR0_O_getitems(S_NT_STM, st);
     cr_assert(ST_len(st) == 3);
-    cr_assert(LR0_itemeq(((LR0_ItemNode)st->head)->i, allitems[10]));
-    cr_assert(LR0_itemeq(((LR0_ItemNode)st->head)->next->i, allitems[6]));
-    cr_assert(LR0_itemeq(((LR0_ItemNode)st->head)->next->next->i, allitems[2]));
+    cr_assert(LR0_itemeq(((Node)st->head)->i, allitems[10]));
+    cr_assert(LR0_itemeq(((Node)st->head)->next->i, allitems[6]));
+    cr_assert(LR0_itemeq(((Node)st->head)->next->next->i, allitems[2]));
 }
 
 Test(testoperations, testclosure)
@@ -22,7 +22,7 @@ Test(testoperations, testclosure)
     LR0_Item *allitems = LR0_getallitems();
     
     SymTable I = ST_symtable();
-    LR0_ItemNode in = ST_node(allitems[4]);
+    Node in = ST_node(allitems[4]);
 
     ST_put(I, in);
 

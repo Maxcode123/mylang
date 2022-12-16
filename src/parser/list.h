@@ -6,45 +6,45 @@
 #include "grammar.h"
 
 
-typedef struct _LR0_ItemNode {
+typedef struct _Node {
     key k;
     void *i;
-    struct _LR0_ItemNode *next;    
-} *LR0_ItemNode;
+    struct _Node *next;    
+} *Node;
 
 /* Node constructor; allocates memory for a Node and returns a pointer to a 
 Node with the given values. */
-LR0_ItemNode LR0_node(key k, LR0_Item i);
+Node node(key k, LR0_Item i);
 
 // Equality comparison between ItemNodes of the same list.
-bool LR0_inodeeq(LR0_ItemNode in1, LR0_ItemNode in2);
+bool inodeeq(Node in1, Node in2);
 
 // Equality comparison between ItemNodes.
-bool LR0_ninodeeq(LR0_ItemNode in1, LR0_ItemNode in2);
+bool ninodeeq(Node in1, Node in2);
 
 /* Linked list constructor; returns the pointer to the head of the list with
 the initialization value. */
-LR0_ItemNode LR0_list();
+Node list();
 
 // Adds a node to the linked list.
-void LR0_add(LR0_ItemNode n, LR0_ItemNode* headptr);
+void add(Node n, Node* headptr);
 
 /* Returns a pointer to the node in the list matching the given key. If there 
 is no such Node, returns NULL. */
-LR0_ItemNode LR0_get(key k, LR0_ItemNode head);
+Node get(key k, Node head);
 
 /* Substitutes the value of the Node with the given key. If there is no such
 Node, returns false, otherwise returns true. */
-bool LR0_subs(key k, LR0_Item i, LR0_ItemNode head);
+bool subs(key k, LR0_Item i, Node head);
 
 // Returns true if there exists a Node with key k, false otherwise.
-bool LR0_haskey(key k, LR0_ItemNode head);
+bool haskey(key k, Node head);
 
 // Clears list.
-void LR0_clear(LR0_ItemNode *headptr);
+void clear(Node *headptr);
 
 // Deletes head node, points head to next node.
-void LR0_pop(LR0_ItemNode *headptr);
+void pop(Node *headptr);
 
 // Inserts node after head. So head->next points to n.
-void LR0_insert(LR0_ItemNode* nptr, LR0_ItemNode* headptr);
+void insert(Node* nptr, Node* headptr);

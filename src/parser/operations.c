@@ -1,7 +1,7 @@
 #include "operations.h"
 
 void LR0_O_closure(SymTable I) {
-    LR0_ItemNode n = I->head;
+    Node n = I->head;
     SymTable st = ST_symtable();
     int _len, len_;
     symbol X;
@@ -32,14 +32,14 @@ void LR0_O_getitems(symbol X, SymTable st) {
         if (allitems[i]->p->lhs != X) continue;
         if (allitems[i]->before == 0) 
         {
-            LR0_ItemNode in = ST_node(allitems[i]);
+            Node in = ST_node(allitems[i]);
             ST_put(st, in);
         }
     }
 }
 
 void LR0_O_goto(SymTable I, LR0_Item X, SymTable G) {
-    LR0_ItemNode n = I->head;
+    Node n = I->head;
     int i;
     LR0_Item item;
     LR0_Item *allitems = LR0_getallitems();
@@ -52,7 +52,7 @@ void LR0_O_goto(SymTable I, LR0_Item X, SymTable G) {
         }
         i = LR0_getindex(n->i);
         item = allitems[i+1];
-        LR0_ItemNode in = ST_node(item);
+        Node in = ST_node(item);
         ST_put(G, in);
         n = n->next;
     }
