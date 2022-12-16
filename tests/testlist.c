@@ -1,6 +1,7 @@
 #include <criterion/criterion.h>
 
-#include "../src/parser/list.h"
+#include "../src/utils/list.h"
+#include "../src/parser/grammar.h"
 
 Test(testlist, testinit)
 {
@@ -26,9 +27,9 @@ Test(testlist, testinodeeq)
     Node in3 = node("key2", i);
     Node in4 = node("key1", i2);
 
-    cr_assert(inodeeq(in, in2));
-    cr_assert(!inodeeq(in, in3));
-    cr_assert(!inodeeq(in, in4));
+    cr_assert(lnodeeq(in, in2, &LR0_itemeq));
+    cr_assert(!lnodeeq(in, in3, &LR0_itemeq));
+    cr_assert(!lnodeeq(in, in4, &LR0_itemeq));
 }
 
 Test(testlist, testlistinit)
@@ -74,13 +75,13 @@ Test(testlist, testget)
     add(in3, &h);
 
     Node _in = get("key1", h);
-    cr_assert(inodeeq(_in, in));
+    cr_assert(lnodeeq(_in, in, &LR0_itemeq));
 
     Node _in2 = get("key2", h);
-    cr_assert(inodeeq(_in2, in2));
+    cr_assert(lnodeeq(_in2, in2, &LR0_itemeq));
 
     Node _in3 = get("key3", h);
-    cr_assert(inodeeq(_in3, in3));
+    cr_assert(lnodeeq(_in3, in3, &LR0_itemeq));
 
     Node _in4 = get("asdas", h);
     cr_assert(_in4 == NULL);
@@ -159,9 +160,9 @@ Test(testlist, testpop)
     add(in, &h);
     add(in2, &h);
 
-    cr_assert(inodeeq(h, in2));
+    cr_assert(lnodeeq(h, in2, &LR0_itemeq));
     pop(&h);
-    cr_assert(inodeeq(h, in));
+    cr_assert(lnodeeq(h, in, &LR0_itemeq));
     pop(&h);
     cr_assert(h == NULL);   
 }
@@ -182,11 +183,11 @@ Test(testlist, testinsert)
     add(in, &h);
     add(in2, &h);
     
-    cr_assert(inodeeq(h, in2));
-    cr_assert(inodeeq(h->next, in));
+    cr_assert(lnodeeq(h, in2, &LR0_itemeq));
+    cr_assert(lnodeeq(h->next, in, &LR0_itemeq));
 
     insert(&in3, &h);
-    cr_assert(inodeeq(h, in2));
-    cr_assert(inodeeq(h->next, in3));
-    cr_assert(inodeeq(h->next->next, in));
+    cr_assert(lnodeeq(h, in2, &LR0_itemeq));
+    cr_assert(lnodeeq(h->next, in3, &LR0_itemeq));
+    cr_assert(lnodeeq(h->next->next, in, &LR0_itemeq));
 }

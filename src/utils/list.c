@@ -8,15 +8,15 @@ Node node(key k, void *i) {
     return n;
 }
 
-bool inodeeq(Node in1, Node in2) {
+bool lnodeeq(Node in1, Node in2, bool (*ieq)(void *, void *)) {
     if (in1->next != in2->next) return false;
-    if (!ninodeeq(in1, in2)) return false;
+    if (!nodeeq(in1, in2, ieq)) return false;
     return true;
 }
 
-bool ninodeeq(Node in1 , Node in2) {
+bool nodeeq(Node in1 , Node in2, bool (*ieq)(void *, void *)) {
     if (strcmp(in1->k, in2->k) != 0) return false;
-    if (!LR0_itemeq(in1->i, in2->i)) return false;
+    if (!(*ieq)(in1->i, in2->i)) return false;
     return true;
 }
 

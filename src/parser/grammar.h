@@ -6,6 +6,9 @@
 #include <string.h>
 #include <stdarg.h>
 
+#include "../utils/util.h"
+
+
 // Non terminal symbols
 # define S_NT_PROGRAM 10
 # define S_NT_STM 11
@@ -53,7 +56,7 @@ static char *symbols[] = {
 };
 
 typedef int symbol;
-typedef char *key;
+
 
 // Production rule
 typedef struct _Production {

@@ -3,8 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "grammar.h"
-
+#include "util.h"
 
 typedef struct _Node {
     key k;
@@ -16,11 +15,11 @@ typedef struct _Node {
 Node with the given values. */
 Node node(key k, void *i);
 
-// Equality comparison between ItemNodes of the same list.
-bool inodeeq(Node in1, Node in2);
+// Equality comparison between Nodes of the same list.
+bool lnodeeq(Node in1, Node in2, bool (*ieq)(void *, void *));
 
-// Equality comparison between ItemNodes.
-bool ninodeeq(Node in1, Node in2);
+// Equality comparison between Nodes.
+bool nodeeq(Node in1, Node in2, bool (*ieq)(void *, void *));
 
 /* Linked list constructor; returns the pointer to the head of the list with
 the initialization value. */
