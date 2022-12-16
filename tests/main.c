@@ -20,7 +20,7 @@ int main() {
     ST_put(I, n3);
     ST_put(I, n4);
 
-    LR0_O_goto(I, S_NT_STM, G);
+    LR0_goto(I, S_NT_STM, G);
 
     Node h = G->head;
     while (h != NULL)

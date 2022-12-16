@@ -1,6 +1,6 @@
 #include "operations.h"
 
-void LR0_O_closure(SymTable I) {
+void LR0_closure(SymTable I) {
     Node n = I->head;
     SymTable st = ST_symtable();
     int _len, len_;
@@ -10,7 +10,7 @@ void LR0_O_closure(SymTable I) {
         if (((LR0_Item)n->i)->before != -1) // dot is not last symbol
         {
             X = ((LR0_Item)n->i)->p->rhs[((LR0_Item)n->i)->before];
-            LR0_O_getitems(X, st);
+            LR0_getitems(X, st);
             _len = ST_len(I);
             ST_union(I, st, &LR0_itemhash);
             len_ = ST_len(I);
@@ -25,7 +25,7 @@ void LR0_O_closure(SymTable I) {
     }
 }
 
-void LR0_O_getitems(symbol X, SymTable st) {
+void LR0_getitems(symbol X, SymTable st) {
     LR0_Item *allitems = LR0_getallitems();
     for (int i = 0; i < ITEMS; i++)
     {
@@ -38,7 +38,7 @@ void LR0_O_getitems(symbol X, SymTable st) {
     }
 }
 
-void LR0_O_goto(SymTable I, symbol X, SymTable G) {
+void LR0_goto(SymTable I, symbol X, SymTable G) {
     Node n = I->head;
     int i;
     LR0_Item *allitems = LR0_getallitems();
@@ -57,5 +57,5 @@ void LR0_O_goto(SymTable I, symbol X, SymTable G) {
         ST_put(G, in);
         n = n->next;
     }
-    LR0_O_closure(G);
+    LR0_closure(G);
 }
