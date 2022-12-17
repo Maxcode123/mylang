@@ -54,7 +54,7 @@ Test(teststates, testedgehash)
     cr_assert(strcmp(hash, "2461120") == 0);
 }
 
-Test(teststates, testhash)
+Test(teststates, teststatehash)
 {
     LR0_inititems();
     LR0_Item *allitems = LR0_getallitems();
@@ -84,4 +84,13 @@ Test(teststates, testhash)
     key hash2 = malloc(sizeof(char)*50);
     statehash(I2, hash2);
     cr_assert(strcmp(hash, hash2) == 0);
+}
+
+Test(teststates, teststateinit)
+{
+    LR0_inititems();
+    LR0_Item *allitems = LR0_getallitems();
+    SymTable T = ST_symtable();
+    stateinit(T);
+    cr_assert(LR0_itemeq((LR0_Item)((Node)((State)((Node)(T->head))->i)->head)->i, allitems[0]));
 }
