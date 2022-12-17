@@ -8,13 +8,47 @@ Edge edge(symbol X, State from, State to) {
     return e;
 }
 
-void states(SymTable T, SymTable E) {
+void edgehash(Edge e, key hash) {
+    statehash(e->from, hash);
+    char *buff = malloc(sizeof(char)*50);
+    statehash(e->to, buff);
+    strcat(hash, buff);
+    sprintf(buff, "%d", e->X);
+    strcat(hash, buff);
+    free(buff);
+}
+
+void stateinit(SymTable T) {
     LR0_Item *allitems = LR0_getallitems();
     State init = ST_symtable();
-    Node n = ST_node(allitems[0], LR0_itemhash);
-    ST_put(init, n);
+
+    ST_put(init, ST_node(allitems[0], LR0_itemhash));
     LR0_closure(init);
-    // ST_put()
+    
+    ST_put(T, ST_node(init, &statehash));
+}
+
+void states(SymTable T, SymTable E) {
+    stateinit(T);
+    Node t = T->head;
+
+    while (t != NULL) // loop on states
+    {
+        Node i = ((SymTable)(t->i))->head;
+        while (i != NULL) // loop on state items
+        {
+            if (((LR0_Item)i->i)->before == -1)
+            {
+                i = i->next;
+                continue;
+            }
+            SymTable J = ST_symtable();
+            LR0_goto(t, ((LR0_Item)i->i)->p->rhs[((LR0_Item)i->i)->before], J);
+            ST_put(T, ST_node(J, &statehash));
+            i = i->next;
+        }
+        t = t->next;        
+    }    
 }
 
 void statehash(State I, key hash) {
