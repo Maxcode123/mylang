@@ -14,3 +14,12 @@ string String(char *s) {
     strcpy(p,s);
     return p;
 }
+
+void sorti(int *a, size_t n) {
+    qsort(a, n, sizeof(int), &cmp);
+}
+
+int cmp(int *a, int *b) {
+    if (*a > *b) return 1;
+    return 0;
+}
