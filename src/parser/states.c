@@ -27,7 +27,7 @@ void statehash(State I, key hash) {
         c++;
         n = n->next;
     }
-    // sort i
+    sorti(i, ST_len(I));
     char *buff = (char*)malloc(sizeof(char)*3);
     sprintf(hash, "%d", i[0]);
     for (int j = 1; j < ST_len(I); j++)

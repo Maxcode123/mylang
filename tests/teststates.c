@@ -45,5 +45,17 @@ Test(teststates, testhash)
 
     key hash = malloc(sizeof(char)*50);
     statehash(I, hash);
-    cr_assert(strcmp(hash, "2924") == 0);
+    cr_assert(strcmp(hash, "2429") == 0);
+
+    State I2 = ST_symtable();
+
+    ST_put(I2, n3);
+    ST_put(I2, n1);
+    ST_put(I2, n2);
+
+    cr_assert(I2->head != I->head);
+
+    key hash2 = malloc(sizeof(char)*50);
+    statehash(I2, hash2);
+    cr_assert(strcmp(hash, hash2) == 0);
 }
