@@ -3,7 +3,6 @@
 void LR0_closure(SymTable I) {
     ItemNode n = I->head;
     SymTable st = ST_symtable();
-    int _len, len_;
     symbol X;
     while ( n != NULL)
     {
@@ -11,18 +10,13 @@ void LR0_closure(SymTable I) {
         {
             X = ((LR0_Item)n->i)->p->rhs[((LR0_Item)n->i)->before];
             LR0_getitems(X, st);
-            _len = ST_len(I);
+            if (ST_len(st) == 0) {n = n->next; continue;}
             ST_union(I, st, &LR0_itemhash);
-            len_ = ST_len(I);
             ST_clear(st);
-            if (_len == len_)
-            {
-                free(st);
-                return;
-            } 
         }
         n = n->next;
     }
+    free(st);
 }
 
 void LR0_getitems(symbol X, SymTable st) {
