@@ -6,6 +6,16 @@ SymTable ST_symtable() {
     return st;
 }
 
+void ST_get(SymTable st, key k, void **i) {
+    Node in = get(k, st->head);
+    if (in == NULL)
+    {
+        *i = NULL;
+        return;
+    }
+    *i = in->i;
+}
+
 bool ST_haskey(SymTable st, key k) {
     return haskey(k, st->head);
 }

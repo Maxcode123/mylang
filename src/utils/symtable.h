@@ -9,6 +9,9 @@ typedef struct _SymTable {
 // Symbol table constructor; allocates memory for the ST and initializes head.
 SymTable ST_symtable();
 
+// Points i to item with key k.
+void ST_get(SymTable st, key k, void **i);
+
 // Returns true if there is a node in st with key k.
 bool ST_haskey(SymTable st, key k);
 

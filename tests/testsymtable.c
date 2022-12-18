@@ -9,6 +9,29 @@ Test(testsymtable, testinit)
     cr_assert(st->head == NULL);
 }
 
+Test(testsymtable, testget)
+{
+    symbol rhs[] = {S_NT_STM, S_T_EOF};
+    Production p = production(S_NT_PROGRAM, rhs, 2);
+    LR0_Item i = LR0_item(p, 0);
+    LR0_Item i2 = LR0_item(p, 2);
+    Node in = node("key1", i);
+    Node in2 = node("key2", i2);
+    SymTable st = ST_symtable();
+    add(in, (Node*)&st->head);
+    add(in2, (Node*)&st->head);
+
+    LR0_Item _i, _i2;
+
+    ST_get(st, "key", &_i);
+    cr_assert(_i == NULL);
+
+    ST_get(st, "key1", &_i);
+    ST_get(st, "key2", &_i2);
+    cr_assert(LR0_itemeq(_i, i));
+    cr_assert(LR0_itemeq(_i2, i2));
+}
+
 Test(testsymtable, testhaskey)
 {
     symbol rhs[] = {S_NT_STM, S_T_EOF};
