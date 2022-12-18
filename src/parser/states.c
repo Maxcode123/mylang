@@ -25,7 +25,7 @@ void printedge(Edge e) {
     statehash(e->to, hash);
     printf("%s, ", hash);
     char **symbols = getsymbols();
-    printf("%s\n", symbols[e->X-10]);
+    printf("%s\n", symbols[e->X-S_NT_PROGRAM]);
 }
 
 void stateinit(StateSet T) {

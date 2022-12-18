@@ -78,10 +78,10 @@ Production *getprods() {
 }
 
 void printprod(Production p) {
-    printf("%s -> ",symbols[p->lhs-10]);
+    printf("%s -> ",symbols[p->lhs-S_NT_PROGRAM]);
     for (int i = 0; i < p->len;  i++)
     {
-        printf("%s ", symbols[p->rhs[i]-10]);
+        printf("%s ", symbols[p->rhs[i]-S_NT_PROGRAM]);
     }
     printf("\n");
 }
@@ -147,11 +147,11 @@ int LR0_getindex(LR0_Item i) {
 }
 
 void printit(LR0_Item i) {
-    printf("%s -> ", symbols[i->p->lhs-10]);
+    printf("%s -> ", symbols[i->p->lhs-S_NT_PROGRAM]);
     for (int j = 0; j < i->p->len; j++)
     {
         if (i->before == j) printf("• ");
-        printf("%s ", symbols[i->p->rhs[j]-10]);
+        printf("%s ", symbols[i->p->rhs[j]-S_NT_PROGRAM]);
     }
     if (i->before == -1) printf("•");
     printf("\n");
