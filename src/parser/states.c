@@ -18,7 +18,7 @@ void edgehash(Edge e, key hash) {
     free(buff);
 }
 
-void stateinit(SymTable T) {
+void stateinit(StateSet T) {
     LR0_Item *allitems = LR0_getallitems();
     State init = ST_symtable();
 
@@ -28,26 +28,39 @@ void stateinit(SymTable T) {
     ST_put(T, ST_node(init, &statehash));
 }
 
-void states(SymTable T, SymTable E) {
+void states(StateSet T, EdgeSet E) {
     stateinit(T);
-    Node t = T->head;
+    StateNode IN = T->head;
+    int _lenT, lenT_, _lenE, lenE_;
+    symbol X;
 
-    while (t != NULL) // loop on states
+    while (IN != NULL) // loop on states
     {
-        Node i = ((SymTable)(t->i))->head;
-        while (i != NULL) // loop on state items
+        ItemNode in = ((State)(IN->i))->head;
+        while (in != NULL) // loop on state items
         {
-            if (((LR0_Item)i->i)->before == -1)
+            if (((LR0_Item)in->i)->before == -1)
             {
-                i = i->next;
+                in = in->next;
                 continue;
             }
-            SymTable J = ST_symtable();
-            LR0_goto(t, ((LR0_Item)i->i)->p->rhs[((LR0_Item)i->i)->before], J);
+            State J = ST_symtable();
+            X = ((LR0_Item)in->i)->p->rhs[((LR0_Item)in->i)->before];
+            LR0_goto((State)(IN->i), X, J);
+
+            _lenT = ST_len(T);
             ST_put(T, ST_node(J, &statehash));
-            i = i->next;
+            lenT_ = ST_len(T);
+
+            Edge e = edge(X, (State)(IN->i), J);
+
+            _lenE = ST_len(E);
+            ST_put(E, ST_node(e, &edgehash));
+            lenE_ = ST_len(E);
+            if (_lenT == lenT_ && _lenE == lenE_) return;
+            in = in->next;
         }
-        t = t->next;        
+        IN = IN->next;        
     }    
 }
 
@@ -57,8 +70,7 @@ void statehash(State I, key hash) {
     Node n = I->head;
     while (n != NULL)
     {
-        i[c] = LR0_getindex((LR0_Item)n->i);
-        c++;
+        i[c++] = LR0_getindex((LR0_Item)n->i);
         n = n->next;
     }
     sorti(i, ST_len(I));
@@ -70,4 +82,8 @@ void statehash(State I, key hash) {
         strcat(hash, buff);
     }
     free(buff);
+}
+
+void printstate(State I) {
+    ST_print(I, &printit);
 }

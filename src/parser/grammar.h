@@ -7,6 +7,7 @@
 #include <stdarg.h>
 
 #include "../utils/util.h"
+#include "../utils/list.h"
 
 
 // Non terminal symbols
@@ -56,6 +57,7 @@ static char *symbols[] = {
 };
 
 typedef int symbol;
+typedef Node ItemNode;
 
 
 // Production rule

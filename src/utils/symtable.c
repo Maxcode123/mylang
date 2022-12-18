@@ -57,3 +57,12 @@ Node ST_node(void *i, void (*hashf)(void *, key)) {
     Node in = node(hash, i);
     return in;
 }
+
+void ST_print(SymTable st, void  (*printfn)(void  *)) {
+    Node n = st->head;
+    while (n != NULL)
+    {
+        printfn(n->i);
+        n = n->next;
+    }
+}

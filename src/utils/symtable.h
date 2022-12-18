@@ -3,7 +3,7 @@
 #include "list.h"
 
 typedef struct _SymTable {
-    void *head;
+    Node head;
 } *SymTable;
 
 // Symbol table constructor; allocates memory for the ST and initializes head.
@@ -28,3 +28,6 @@ void ST_union(SymTable st1, SymTable st2, void (*hashf)(void *, key));
 /* Constructs node for symbol table. Allocates memory and creates hash from 
 given item. */
 Node ST_node(void *i, void (*hashf)(void *, key));
+
+// Prints the the nodes of the symbol table with the given function.
+void ST_print(SymTable st, void  (*printfn)(void  *));
