@@ -38,6 +38,17 @@ void stateinit(StateSet T) {
     ST_put(T, ST_node(init, &statehash));
 }
 
+bool stateeq(State I1, State I2) {
+    if (ST_len(I1) != ST_len(I2)) return false;
+    StateNode n = I1->head;
+    while (n != NULL)
+    {
+        if (!ST_haskey(I2, n->k)) return false;
+        n = n->next;
+    }
+    return true;
+}
+
 void states(StateSet T, EdgeSet E) {
     stateinit(T);
     StateNode SN = T->head;
@@ -57,7 +68,7 @@ void states(StateSet T, EdgeSet E) {
             
             if (ST_len(J) == 0) {in = in->next; continue;}
             ST_put(tmp, ST_node(J, &statehash));
-            ST_union(T, tmp, &statehash, SN, &LR0_itemeq); // union to insert states after head
+            ST_union(T, tmp, &statehash, SN, &stateeq); // union to insert states after SN
             ST_clear(tmp);
 
             Edge e = edge(X, (State)(SN->i), J);
@@ -66,7 +77,8 @@ void states(StateSet T, EdgeSet E) {
             in = in->next;
         }
         SN = SN->next;        
-    }    
+    }
+    free(tmp);
 }
 
 void statehash(State I, key hash) {

@@ -25,11 +25,11 @@ Test(testsymtable, testget)
 
     LR0_Item _i, _i2;
 
-    ST_get(st, "key", &_i);
+    ST_haskey(st, "key", &_i);
     cr_assert(_i == NULL);
 
-    ST_get(st, "key1", &_i);
-    ST_get(st, "key2", &_i2);
+    ST_haskey(st, "key1", &_i);
+    ST_haskey(st, "key2", &_i2);
     cr_assert(LR0_itemeq(_i, i));
     cr_assert(LR0_itemeq(_i2, i2));
 }

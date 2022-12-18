@@ -6,14 +6,8 @@ SymTable ST_symtable() {
     return st;
 }
 
-void ST_get(SymTable st, key k, void **i) {
-    Node in = get(k, st->head);
-    if (in == NULL)
-    {
-        *i = NULL;
-        return;
-    }
-    *i = in->i;
+bool ST_haskey(SymTable st, key k) {
+    return haskey(k, st->head);
 }
 
 void ST_put(SymTable st, Node in) {
@@ -51,7 +45,7 @@ void ST_union(
             continue;
         }
         Node in = ST_node(n->i, hashf);
-        insertat(&in, (st1->head), &after, ieq);
+        insertat(&in, st1->head, &after, ieq);
         n = n->next;
     }
 }
