@@ -11,7 +11,7 @@
 
 
 // Non terminal symbols
-# define S_NT_PROGRAM 10
+# define S_NT_PROGRAM 10 // program should always be first non terminal symbol
 # define S_NT_STM 11
 # define S_NT_EXP 12
 # define S_NT_EXPLIST 13
@@ -32,6 +32,7 @@
 # define S_T_EQ 26
 # define S_T_EOF 27
 
+# define SYMBOLS 18
 # define PRODUCTIONS 14
 # define ITEMS 43
 
