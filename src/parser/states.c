@@ -41,14 +41,12 @@ void stateinit(StateSet T) {
 void states(StateSet T, EdgeSet E) {
     stateinit(T);
     StateNode SN = T->head;
-    int lenT, lenE;
     symbol X;
     StateSet tmp = ST_symtable(); // set used to host state J, { J }
 
     while (SN != NULL) // loop on states
     {
         ItemNode in = ((State)(SN->i))->head;
-        lenT = ST_len(T), lenE = ST_len(E);
         while (in != NULL) // loop on state items
         {
             if (((LR0_Item)in->i)->before == -1) {in = in->next; continue;}
@@ -57,8 +55,9 @@ void states(StateSet T, EdgeSet E) {
             X = ((LR0_Item)in->i)->p->rhs[((LR0_Item)in->i)->before];
             LR0_goto((State)(SN->i), X, J);
             
+            if (ST_len(J) == 0) {in = in->next; continue;}
             ST_put(tmp, ST_node(J, &statehash));
-            ST_union(T, tmp, &statehash); // union to insert states after head
+            ST_union(T, tmp, &statehash, SN, &LR0_itemeq); // union to insert states after head
             ST_clear(tmp);
 
             Edge e = edge(X, (State)(SN->i), J);
@@ -66,7 +65,6 @@ void states(StateSet T, EdgeSet E) {
             
             in = in->next;
         }
-        if (lenT == ST_len(T) & lenE == ST_len(E)) {free(tmp); return;}
         SN = SN->next;        
     }    
 }

@@ -46,4 +46,7 @@ void clear(Node *headptr);
 void pop(Node *headptr);
 
 // Inserts node after head. So head->next points to n.
-void insert(Node* nptr, Node* headptr);
+void insert(Node *nptr, Node *headptr);
+
+// Inserts node pointed at by nptr after node n.
+void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(void *, void *));

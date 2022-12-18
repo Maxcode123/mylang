@@ -11,7 +11,7 @@ void LR0_closure(SymTable I) {
             X = ((LR0_Item)n->i)->p->rhs[((LR0_Item)n->i)->before];
             LR0_getitems(X, st);
             if (ST_len(st) == 0) {n = n->next; continue;}
-            ST_union(I, st, &LR0_itemhash);
+            ST_union(I, st, &LR0_itemhash, n, &LR0_itemeq);
             ST_clear(st);
         }
         n = n->next;

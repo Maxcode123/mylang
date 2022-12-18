@@ -85,3 +85,17 @@ void insert(Node *nptr, Node *headptr) {
     (*nptr)->next = (*headptr)->next;
     (*headptr)->next = *nptr;
 }
+
+void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(void *, void *)) {
+    Node tmp = head;
+    while (tmp != NULL)
+    {
+        if (nodeeq(tmp, *n, ieq))
+        {
+            (*nptr)->next = (*n)->next;
+            (*n)->next = *nptr;
+            return;
+        }
+        tmp = tmp->next;
+    }
+}

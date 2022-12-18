@@ -36,7 +36,12 @@ void ST_clear(SymTable st) {
     clear((Node*)&st->head);
 }
 
-void ST_union(SymTable st1, SymTable st2, void (*hashf)(void *, key)) {
+void ST_union(
+    SymTable st1,
+    SymTable st2,
+    void (*hashf)(void *, key),
+    Node after, bool (*ieq)(void *, void *)
+    ) {
     Node n = st2->head;
     while (n != NULL) 
     {
@@ -46,7 +51,7 @@ void ST_union(SymTable st1, SymTable st2, void (*hashf)(void *, key)) {
             continue;
         }
         Node in = ST_node(n->i, hashf);
-        insert(&in, (Node*)&(st1->head));
+        insertat(&in, (st1->head), &after, ieq);
         n = n->next;
     }
 }

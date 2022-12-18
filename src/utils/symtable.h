@@ -22,8 +22,14 @@ int ST_len(SymTable st);
 // Clears symbol table.
 void ST_clear(SymTable st);
 
-// Puts the union of st1 and st2 into st1. Inserts all values after head.
-void ST_union(SymTable st1, SymTable st2, void (*hashf)(void *, key));
+/* Puts the union of st1 and st2 into st1. Inserts all values after given Node.
+hashf is used to create hashes for nodes, ieq is used to compare node items. */
+void ST_union(
+    SymTable st1,
+    SymTable st2,
+    void (*hashf)(void *, key),
+    Node after, bool (*ieq)(void *, void *)
+    );
 
 /* Constructs node for symbol table. Allocates memory and creates hash from 
 given item. */
