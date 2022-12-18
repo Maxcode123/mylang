@@ -19,6 +19,9 @@ Edge edge(symbol X, State from, State to);
 // Inserts hash of edge into hash.
 void edgehash(Edge e, key hash);
 
+// Prints edge as, {from hash} -> {to hash}, {symbol}
+void printedge(Edge e); 
+
 /* Calculates states and edges and inserts them into T and E respectively.
 T is a set of States, E is a set of Edges. */
 void states(StateSet T, EdgeSet E);

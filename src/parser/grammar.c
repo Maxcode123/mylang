@@ -1,5 +1,9 @@
 #include "grammar.h"
 
+char **getsymbols() {
+    return symbols;
+}
+
 symbol *sarr(int count, ...) {
     va_list ap;
     symbol *rhs = malloc(count*sizeof(int));

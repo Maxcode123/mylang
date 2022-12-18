@@ -59,6 +59,8 @@ static char *symbols[] = {
 typedef int symbol;
 typedef Node ItemNode;
 
+// Returns symbols string array
+char **getsymbols();
 
 // Production rule
 typedef struct _Production {

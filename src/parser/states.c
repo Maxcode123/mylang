@@ -18,6 +18,16 @@ void edgehash(Edge e, key hash) {
     free(buff);
 }
 
+void printedge(Edge e) {
+    key hash = malloc(sizeof(char)*50);
+    statehash(e->from, hash);
+    printf("%s -> ", hash);
+    statehash(e->to, hash);
+    printf("%s, ", hash);
+    char **symbols = getsymbols();
+    printf("%s\n", symbols[e->X-10]);
+}
+
 void stateinit(StateSet T) {
     LR0_Item *allitems = LR0_getallitems();
     State init = ST_symtable();
