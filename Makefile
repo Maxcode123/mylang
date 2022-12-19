@@ -13,7 +13,13 @@ debug: $(TEST)/bin/main
 $(TEST)/bin/main: $(TEST)/main.c $(OBJ)/states.o $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o $(OBJ)/util.o
 	$(CC) $^ -o $@
 
-test: test-operations test-symtable test-list test-productions test-items
+test: test-automaton test-states test-operations test-symtable test-list test-productions test-items
+
+test-automaton: $(TEST)/bin/automaton
+	$<
+
+$(TEST)/bin/automaton: $(TEST)/testautomaton.c $(OBJ)/automaton.o $(OBJ)/states.o $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o $(OBJ)/util.o
+	$(CC) $^ -o $@ -lcriterion
 
 test-states: $(TEST)/bin/teststates
 	$<

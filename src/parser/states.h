@@ -6,6 +6,7 @@ typedef SymTable State; // A state is a set of items.
 typedef SymTable StateSet;
 typedef SymTable EdgeSet;
 typedef Node StateNode;
+typedef Node EdgeNode;
 
 typedef struct _Edge {
     symbol X;

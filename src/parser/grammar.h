@@ -32,9 +32,10 @@
 # define S_T_EQ 26
 # define S_T_EOF 27
 
-# define SYMBOLS 18
-# define PRODUCTIONS 14
-# define ITEMS 43
+# define NON_TERMINALS 5 // number of non terminal symbols
+# define SYMBOLS 18 // number of symbols
+# define PRODUCTIONS 14 // number of productions
+# define ITEMS 43 // number of items
 
 static char *symbols[] = {
     "program",
