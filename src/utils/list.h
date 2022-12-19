@@ -11,15 +11,17 @@ typedef struct _Node {
     struct _Node *next;    
 } *Node;
 
+typedef void *ListItem;
+
 /* Node constructor; allocates memory for a Node and returns a pointer to a 
 Node with the given values. */
-Node node(key k, void *i);
+Node node(key k, ListItem i);
 
 // Equality comparison between Nodes of the same list.
-bool lnodeeq(Node in1, Node in2, bool (*ieq)(void *, void *));
+bool lnodeeq(Node in1, Node in2, bool (*ieq)(ListItem, ListItem));
 
 // Equality comparison between Nodes.
-bool nodeeq(Node in1, Node in2, bool (*ieq)(void *, void *));
+bool nodeeq(Node in1, Node in2, bool (*ieq)(ListItem, ListItem));
 
 /* Linked list constructor; returns the pointer to the head of the list with
 the initialization value. */
@@ -34,7 +36,7 @@ Node get(key k, Node head);
 
 /* Substitutes the value of the Node with the given key. If there is no such
 Node, returns false, otherwise returns true. */
-bool subs(key k, void *i, Node head);
+bool subs(key k, ListItem, Node head);
 
 // Returns true if there exists a Node with key k, false otherwise.
 bool haskey(key k, Node head);
@@ -49,4 +51,4 @@ void pop(Node *headptr);
 void insert(Node *nptr, Node *headptr);
 
 // Inserts node pointed at by nptr after node n.
-void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(void *, void *));
+void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(ListItem, ListItem));

@@ -1,6 +1,6 @@
 #include "list.h"
 
-Node node(key k, void *i) {
+Node node(key k, ListItem i) {
     Node n = (Node)malloc(sizeof(struct _Node));
     n->k = k;
     n->i = i;
@@ -8,13 +8,13 @@ Node node(key k, void *i) {
     return n;
 }
 
-bool lnodeeq(Node in1, Node in2, bool (*ieq)(void *, void *)) {
+bool lnodeeq(Node in1, Node in2, bool (*ieq)(ListItem, ListItem)) {
     if (in1->next != in2->next) return false;
     if (!nodeeq(in1, in2, ieq)) return false;
     return true;
 }
 
-bool nodeeq(Node in1 , Node in2, bool (*ieq)(void *, void *)) {
+bool nodeeq(Node in1 , Node in2, bool (*ieq)(ListItem, ListItem)) {
     if (strcmp(in1->k, in2->k) != 0) return false;
     if (!(*ieq)(in1->i, in2->i)) return false;
     return true;
@@ -47,7 +47,7 @@ Node get(key k, Node head) {
     return NULL;
 }
 
-bool subs(key k, void *i, Node head) {
+bool subs(key k, ListItem i, Node head) {
     Node n = head;
     while (n != NULL)
     {
@@ -86,7 +86,7 @@ void insert(Node *nptr, Node *headptr) {
     (*headptr)->next = *nptr;
 }
 
-void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(void *, void *)) {
+void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(ListItem, ListItem)) {
     Node tmp = head;
     while (tmp != NULL)
     {
