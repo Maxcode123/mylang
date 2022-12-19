@@ -1,5 +1,17 @@
 #include "automaton.h"
 
+ActionValue valueh(key h) {
+    ActionValue v = malloc(sizeof(union _ActionValue));
+    v->h = h;
+    return v;
+}
+
+ActionValue valuep(int p) {
+    ActionValue v = malloc(sizeof(union _ActionValue));
+    v->p = p;
+    return v;
+}
+
 Action action(enum Actype t, ActionValue v) {
     Action a = malloc(sizeof(struct _Action));
     a->type = t;
@@ -35,13 +47,20 @@ void initptable(StateSet T) {
 
 void shifts(EdgeSet E) {
     EdgeNode n = E->head;
-    key buff = malloc(sizeof(char)*50);
-    ActionListNode h;
+    key fromhsh, tohsh;
+    ActionListNode h; // action list head
     while (n != NULL)
     {
         if (((Edge)n->i)->X < S_NT_PROGRAM + NON_TERMINALS) {n = n->next; continue;}
-        statehash(((Edge)n->i)->from, buff);
-        ST_get(ptable[((Edge)n->i)->X - S_NT_PROGRAM], buff, h);
-
+        fromhsh = malloc(sizeof(char)*50); // from-state hash
+        tohsh = malloc(sizeof(char)*50); // to-state hash
+        statehash(((Edge)n->i)->from, fromhsh);
+        statehash(((Edge)n->i)->to, tohsh);
+        ST_get(ptable[((Edge)n->i)->X - S_NT_PROGRAM], fromhsh, &h);
+        ActionValue v = valueh(tohsh);
+        Action a = action(SHIFT, v);
+        ActionListNode an = node(String("shift"), a);
+        add(an, &h);
+        n = n->next;
     }
 }

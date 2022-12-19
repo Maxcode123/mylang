@@ -3,13 +3,14 @@
 #include "../src/parser/automaton.h"
 
 
-int main() {
+void main() {
     LR0_inititems();
     StateSet T = ST_symtable();
     EdgeSet E = ST_symtable();
 
     states(T, E);
-    StateActionsMap *m = parsetable(T);
+    initptable(T);
+    shifts(E);
 }
 
 void printstates() {

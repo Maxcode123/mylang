@@ -4,22 +4,30 @@
 
 typedef enum Actype {SHIFT, GOTO, REDUCE, ACCEPT, REJECT};
 
-typedef union {key h; int p;} ActionValue;
+typedef union _ActionValue {
+    key h; // hash for shit and goto actions
+    int p; // production number for reduce actions
+} *ActionValue;
 
 typedef struct _Action {
     enum Actype type;
-    ActionValue val; // key hash for shift and goto, int production for reduce    
+    ActionValue val;     
 } *Action;
 
 typedef Node ActionsMapNode; // Node of map, contains list actions list.
 typedef Node ActionListNode; // Node of actions list.
-
 
 typedef SymTable StateActionsMap; // Mapping of state hash to Actions
 
 static StateActionsMap *ptable; // parse table, indeces correspond to symbol-10
 
 static key sthash; // hash of current state
+
+// ActionValue constructor, allocates memory for ActionValue.
+ActionValue valueh(key h);
+
+// ActionValue constructor, allocates memory for ActionValue.
+ActionValue valuep(int p);
 
 // Action constructor, allocates memory for Action.
 Action action(enum Actype t, ActionValue v);

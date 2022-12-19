@@ -10,7 +10,7 @@ DB=gdb
 debug: $(TEST)/bin/main
 	$(DB) $<
 
-$(TEST)/bin/main: $(TEST)/main.c $(OBJ)/states.o $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o $(OBJ)/util.o
+$(TEST)/bin/main: $(TEST)/main.c $(OBJ)/automaton.o $(OBJ)/states.o $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o $(OBJ)/util.o
 	$(CC) $^ -o $@
 
 test: test-automaton test-states test-operations test-symtable test-list test-productions test-items
