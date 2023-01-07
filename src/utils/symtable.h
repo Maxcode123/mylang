@@ -39,5 +39,5 @@ void ST_union(
 given item. */
 Node ST_node(SymTableItem i, void (*hashf)(SymTableItem, key));
 
-// Prints the the nodes of the symbol table with the given function.
+// Prints the nodes of the symbol table with the given function.
 void ST_print(SymTable st, void  (*printfn)(SymTableItem));

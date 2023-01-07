@@ -52,3 +52,6 @@ void insert(Node *nptr, Node *headptr);
 
 // Inserts node pointed at by nptr after node n.
 void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(ListItem, ListItem));
+
+// Returns list length
+int len(Node head);

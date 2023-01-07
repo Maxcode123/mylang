@@ -26,14 +26,7 @@ void ST_put(SymTable st, Node in) {
 }
 
 int ST_len(SymTable st) {
-    Node n = st->head;
-    int c = 0;
-    while (n != NULL)
-    {
-        c++;
-        n = n->next;
-    }
-    return c;
+    return len(st->head);
 }
 
 void ST_clear(SymTable st) {

@@ -99,3 +99,14 @@ void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(ListItem, ListItem)) {
         tmp = tmp->next;
     }
 }
+
+int len(Node head) {
+    Node n = head;
+    int c = 0;
+    while (n != NULL)
+    {
+        c++;
+        n = n->next;
+    }
+    return c;
+}
