@@ -41,3 +41,6 @@ Node ST_node(SymTableItem i, void (*hashf)(SymTableItem, key));
 
 // Prints the nodes of the symbol table with the given function.
 void ST_print(SymTable st, void  (*printfn)(SymTableItem));
+
+// Prints the keys of the symbol table.
+void ST_printk(SymTable st);

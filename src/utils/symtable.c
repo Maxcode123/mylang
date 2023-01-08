@@ -68,3 +68,12 @@ void ST_print(SymTable st, void  (*printfn)(SymTableItem)) {
         n = n->next;
     }
 }
+
+void ST_printk(SymTable st) {
+    Node n = st->head;
+    while (n != NULL)
+    {
+        printf("%s\n", n->k);
+        n = n->next;
+    }
+}
