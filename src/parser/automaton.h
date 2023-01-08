@@ -58,7 +58,5 @@ void shiftgoto(EdgeSet E);
 // Adds a shift or goto action from state with hash fromhsh to state with hash tohsh.
 void addact(symbol X, key fromhsh, key tohsh, enum Actype t);
 
-void addgt(symbol X, key fromhsh, key tohsh);
-
 // Populates reduce actions in parse table.
 void reduces(StateSet T);

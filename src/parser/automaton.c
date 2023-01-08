@@ -80,12 +80,8 @@ void shiftgoto(EdgeSet E) {
         tohsh = malloc(sizeof(char)*50); // to-state hash
         statehash(((Edge)n->i)->from, fromhsh);
         statehash(((Edge)n->i)->to, tohsh);
-        if (((Edge)n->i)->X < S_NT_PROGRAM + NON_TERMINALS) 
-        {
-
-            n = n->next; continue;
-        }
-        t = SHIFT;
+        if (((Edge)n->i)->X < S_NT_PROGRAM + NON_TERMINALS) t = GOTO;
+        else t = SHIFT;
         addact(((Edge)n->i)->X, fromhsh, tohsh, t);
         n = n->next;
     }
@@ -93,14 +89,9 @@ void shiftgoto(EdgeSet E) {
 
 void addact(symbol X, key fromhsh, key tohsh, enum Actype t) {
     ActionsMapNode m;
+    key act = "shift";
+    if (t == GOTO) act = "goto";
     ST_getnode(ptable[X - S_NT_PROGRAM], fromhsh, &m);
-    ActionListNode an = node(String("shift"), action(t, valueh(tohsh)));
-    add(an, &(m->i));
-}
-
-void addgt(symbol X, key fromhsh, key tohsh) {
-    ActionsMapNode m;
-    ST_getnode(ptable[X - S_NT_PROGRAM], fromhsh, &m);
-    ActionListNode an = node(String("shift"), action(GOTO, valueh(tohsh)));
+    ActionListNode an = node(String(act), action(t, valueh(tohsh)));
     add(an, &(m->i));
 }
