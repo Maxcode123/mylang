@@ -14,6 +14,9 @@ SymTable ST_symtable();
 // Points i to item with key k.
 void ST_get(SymTable st, key k, SymTableItem *i);
 
+// Points in to the node with key k.
+void ST_getnode(SymTable st, key k, Node *in);
+
 // Returns true if there is a node in st with key k.
 bool ST_haskey(SymTable st, key k);
 

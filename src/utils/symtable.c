@@ -16,6 +16,10 @@ void ST_get(SymTable st, key k, SymTableItem *i) {
     *i = in->i;
 }
 
+void ST_getnode(SymTable st, key k, Node *in) {
+    *in = get(k, st->head);
+}
+
 bool ST_haskey(SymTable st, key k) {
     return haskey(k, st->head);
 }

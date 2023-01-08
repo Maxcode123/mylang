@@ -10,7 +10,13 @@ void main() {
 
     states(T, E);
     initptable(T);
-    shifts(E);
+    shiftgoto(E);
+
+    StateActionsMap *pt = getptable();
+    for (int i = 0; i < SYMBOLS; i++) {
+        printf("%d\n", i);
+        ST_print(pt[i], &printactlst);
+    }
 }
 
 void printstates() {
