@@ -13,10 +13,11 @@ void main() {
     shiftgoto(E);
     reduces(T);
 
+    char **s = getsymbols();
     StateActionsMap *pt = getptable();
     for (int i = 0; i < SYMBOLS; i++) {
-        printf("%d\n", i);
-        ST_print(pt[i], &printactlst);
+        printf("\nSYMBOL: %s\n", s[i]);
+        ST_printn(pt[i], &printactlst);
     }
 }
 

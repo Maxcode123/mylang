@@ -8,17 +8,19 @@ void printaction(Action a) {
         case ACCEPT: printf("accept"); break;
         case REJECT: printf("reject"); break;
     }
-    printf("\n");
+    printf("  ");
     return;
 }
 
 void printactlst(ActionListNode h) {
     ActionListNode n = h;
+    if (n == NULL) {printf("\n"); return;}
     while (n != NULL)
     {
         printaction((Action)n->i);
         n = n->next;
     }
+    printf("\n");
 }
 
 ActionValue valueh(key h) {
