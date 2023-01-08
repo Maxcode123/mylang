@@ -95,3 +95,33 @@ void addact(symbol X, key fromhsh, key tohsh, enum Actype t) {
     ActionListNode an = node(String(act), action(t, valueh(tohsh)));
     add(an, &(m->i));
 }
+
+void reduces(StateSet T) {
+    StateNode SN = T->head;
+    int p;
+    while (SN != NULL) // loop on states
+    {
+        ItemNode in = ((State)(SN->i))->head;
+        while (in != NULL) // loop on state items
+        {
+            if (((LR0_Item)in->i)->before == -1)
+            {
+                p = prodidx(((LR0_Item)in->i)->p);
+                addrdc(p, SN->k);
+            }
+            in = in->next;
+        }
+        SN = SN->next;
+    }
+}
+
+void addrdc(int p, key hsh) {
+    ActionsMapNode m;
+    // loop through terminal symbols
+    for (int i = NON_TERMINALS; i < SYMBOLS; i++)
+    {
+        ST_getnode(ptable[i], hsh, &m);
+        ActionListNode an = node(String("reduce"), action(REDUCE, valuep(p)));
+        add(an, &(m->i));       
+    }
+}

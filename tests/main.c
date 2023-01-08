@@ -11,6 +11,7 @@ void main() {
     states(T, E);
     initptable(T);
     shiftgoto(E);
+    reduces(T);
 
     StateActionsMap *pt = getptable();
     for (int i = 0; i < SYMBOLS; i++) {

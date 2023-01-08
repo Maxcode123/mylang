@@ -60,3 +60,6 @@ void addact(symbol X, key fromhsh, key tohsh, enum Actype t);
 
 // Populates reduce actions in parse table.
 void reduces(StateSet T);
+
+// Adds reduce action for all terminals in state with hash hsh.
+void addrdc(int p, key hsh);
