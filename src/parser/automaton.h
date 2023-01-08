@@ -5,7 +5,7 @@
 typedef enum Actype {SHIFT, GOTO, REDUCE, ACCEPT, REJECT};
 
 typedef union _ActionValue {
-    key h; // hash for shit and goto actions
+    key h; // hash for shift and goto actions
     int p; // production number for reduce actions
 } *ActionValue;
 
@@ -19,9 +19,17 @@ typedef Node ActionListNode; // Node of actions list.
 
 typedef SymTable StateActionsMap; // Mapping of state hash to Actions
 
-static StateActionsMap *ptable; // parse table, indeces correspond to symbol-10
+/* parse table, indeces correspond to {symbol}-10. Each item is a symbol table 
+(StateActionsMap) where state hashes are keys and lists of Actions are items.*/
+static StateActionsMap *ptable;
 
 static key sthash; // hash of current state
+
+// Prints Action in nice format.
+void printaction(Action a);
+
+// Prints action list in nice format.
+void printactlst(ActionListNode h);
 
 // ActionValue constructor, allocates memory for ActionValue.
 ActionValue valueh(key h);
@@ -41,11 +49,16 @@ StateActionsMap *parsetable(StateSet T);
 // Assigns parse table.
 void initptable(StateSet T);
 
-// Populates shift actions in parse table.
-void shifts(EdgeSet E);
+// Fetches parse table.
+StateActionsMap *getptable();
 
-// Populates goto actions in parse table.
-void gotos(EdgeSet E);
+// Populates shift and goto actions in parse table.
+void shiftgoto(EdgeSet E);
+
+// Adds a shift or goto action from state with hash fromhsh to state with hash tohsh.
+void addact(symbol X, key fromhsh, key tohsh, enum Actype t);
+
+void addgt(symbol X, key fromhsh, key tohsh);
 
 // Populates reduce actions in parse table.
 void reduces(StateSet T);
