@@ -93,6 +93,10 @@ void initprods();
 // Returns array of all productions.
 Production *getprods();
 
+/* Returns the index of the given production in the productions array. Returns
+-1 if production is not found. */
+int prodidx(Production p);
+
 // Prints production in nice format.
 void printprod(Production p);
 

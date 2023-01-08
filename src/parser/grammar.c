@@ -77,6 +77,11 @@ Production *getprods() {
     return prods;
 }
 
+int prodidx(Production p) {
+    for (int i = 0; i < PRODUCTIONS; i++) {if (prodeq(p, prods[i])) return i;}
+    return -1;
+}
+
 void printprod(Production p) {
     printf("%s -> ",symbols[p->lhs-S_NT_PROGRAM]);
     for (int i = 0; i < p->len;  i++)
