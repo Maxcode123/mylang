@@ -5,6 +5,13 @@
 
 void main() {
     LR0_inititems();
+    SymbolSet S = ST_symtable();
+    first(S_NT_BINOP, S);
+    ST_printk(S);
+}
+
+void printparsetable() {
+    LR0_inititems();
     StateSet T = ST_symtable();
     EdgeSet E = ST_symtable();
 
