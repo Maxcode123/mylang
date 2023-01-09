@@ -70,5 +70,11 @@ typedef Node SymbolNode;
 // Insert hash of symbol X into hash.
 void symbolhash(symbol *X, key hash);
 
+// Equality comparison for symbols.
+bool symboleq(symbol s1, symbol s2);
+
 // Inserts FIRST(X) into S.
 void first(symbol X, SymbolSet S);
+
+// Inserts FOLLOW(X) into S.
+void follow(symbol X, SymbolSet S);

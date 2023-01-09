@@ -6,7 +6,7 @@
 void main() {
     LR0_inititems();
     SymbolSet S = ST_symtable();
-    first(S_NT_BINOP, S);
+    follow(S_NT_EXP, S);
     ST_printk(S);
 }
 

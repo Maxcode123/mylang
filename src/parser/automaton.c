@@ -133,6 +133,10 @@ void symbolhash(symbol *X, key hash) {
     sprintf(hash, "%s", s[*X - S_NT_PROGRAM]);
 }
 
+bool symboleq(symbol s1, symbol s2) {
+    return s1 == s2;
+}
+
 void first(symbol X, SymbolSet S) {
     if (IS_TERMINAL(X))
     {
@@ -145,6 +149,28 @@ void first(symbol X, SymbolSet S) {
         if (p[i]->lhs == X && IS_TERMINAL(p[i]->rhs[0]))
         {
             ST_put(S, ST_node(&(p[i]->rhs[0]), &symbolhash));
+        }
+    }
+}
+
+void follow(symbol X, SymbolSet S) {
+    if (IS_TERMINAL(X)) return;
+    Production *p = getprods();
+    for (int i = 0; i < PRODUCTIONS; i++) // loop on productions
+    {
+        printprod(p[i]);
+        for (int j = 0; j < p[i]->len; j++) // loop on production rhs
+        {
+            if (p[i]->rhs[j] != X) continue;
+            SymbolSet S2 = ST_symtable();
+            if (j == p[i]->len - 1) // last rhs symbol
+            {
+                if (p[i]->lhs == X) continue;
+                else follow(p[i]->lhs, S2);
+            }
+            else first(p[i]->rhs[j+1], S2);
+            ST_union(S, S2, &symbolhash, S->head, &symboleq);
+            free(S2);
         }
     }
 }

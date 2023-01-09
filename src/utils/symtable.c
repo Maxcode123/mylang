@@ -41,7 +41,8 @@ void ST_union(
     SymTable st1,
     SymTable st2,
     void (*hashf)(SymTableItem, key),
-    Node after, bool (*ieq)(SymTableItem, SymTableItem)
+    Node after, 
+    bool (*ieq)(SymTableItem, SymTableItem)
     ) {
     Node n = st2->head;
     while (n != NULL) 
@@ -52,7 +53,8 @@ void ST_union(
             continue;
         }
         Node in = ST_node(n->i, hashf);
-        insertat(&in, st1->head, &after, ieq);
+        if (after == st1->head) add(in, &st1->head);
+        else insertat(&in, st1->head, &after, ieq);
         n = n->next;
     }
 }
