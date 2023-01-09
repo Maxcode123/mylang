@@ -127,3 +127,24 @@ void addrdc(int p, key hsh) {
         add(an, &(m->i));       
     }
 }
+
+void symbolhash(symbol *X, key hash) {
+    char **s = getsymbols();
+    sprintf(hash, "%s", s[*X - S_NT_PROGRAM]);
+}
+
+void first(symbol X, SymbolSet S) {
+    if (IS_TERMINAL(X))
+    {
+        ST_put(S, ST_node(&X, &symbolhash));
+        return;
+    }
+    Production *p = getprods();
+    for (int i = 0 ; i < PRODUCTIONS; i++)
+    {
+        if (p[i]->lhs == X && IS_TERMINAL(p[i]->rhs[0]))
+        {
+            ST_put(S, ST_node(&(p[i]->rhs[0]), &symbolhash));
+        }
+    }
+}

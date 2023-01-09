@@ -37,6 +37,8 @@
 # define PRODUCTIONS 14 // number of productions
 # define ITEMS 43 // number of items
 
+#define IS_TERMINAL(x) x >= S_NT_PROGRAM + NON_TERMINALS
+
 static char *symbols[] = {
     "program",
     "Stm",

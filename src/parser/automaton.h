@@ -63,3 +63,12 @@ void reduces(StateSet T);
 
 // Adds reduce action for all terminals in state with hash hsh.
 void addrdc(int p, key hsh);
+
+typedef SymTable SymbolSet;
+typedef Node SymbolNode;
+
+// Insert hash of symbol X into hash.
+void symbolhash(symbol *X, key hash);
+
+// Inserts FIRST(X) into S.
+void first(symbol X, SymbolSet S);
