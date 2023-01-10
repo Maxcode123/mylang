@@ -101,6 +101,7 @@ void addact(symbol X, key fromhsh, key tohsh, enum Actype t) {
 void reduces(StateSet T) {
     StateNode SN = T->head;
     int p;
+    SymbolSet S = ST_symtable();
     while (SN != NULL) // loop on states
     {
         ItemNode in = ((State)(SN->i))->head;
@@ -109,23 +110,30 @@ void reduces(StateSet T) {
             if (((LR0_Item)in->i)->before == -1)
             {
                 p = prodidx(((LR0_Item)in->i)->p);
-                addrdc(p, SN->k);
+                follow(((LR0_Item)in->i)->p->lhs, S);
+                addrdc(p, SN->k, S);
             }
             in = in->next;
         }
         SN = SN->next;
     }
+    free(S);
 }
 
-void addrdc(int p, key hsh) {
+void addrdc(int p, key hsh, SymbolSet S) {
+    if (ST_len(S) == 0) return;
     ActionsMapNode m;
+    key k = malloc(sizeof(char)*2);
     // loop through terminal symbols
     for (int i = NON_TERMINALS; i < SYMBOLS; i++)
     {
+        symbolhash(&i, k);
+        if (!ST_haskey(S, k)) continue;  
         ST_getnode(ptable[i], hsh, &m);
         ActionListNode an = node(String("reduce"), action(REDUCE, valuep(p)));
         add(an, &(m->i));       
     }
+    free(k);
 }
 
 void symbolhash(symbol *X, key hash) {

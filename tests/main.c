@@ -4,10 +4,11 @@
 
 
 void main() {
-    LR0_inititems();
-    SymbolSet S = ST_symtable();
-    follow(S_NT_EXP, S);
-    ST_printk(S);
+    // LR0_inititems();
+    // SymbolSet S = ST_symtable();
+    // follow(S_NT_BINOP, S);
+    // ST_printk(S);
+    printparsetable();
 }
 
 void printparsetable() {

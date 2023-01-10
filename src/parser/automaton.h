@@ -61,11 +61,11 @@ void addact(symbol X, key fromhsh, key tohsh, enum Actype t);
 // Populates reduce actions in parse table.
 void reduces(StateSet T);
 
-// Adds reduce action for all terminals in state with hash hsh.
-void addrdc(int p, key hsh);
-
 typedef SymTable SymbolSet;
 typedef Node SymbolNode;
+
+// Adds reduce action in state with hash hsh for all terminals in S.
+void addrdc(int p, key hsh, SymbolSet S);
 
 // Insert hash of symbol X into hash.
 void symbolhash(symbol *X, key hash);
