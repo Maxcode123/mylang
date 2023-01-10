@@ -140,7 +140,9 @@ bool symboleq(symbol s1, symbol s2) {
 void first(symbol X, SymbolSet S) {
     if (IS_TERMINAL(X))
     {
-        ST_put(S, ST_node(&X, &symbolhash));
+        int *it = malloc(sizeof(int));
+        *it = X;
+        ST_put(S, ST_node(it, &symbolhash));
         return;
     }
     Production *p = getprods();
@@ -148,7 +150,9 @@ void first(symbol X, SymbolSet S) {
     {
         if (p[i]->lhs == X && IS_TERMINAL(p[i]->rhs[0]))
         {
-            ST_put(S, ST_node(&(p[i]->rhs[0]), &symbolhash));
+            int *it = malloc(sizeof(int));
+            *it = p[i]->rhs[0];
+            ST_put(S, ST_node(it, &symbolhash));
         }
     }
 }
@@ -156,20 +160,19 @@ void first(symbol X, SymbolSet S) {
 void follow(symbol X, SymbolSet S) {
     if (IS_TERMINAL(X)) return;
     Production *p = getprods();
-    for (int i = 0; i < PRODUCTIONS; i++) // loop on productions
+    for (int i = 1; i < PRODUCTIONS; i++) // loop on productions (skip 1st prod)
     {
-        printprod(p[i]);
         for (int j = 0; j < p[i]->len; j++) // loop on production rhs
         {
             if (p[i]->rhs[j] != X) continue;
             SymbolSet S2 = ST_symtable();
             if (j == p[i]->len - 1) // last rhs symbol
             {
-                if (p[i]->lhs == X) continue;
-                else follow(p[i]->lhs, S2);
+                if (p[i]->lhs == X) {free(S2); continue;}
+                follow(p[i]->lhs, S2);
             }
             else first(p[i]->rhs[j+1], S2);
-            ST_union(S, S2, &symbolhash, S->head, &symboleq);
+            if (ST_len(S2) > 0) ST_union(S, S2, &symbolhash, S->head, &symboleq);
             free(S2);
         }
     }

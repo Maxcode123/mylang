@@ -44,6 +44,8 @@ void ST_union(
     Node after, 
     bool (*ieq)(SymTableItem, SymTableItem)
     ) {
+    bool _flag; // true when add is used instead of insertat
+    if (after == st1->head) _flag = true;
     Node n = st2->head;
     while (n != NULL) 
     {
@@ -53,7 +55,7 @@ void ST_union(
             continue;
         }
         Node in = ST_node(n->i, hashf);
-        if (after == st1->head) add(in, &st1->head);
+        if (_flag) add(in, &st1->head);
         else insertat(&in, st1->head, &after, ieq);
         n = n->next;
     }
