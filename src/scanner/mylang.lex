@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "util.h"
+#include "../utils/util.h"
 #include "tokens.h"
 
 extern int pos;

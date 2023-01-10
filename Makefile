@@ -1,8 +1,6 @@
 CC=gcc
 SRC=src
-SRCS=$(wildcard $(SRC)/*.c)
 OBJ=obj
-OBJS=$(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 ARGS=-g
 TEST=tests
 DB=gdb
@@ -63,10 +61,15 @@ test-utils: $(TEST)/bin/testutils
 $(TEST)/bin/testutils: $(TEST)/testutils.c $(OBJ)/util.o
 	$(CC) $^ -o $@ -lcriterion
 
-lex/lexer: $(OBJ)/lexdriver.o $(OBJ)/lex.yy.o $(OBJ)/util.o
+lexer: $(SRC)/scanner/lexer
+
+$(SRC)/scanner/lexer: $(OBJ)/lexdriver.o $(OBJ)/lex.yy.o $(OBJ)/util.o
 	$(CC) $(ARGS) $^ -o $@
 
-$(SRC)/lex/lex.yy.c: $(SRC)/lex/mylang.lex
+$(OBJ)/lexdriver.o: $(SRC)/scanner/lexdriver.c
+	$(CC) $(ARGS) -c $< -o $@
+
+$(SRC)/scanner/lex.yy.c: $(SRC)/scanner/mylang.lex
 	lex -o $@ $<
 
 $(OBJ)/%.o: $(SRC)/utils/%.c
@@ -75,5 +78,8 @@ $(OBJ)/%.o: $(SRC)/utils/%.c
 $(OBJ)/%.o: $(SRC)/parser/%.c
 	$(CC) $(ARGS) -c $< -o $@
 
+$(OBJ)/%.o: $(SRC)/scanner/%.c
+	$(CC) $(ARGS) -c $< -o $@
+
 clean:
-	rm -rf obj/* lex/lexer $(SRC)/lex/lex.yy.c $(TEST)/bin/*
+	rm -rf obj/* src/scanner/lexer src/scanner/lex.yy.c tests/bin/*
