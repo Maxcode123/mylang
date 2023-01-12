@@ -13,9 +13,7 @@ Token *scan(char *fname) {
     for (;;) {
         i = yylex();
         if (i == 0) break;
-        Token tk = malloc(sizeof(struct _Token));
-        crtoken(i, tk);
-        add(node("tk", tk), &h);
+        add(node("tk", token(i)), &h);
     }
     Token *t = malloc(sizeof(Token)*len(h));
     int j = len(h)-1;
@@ -27,7 +25,8 @@ Token *scan(char *fname) {
     return t;
 }
 
-Token crtoken(int i, Token tk) {
+Token token(int i) {
+    Token tk = malloc(sizeof(struct _Token));
     tk->pos = pos;
     switch (i) {
         case PLUS: tk->s = S_T_PLUS; break;

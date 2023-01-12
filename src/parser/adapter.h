@@ -20,4 +20,4 @@ int yylex(void);
 Token *scan(char *fname);
 
 // Creates token from given int.
-Token crtoken(int i, Token tk);
+Token token(int i);
