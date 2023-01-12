@@ -6,6 +6,14 @@ YYSTYPE yylval;
 int pos = 0;
 
 
+int gettklen() {
+    return tklen;
+}
+
+static void incrtklen() {
+    tklen++;
+}
+
 Token *scan(char *fname) {
     yyset_in(fopen(fname, "r"));
     int i;
@@ -13,10 +21,11 @@ Token *scan(char *fname) {
     for (;;) {
         i = yylex();
         if (i == 0) break;
+        incrtklen();
         add(node("tk", token(i)), &h);
     }
     Token *t = malloc(sizeof(Token)*len(h));
-    int j = len(h)-1;
+    int j = len(h)-2;
     Node n = h;
     while (n != NULL) {
         t[j--] = (Token)n->i;

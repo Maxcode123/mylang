@@ -6,7 +6,7 @@
 
 void main(int argc, char **argv) {
     Token *t = scan(argv[1]);    
-    printf("%d %d %d\n", t[0]->s, t[1]->s, t[2]->s);
+    printf("%d \n", gettklen());
 }
 
 void printparsetable() {

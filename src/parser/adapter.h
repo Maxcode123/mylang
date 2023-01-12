@@ -10,6 +10,13 @@ typedef struct _Token {
     union {int ival; char* sval;};
 } *Token;
 
+// Length of token stream.
+static int tklen;
+
+static void incrtklen();
+
+int gettklen();
+
 // Sets the input stream
 extern void yyset_in(FILE*);
 
