@@ -1,6 +1,10 @@
 CC=gcc
 SRC=src
 OBJ=obj
+PARSERC=$(wildcard $(SRC)/parser/*.c)
+PARSERO=$(patsubst $(SRC)/parser/%.c, $(OBJ)/%.o, $(PARSERC))
+UTILSC=$(wildcard $(SRC)/utils/*.c)
+UTILSO=$(patsubst $(SRC)/utils/%.c, $(OBJ)/%.o, $(UTILSC))
 ARGS=-g
 TEST=tests
 DB=gdb
@@ -8,7 +12,7 @@ DB=gdb
 debug: $(TEST)/bin/main
 	$(DB) $<
 
-$(TEST)/bin/main: $(TEST)/main.c $(OBJ)/automaton.o $(OBJ)/states.o $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o $(OBJ)/util.o
+$(TEST)/bin/main: $(TEST)/main.c $(PARSERO) $(UTILSO) $(OBJ)/lex.yy.o 
 	$(CC) $^ -o $@
 
 test: test-automaton test-states test-operations test-symtable test-list test-productions test-items
