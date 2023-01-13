@@ -1,6 +1,7 @@
 #pragma once
 
 typedef struct _Stm *Stm;
+typedef Stm AST;
 typedef struct _Exp *Exp;
 typedef struct _ExpList *ExpList;
 

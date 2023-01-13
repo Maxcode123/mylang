@@ -5,7 +5,6 @@ YYSTYPE yylval;
 
 int pos = 0;
 
-
 int gettklen() {
     return tklen;
 }
