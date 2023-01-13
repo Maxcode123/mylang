@@ -1,5 +1,9 @@
 #include "grammar.h"
 
+
+bool PRODS_INIT = false;
+bool ITEMS_INIT = false;
+
 char **getsymbols() {
     return symbols;
 }
@@ -70,7 +74,11 @@ Production *productions() {
 }
 
 void initprods() {
-    prods = productions();
+    if (!PRODS_INIT) 
+    {
+        prods = productions();
+        PRODS_INIT = true;
+    }
 }
 
 Production *getprods() {
@@ -136,7 +144,11 @@ LR0_Item *LR0_items(Production *prods) {
 
 void LR0_inititems() {
     initprods();
-    LR0_allitems = LR0_items(prods);
+    if (!ITEMS_INIT) 
+    {
+        LR0_allitems = LR0_items(prods);
+        ITEMS_INIT = true;
+    }
 }
 
 LR0_Item *LR0_getallitems() {
