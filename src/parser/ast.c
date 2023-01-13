@@ -36,7 +36,7 @@ Exp numexp(int num) {
     return e;
 }
 
-Exp opexp(Exp left, Binop oper, Exp right) {
+Exp opexp(Exp left, enum Binop oper, Exp right) {
     Exp e = malloc(sizeof(*e));
     e->kind = OP_EXP;
     e->u.op.left = left;

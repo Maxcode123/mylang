@@ -2,7 +2,7 @@
 
 #include "states.h"
 
-typedef enum Actype {SHIFT, GOTO, REDUCE, ACCEPT, REJECT};
+enum Actype {SHIFT, GOTO, REDUCE, ACCEPT, REJECT};
 
 typedef union _ActionValue {
     key h; // hash for shift and goto actions
