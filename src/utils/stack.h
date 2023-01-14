@@ -7,8 +7,8 @@ typedef Node Stack;
 
 Stack stack();
 
-Node pop(Stack *s);
+Node stk_pop(Stack *s);
 
-void push(Node n, Stack *s);
+void stk_push(Node n, Stack *s);
 
-void clear(Stack *s);
+void stk_clear(Stack *s);
