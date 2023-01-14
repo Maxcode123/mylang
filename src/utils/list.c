@@ -20,11 +20,11 @@ bool nodeeq(Node in1 , Node in2, bool (*ieq)(ListItem, ListItem)) {
     return true;
 }
 
-Node list() {
+Node lst_list() {
     return NULL;
 }
 
-void add(Node n, Node* headptr) {
+void lst_add(Node n, Node* headptr) {
     if (*headptr == NULL)
     {
         *headptr = n;
@@ -37,7 +37,7 @@ void add(Node n, Node* headptr) {
     }
 }
 
-Node get(key k, Node head) {
+Node lst_get(key k, Node head) {
     Node n = head;
     while (n != NULL)
     {
@@ -47,7 +47,7 @@ Node get(key k, Node head) {
     return NULL;
 }
 
-bool subs(key k, ListItem i, Node head) {
+bool lst_subs(key k, ListItem i, Node head) {
     Node n = head;
     while (n != NULL)
     {
@@ -61,7 +61,7 @@ bool subs(key k, ListItem i, Node head) {
     return false;
 }
 
-bool haskey(key k, Node head) {
+bool lst_haskey(key k, Node head) {
     Node n = head;
     while (n != NULL)
     {
@@ -71,22 +71,22 @@ bool haskey(key k, Node head) {
     return false;
 }
 
-void clear(Node *headptr) {
-    while (*headptr != NULL) pop(headptr);
+void lst_clear(Node *headptr) {
+    while (*headptr != NULL) lst_pop(headptr);
 }
 
-void pop(Node *headptr) {
+void lst_pop(Node *headptr) {
     Node tmp = (*headptr)->next;
     free(*headptr);
     *headptr = tmp;
 }
 
-void insert(Node *nptr, Node *headptr) {
+void lst_insert(Node *nptr, Node *headptr) {
     (*nptr)->next = (*headptr)->next;
     (*headptr)->next = *nptr;
 }
 
-void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(ListItem, ListItem)) {
+void lst_insertat(Node *nptr, Node head, Node *n, bool (*ieq)(ListItem, ListItem)) {
     Node tmp = head;
     while (tmp != NULL)
     {
@@ -100,7 +100,7 @@ void insertat(Node *nptr, Node head, Node *n, bool (*ieq)(ListItem, ListItem)) {
     }
 }
 
-int len(Node head) {
+int lst_len(Node head) {
     Node n = head;
     int c = 0;
     while (n != NULL)

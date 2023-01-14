@@ -43,7 +43,7 @@ Action action(enum Actype t, ActionValue v) {
 }
 
 ActionsMapNode mapnode(key hash) {
-    ActionListNode h = list();
+    ActionListNode h = lst_list();
     ActionsMapNode an = node(hash, h);
     return an;
 }
@@ -95,7 +95,7 @@ void addact(symbol X, key fromhsh, key tohsh, enum Actype t) {
     if (t == GOTO) act = "goto";
     ST_getnode(ptable[X - S_NT_PROGRAM], fromhsh, &m);
     ActionListNode an = node(String(act), action(t, valueh(tohsh)));
-    add(an, &(m->i));
+    lst_add(an, &(m->i));
 }
 
 void reduces(StateSet T) {
@@ -131,7 +131,7 @@ void addrdc(int p, key hsh, SymbolSet S) {
         if (!ST_haskey(S, k)) continue;  
         ST_getnode(ptable[i], hsh, &m);
         ActionListNode an = node(String("reduce"), action(REDUCE, valuep(p)));
-        add(an, &(m->i));       
+        lst_add(an, &(m->i));       
     }
     free(k);
 }

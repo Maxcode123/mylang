@@ -16,15 +16,15 @@ static void incrtklen() {
 Token *scan(char *fname) {
     yyset_in(fopen(fname, "r"));
     int i;
-    Node h = list();
+    Node h = lst_list();
     for (;;) {
         i = yylex();
         if (i == 0) break;
         incrtklen();
-        add(node("tk", token(i)), &h);
+        lst_add(node("tk", token(i)), &h);
     }
-    Token *t = malloc(sizeof(Token)*len(h));
-    int j = len(h)-2;
+    Token *t = malloc(sizeof(Token)*lst_len(h));
+    int j = lst_len(h)-2;
     Node n = h;
     while (n != NULL) {
         t[j--] = (Token)n->i;

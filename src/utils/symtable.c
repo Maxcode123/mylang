@@ -2,12 +2,12 @@
 
 SymTable ST_symtable() {
     SymTable st = (SymTable)malloc(sizeof(struct _SymTable));
-    st->head = list();
+    st->head = lst_list();
     return st;
 }
 
 void ST_get(SymTable st, key k, SymTableItem *i) {
-    Node in = get(k, st->head);
+    Node in = lst_get(k, st->head);
     if (in == NULL)
     {
         *i = NULL;
@@ -17,24 +17,24 @@ void ST_get(SymTable st, key k, SymTableItem *i) {
 }
 
 void ST_getnode(SymTable st, key k, Node *in) {
-    *in = get(k, st->head);
+    *in = lst_get(k, st->head);
 }
 
 bool ST_haskey(SymTable st, key k) {
-    return haskey(k, st->head);
+    return lst_haskey(k, st->head);
 }
 
 void ST_put(SymTable st, Node in) {
-    if (haskey(in->k, st->head)) return;
-    add(in, (Node*)&st->head);
+    if (lst_haskey(in->k, st->head)) return;
+    lst_add(in, (Node*)&st->head);
 }
 
 int ST_len(SymTable st) {
-    return len(st->head);
+    return lst_len(st->head);
 }
 
 void ST_clear(SymTable st) {
-    clear((Node*)&st->head);
+    lst_clear((Node*)&st->head);
 }
 
 void ST_union(
@@ -49,14 +49,14 @@ void ST_union(
     Node n = st2->head;
     while (n != NULL) 
     {
-        if (haskey(n->k, st1->head)) 
+        if (lst_haskey(n->k, st1->head)) 
         {
             n = n->next;
             continue;
         }
         Node in = ST_node(n->i, hashf);
-        if (_flag) add(in, &st1->head);
-        else insertat(&in, st1->head, &after, ieq);
+        if (_flag) lst_add(in, &st1->head);
+        else lst_insertat(&in, st1->head, &after, ieq);
         n = n->next;
     }
 }

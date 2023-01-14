@@ -18,8 +18,8 @@ Test(testsymtable, testget)
     Node in = node("key1", i);
     Node in2 = node("key2", i2);
     SymTable st = ST_symtable();
-    add(in, (Node*)&st->head);
-    add(in2, (Node*)&st->head);
+    lst_add(in, (Node*)&st->head);
+    lst_add(in2, (Node*)&st->head);
 
     LR0_Item _i, _i2;
 
@@ -43,8 +43,8 @@ Test(testsymtable, testhaskey)
     Node in2 = node("key2", i2);
 
     SymTable st = ST_symtable();
-    add(in, (Node*)&st->head);
-    add(in2, (Node*)&st->head);
+    lst_add(in, (Node*)&st->head);
+    lst_add(in2, (Node*)&st->head);
 
     LR0_Item _i, _i2;
 
@@ -69,8 +69,8 @@ Test(testsymtable, testput)
     ST_put(st, in2);
     ST_put(st, in2);
 
-    cr_assert(LR0_itemeq(get(in->k, st->head)->i, i));
-    cr_assert(LR0_itemeq(get(in2->k, st->head)->i, i2));
+    cr_assert(LR0_itemeq(lst_get(in->k, st->head)->i, i));
+    cr_assert(LR0_itemeq(lst_get(in2->k, st->head)->i, i2));
 }
 
 Test(testsymtable, testlen)
