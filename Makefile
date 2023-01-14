@@ -10,6 +10,11 @@ TEST=tests
 DB=gdb
 FILE=test.mylang
 
+bison-parser: $(SRC)/parser/y.tab.c
+
+$(SRC)/parser/bison/y.tab.c: $(SRC)/parser/bison/mylang.grm
+	bison -v --header=$(SRC)/parser/y.tab.h -o $@ $<
+
 debug-file: $(TEST)/bin/main
 	clear
 	$(DB) --args $< $(FILE)

@@ -1,18 +1,21 @@
 #include <stdio.h>
 
+#include "../src/parser/parser.h"
 #include "../src/parser/automaton.h"
 #include "../src/parser/adapter.h"
 
 
 void main(int argc, char **argv) {
-    Token *t = scan(argv[1]);    
-    printf("%d \n", gettklen());
+    // initparse();
+    printparsetable();
+    // Token *ta = scan(argv[1]);
+    // AST t = parse(ta);
 }
 
 void printparsetable() {
     LR0_inititems();
-    StateSet T = ST_symtable();
-    EdgeSet E = ST_symtable();
+    StateSet T = stb_symtable();
+    EdgeSet E = stb_symtable();
 
     states(T, E);
     initptable(T);
@@ -23,15 +26,15 @@ void printparsetable() {
     StateActionsMap *pt = getptable();
     for (int i = 0; i < SYMBOLS; i++) {
         printf("\nSYMBOL: %s\n", s[i]);
-        ST_printn(pt[i], &printactlst);
+        stb_printn(pt[i], &printactlst);
     }
 }
 
 void printstates() {
     LR0_inititems();
     LR0_Item *allitems = LR0_getallitems();
-    StateSet T = ST_symtable();
-    EdgeSet E = ST_symtable();
+    StateSet T = stb_symtable();
+    EdgeSet E = stb_symtable();
 
     states(T, E);
     Node n = T->head;

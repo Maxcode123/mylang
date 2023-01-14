@@ -1,0 +1,33 @@
+%{
+
+%}
+
+
+
+%token 
+  ID NUM COMMA SEMICOLON LPAREN RPAREN 
+  PLUS MINUS TIMES DIV EQ PRINT
+
+
+%start program
+
+%%
+
+program: Stm
+
+Stm: Stm SEMICOLON Stm
+    | ID EQ Exp
+    | PRINT LPAREN ExpList RPAREN
+
+Exp: ID
+    | NUM
+    | Exp BinOp Exp
+    | LPAREN Stm COMMA Exp RPAREN
+
+ExpList: Exp COMMA ExpList
+    | Exp
+
+BinOp: PLUS
+    | MINUS
+    | TIMES
+    | DIV
