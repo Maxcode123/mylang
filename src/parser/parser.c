@@ -12,19 +12,31 @@ SymbolNode symbolnode(symbol s) {
 ASTNode astTnode(Token t) {
     key k = malloc(sizeof(*k)*10);
     strcpy(k, getsymbols()[t->s-S_NT_PROGRAM]);
-    // if symbol is num or binop, semantic value is integer or enum int value, respectively.
-    if (t->s == S_T_NUM || t->s == S_T_PLUS || t->s == S_T_MINUS || t->s == S_T_TIMES || t->s == S_T_DIV) 
-    {
-        int *j = malloc(sizeof(*j));
-        *j = t->ival;
-        return node(k, j);
-    }
-    // if symbol is id, semantic value is id's string value.
-    else if (t->s == S_T_ID) 
-    {
-        char *c = malloc(sizeof(*c)*50);
-        strcpy(c, (char*)&t->sval);
-        return node(k, c);
+    switch (t->s) {
+        case S_T_NUM:
+            int *i = malloc(sizeof(*i));
+            *i = t->ival;
+            return node(k, i);
+        case S_T_PLUS:
+            enum Binop *i = malloc(sizeof(*i));
+            *i = PLUS_BINOP;
+            return node(k, i);
+        case S_T_MINUS:
+            enum Binop *i = malloc(sizeof(*i));
+            *i = MINUS_BINOP;
+            return node(k, i);
+        case S_T_TIMES:
+            enum Binop *i = malloc(sizeof(*i));
+            *i = TIMES_BINOP;
+            return node(k, i);
+        case S_T_DIV:
+            enum Binop *i = malloc(sizeof(*i));
+            *i = DIV_BINOP;
+            return node(k, i);
+        case S_T_ID:
+            char *i = malloc(sizeof(*i)*50);
+            strcpy(i, (char*)&t->sval);
+            return node(k, i);
     }
 }
 
@@ -93,21 +105,67 @@ void astadd(Production p) {
     }
     switch (i) {
         // Stm
-        case 1:
-        case 2:
-        case 3:
+        case 1: prscompoundstm(); break;
+        case 2: prsassignstm(); break;
+        case 3: prsprintstm(); break;
         // Exp
-        case 4:
-        case 5:
-        case 6:
-        case 7:
+        case 4: prsidexp(); break;
+        case 5: prsnumexp(); break;
+        case 6: prsopexp(); break;
+        case 7: prseseq(); break;
         // ExpList
-        case 8:
-        case 9:
-        // BinOp
-        case 10:
-        case 11:
-        case 12:
-        case 13:
-    }    
+        case 8: prspairexplist(); break;
+        case 9: prslastexplist(); break;
+    }
+}
+
+void prscompoundstm() {
+    Stm right = (Stm)stk_pop(&ASTstk)->i;
+    Stm stm = compoundstm((Stm)stk_pop(&ASTstk)->i, right);
+    stk_push(astNTnode(S_NT_STM, stm), &ASTstk);
+}
+
+void prsassignstm() {
+    Exp exprs = (Exp)stk_pop(&ASTstk)->i;
+    Stm stm = assignstm(*(char**)stk_pop(&ASTstk)->i, exprs);
+    stk_push(astNTnode(S_NT_STM, stm), &ASTstk);
+}
+
+void prsprintstm() {
+    Stm stm = printstm((ExpList)stk_pop(&ASTstk)->i);
+    stk_push(astNTnode(S_NT_STM, stm), &ASTstk);
+}
+
+void prsidexp() {
+    Exp exprs = idexp(*(char**)stk_pop(&ASTstk)->i);
+    stk_push(astNTnode(S_NT_EXP, exprs), &ASTstk);
+}
+
+void prsnumexp() {
+    Exp exprs = numexp(*(int*)stk_pop(&ASTstk)->i);
+    stk_push(astNTnode(S_NT_EXP, exprs), &ASTstk);
+}
+
+void prsopexp() {
+    Exp right = (Exp)stk_pop(&ASTstk)->i;
+    enum Binop op = *(enum Binop*)stk_pop(&ASTstk)->i;
+    Exp exprs = opexp((Exp)stk_pop(&ASTstk)->i, op, right);
+    stk_push(astNTnode(S_NT_EXP, exprs), &ASTstk);
+}
+
+void prseseq() {
+    Exp exprs = (Exp)stk_pop(&ASTstk)->i;
+    Exp e = eseq((Stm)stk_pop(&ASTstk)->i, exprs);
+    stk_push(astNTnode(S_NT_EXP, e), &ASTstk);
+}
+
+void prspairexplist() {
+    ExpList tail = (ExpList)stk_pop(&ASTstk)->i;
+    ExpList expl = pairexplist((Exp)stk_pop(&ASTstk)->i, tail);
+    stk_push(astNTnode(S_NT_EXPLIST, expl), &ASTstk);
+}
+
+void prslastexplit() {
+    ExpList expl = lastexplist((Exp)stk_pop(&ASTstk)->i);
+    stk_push(astNTnode(S_NT_EXPLIST, expl), &ASTstk);
 }
