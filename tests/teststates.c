@@ -92,5 +92,5 @@ Test(teststates, teststateinit)
     LR0_Item *allitems = LR0_getallitems();
     SymTable T = stb_symtable();
     stateinit(T);
-    cr_assert(LR0_itemeq((LR0_Item)((Node)((State)((Node)(T->head))->i)->head)->i, allitems[0]));
+    cr_assert(LR0_itemeq((LR0_Item)((Node)((State)((Node)(T->head))->i)->head)->i, allitems[2]));
 }
