@@ -15,24 +15,24 @@
 12) =
 
 *Productions*
-1) program -> Stm $
+0) program -> Stm $
 
-2) Stm -> Stm ; Stm
-3) Stm -> id = Exp
-4) Stm -> print ( ExpList )
+1) Stm -> Stm ; Stm
+2) Stm -> id = Exp
+3) Stm -> print ( ExpList )
 
-5) Exp -> id
-6) Exp -> num
-7) Exp -> Exp BinOp Exp
-8) Exp -> ( Stm, Exp )
+4) Exp -> id
+5) Exp -> num
+6) Exp -> Exp BinOp Exp
+7) Exp -> ( Stm, Exp )
 
-9) ExpList -> Exp, ExpList
-10) ExpList -> Exp
+8) ExpList -> Exp, ExpList
+9) ExpList -> Exp
 
-11) BinOp -> +
-12) BinOp -> -
-13) BinOp -> *
-14) BinOp -> /
+10) BinOp -> +
+11) BinOp -> -
+12) BinOp -> *
+13) BinOp -> /
 
 *Items*
 
