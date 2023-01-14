@@ -18,4 +18,8 @@ void stk_push(Node n, Stack *sptr);
 // Clears whole stack.
 void stk_clear(Stack *sptr);
 
+// Returns stack length.
 int stk_len(Stack s);
+
+// Prints the stack keys horizontally.
+void stk_printk(Stack s);

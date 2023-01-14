@@ -26,3 +26,14 @@ void stk_clear(Stack *sptr) {
 int stk_len(Stack s) {
     return lst_len(s);
 }
+
+void stk_printk(Stack s) {
+    Node n = s;
+    printf("{ ");
+    while (n != NULL)
+    {
+        printf("%s, ", n->k);
+        n = n->next;
+    }
+    printf("} ");
+}
