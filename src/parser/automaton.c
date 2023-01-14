@@ -112,6 +112,7 @@ void reduces(StateSet T) {
                 p = prodidx(((LR0_Item)in->i)->p);
                 follow(((LR0_Item)in->i)->p->lhs, S);
                 addrdc(p, SN->k, S);
+                stb_clear(S);
             }
             in = in->next;
         }
@@ -127,7 +128,8 @@ void addrdc(int p, key hsh, SymbolSet S) {
     // loop through terminal symbols
     for (int i = NON_TERMINALS; i < SYMBOLS; i++)
     {
-        symbolhash(&i, k);
+        symbol X = i + S_NT_PROGRAM;
+        symbolhash(&X, k);
         if (!stb_haskey(S, k)) continue;  
         stb_getnode(ptable[i], hsh, &m);
         ActionListNode an = node(String("reduce"), action(REDUCE, valuep(p)));
