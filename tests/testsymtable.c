@@ -127,15 +127,15 @@ Test(testsymtable, testunion)
 
     stb_union(st1, st2, &LR0_itemhash, st1->head, &LR0_itemeq);
 
-    cr_assert(nodeeq(st1->head, in3, &LR0_itemeq));
-    cr_assert(nodeeq(st1->head->next, in2, &LR0_itemeq));
+    cr_assert(nodeeq(st1->head, in2, &LR0_itemeq));
+    cr_assert(nodeeq(st1->head->next, in3, &LR0_itemeq));
     cr_assert(nodeeq(st1->head->next->next, in, &LR0_itemeq));
     cr_assert(st1->head->next->next->next == NULL);
 
     // should not affect set st1
     stb_union(st1, st2, &LR0_itemhash, st1->head->next, &LR0_itemeq);
-    cr_assert(nodeeq(st1->head, in3, &LR0_itemeq));
-    cr_assert(nodeeq(st1->head->next, in2, &LR0_itemeq));
+    cr_assert(nodeeq(st1->head, in2, &LR0_itemeq));
+    cr_assert(nodeeq(st1->head->next, in3, &LR0_itemeq));
     cr_assert(nodeeq(st1->head->next->next, in, &LR0_itemeq));
     cr_assert(st1->head->next->next->next == NULL);
 }
