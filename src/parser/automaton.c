@@ -130,10 +130,12 @@ void addrdc(int p, key hsh, SymbolSet S) {
     {
         symbol X = i + S_NT_PROGRAM;
         symbolhash(&X, k);
-        if (!stb_haskey(S, k)) continue;  
         stb_getnode(ptable[i], hsh, &m);
-        ActionListNode an = node(String("reduce"), action(REDUCE, valuep(p)));
-        lst_add(an, &(m->i));       
+        if (stb_haskey(S, k) || lst_len(m->i) == 0) // Hacked SLR algorithm
+        {
+            ActionListNode an = node(String("reduce"), action(REDUCE, valuep(p)));
+            lst_add(an, &(m->i));       
+        }
     }
     free(k);
 }
