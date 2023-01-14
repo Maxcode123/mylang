@@ -117,7 +117,7 @@ void apply(Action a, Token t) {
         stk_push(symbolnode(p->lhs), &symbolstk);
         astadd(p);
         ActionListNode h;
-        stb_get(ptable[p->lhs - S_NT_PROGRAM], csthash, &h);
+        stb_get(pt[p->lhs - S_NT_PROGRAM], csthash, &h);
         Action gta = h->i; // goto action
         if (gta->type != GOTO)
         {
