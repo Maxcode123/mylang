@@ -160,11 +160,21 @@ void first(symbol X, SymbolSet S) {
     Production *p = getprods();
     for (int i = 0 ; i < PRODUCTIONS; i++)
     {
-        if (p[i]->lhs == X && IS_TERMINAL(p[i]->rhs[0]))
+        if (p[i]->lhs == X)
         {
-            int *it = malloc(sizeof(int));
-            *it = p[i]->rhs[0];
-            stb_put(S, stb_node(it, &symbolhash));
+            if (IS_TERMINAL(p[i]->rhs[0]))
+            {
+                int *it = malloc(sizeof(int));
+                *it = p[i]->rhs[0];
+                stb_put(S, stb_node(it, &symbolhash));
+            }
+            else if (p[i]->len == 1)
+            {
+                SymbolSet S2 = stb_symtable();
+                first(p[i]->rhs[0], S2);
+                stb_union(S, S2, &symbolhash, S->head, &symboleq);
+                free(S2);
+            }
         }
     }
 }
