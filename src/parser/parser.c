@@ -46,8 +46,14 @@ ASTNode astNTnode(symbol s, void *t) {
     return node(k, t);    
 }
 
+StateHashNode statehnode(key hash) {
+    key k = malloc(sizeof(*k)*50);
+    strcpy(k, hash);
+    return node(k, NULL);
+}
+
 key getcsthash() {
-    return csthash;
+    return statestk->k;
 }
 
 void initparse() {
@@ -72,7 +78,7 @@ void setstinit(StateSet T) {
         {
             if (LR0_itemeq((LR0_Item)in->i, items[0]))
             {
-                csthash = SN->k;
+                stk_push(statehnode(SN->k), &statestk);
                 return;
             }
             in = in->next;
@@ -90,11 +96,13 @@ AST parse(Token *ta) {
     for (i = 0; i < len; i++)
     {
         t = ta[i];
+        stk_printk(symbolstk);
+        printf(" in state: %s, next token: %s\n", getcsthash(), symbols[t->s-S_NT_PROGRAM]);
         ActionListNode h;
-        stb_get(pt[t->s - S_NT_PROGRAM], csthash, &h);
+        stb_get(pt[t->s - S_NT_PROGRAM], getcsthash(), &h);
         Action a = h->i;
         apply(a, t);
-        printf("Parsed %s\n", symbols[t->s-S_NT_PROGRAM]);
+        if (a->type == REDUCE) i--; // Token is not consumed from reduce action.
     }
     if ((symbol)stk_pop(&symbolstk)->i == S_NT_STM) return;
     fprintf(stderr, "Stm not found in symbol stack after parsing.\n");
@@ -105,7 +113,7 @@ void apply(Action a, Token t) {
     if (a->type == SHIFT)
     {
         stk_push(symbolnode(t->s), &symbolstk);
-        csthash = a->val->h;
+        stk_push(statehnode(a->val->h), &statestk);
         if (!IS_SEMANTIC(t->s)) return;
         stk_push(astTnode(t), &ASTstk);
     }
@@ -113,18 +121,23 @@ void apply(Action a, Token t) {
     {
         StateActionsMap *pt = getptable();
         Production p = getprods()[a->val->p];
-        for (int j = 0; j < p->len; j++) stk_pop(&symbolstk);
+        key sthash;
+        for (int j = 0; j < p->len; j++) 
+        {
+            free(stk_pop(&symbolstk));
+            free(stk_pop(&statestk));
+        }
         stk_push(symbolnode(p->lhs), &symbolstk);
         astadd(p);
         ActionListNode h;
-        stb_get(pt[p->lhs - S_NT_PROGRAM], csthash, &h);
+        stb_get(pt[p->lhs - S_NT_PROGRAM], getcsthash(), &h);
         Action gta = h->i; // goto action
         if (gta->type != GOTO)
         {
             fprintf(stderr, "GOTO action expected.\n");
             exit(EXIT_FAILURE);
         }
-        csthash = gta->val->h;
+        stk_push(statehnode(gta->val->h), &statestk);
     }
 }
 

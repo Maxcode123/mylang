@@ -5,29 +5,33 @@
 #include "automaton.h"
 #include "../utils/stack.h"
 
-typedef Node SymbolNode; // Node of symbol stack,
-typedef Node ASTNode; // Node of AST stack.
+typedef Node SymbolNode;    // Node of symbol stack,
+typedef Node ASTNode;       // Node of AST stack.
+typedef Node StateHashNode; // Node of state stack.
+
+// Grammar symbols stack.
+static Stack symbolstk;
 
 // SymbolNode constructor.
 SymbolNode symbolnode(symbol s);
 
-// ASTNode constructor. Creates AST node from terminal symbol. 
+// AST nodes stack, used as buffer for AST construction during parsing.
+static Stack ASTstk;
+
+// ASTNode constructor. Creates AST node from terminal symbol.
 ASTNode astTnode(Token t);
 
 // ASTNode constructor. Creates AST node from non-terminal's symbol and tree.
 ASTNode astNTnode(symbol s, void *t);
 
-// Current state hash
-static key csthash;
+// State hash stack.
+static Stack statestk;
+
+// StateHashNode constructor.
+StateHashNode statehnode(key hash);
 
 // Returns current state hash.
 key getcsthash();
-
-// Grammar symbols stack.
-static Stack symbolstk;
-
-// AST nodes stack, used as buffer for AST construction during parsing.
-static Stack ASTstk;
 
 /* Initializes all productions, items, states, edges and parse table to be used
 for parsing. */
