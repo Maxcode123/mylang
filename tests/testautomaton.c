@@ -25,12 +25,12 @@ Test(testautomaton, testmapnodeinit)
 Test(testautomaton, testparsetable)
 {
     LR0_inititems();
-    StateSet T = ST_symtable();
-    EdgeSet E = ST_symtable();
+    StateSet T = stb_symtable();
+    EdgeSet E = stb_symtable();
     states(T, E);
     StateActionsMap *m = parsetable(T);
     for (int i = 0; i < SYMBOLS; i++)
     {
-        cr_assert(ST_len(m[i]) == ST_len(T));                
+        cr_assert(stb_len(m[i]) == stb_len(T));                
     }
 }

@@ -42,8 +42,8 @@ ASTNode astTnode(Token t) {
 
 void initparse() {
     LR0_inititems();
-    StateSet T = ST_symtable();
-    EdgeSet E = ST_symtable();
+    StateSet T = stb_symtable();
+    EdgeSet E = stb_symtable();
 
     states(T, E);
     initptable(T);
@@ -60,7 +60,7 @@ AST parse(Token *ta) {
     {
         t = ta[i];
         ActionListNode h;
-        ST_get(ptable[t->s - S_NT_PROGRAM], csthash, &h);
+        stb_get(ptable[t->s - S_NT_PROGRAM], csthash, &h);
         Action a = h->i;
         apply(a, t);
     }
@@ -85,7 +85,7 @@ void apply(Action a, Token t) {
         stk_push(symbolnode(p->lhs), &symbolstk);
         astadd(p);
         ActionListNode h;
-        ST_get(ptable[p->lhs - S_NT_PROGRAM], csthash, &h);
+        stb_get(ptable[p->lhs - S_NT_PROGRAM], csthash, &h);
         Action gta = h->i; // goto action
         if (gta->type != GOTO)
         {

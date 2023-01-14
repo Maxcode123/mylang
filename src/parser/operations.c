@@ -2,7 +2,7 @@
 
 void LR0_closure(SymTable I) {
     ItemNode n = I->head;
-    SymTable st = ST_symtable();
+    SymTable st = stb_symtable();
     symbol X;
     while ( n != NULL)
     {
@@ -10,9 +10,9 @@ void LR0_closure(SymTable I) {
         {
             X = ((LR0_Item)n->i)->p->rhs[((LR0_Item)n->i)->before];
             LR0_getitems(X, st);
-            if (ST_len(st) == 0) {n = n->next; continue;}
-            ST_union(I, st, &LR0_itemhash, n, &LR0_itemeq);
-            ST_clear(st);
+            if (stb_len(st) == 0) {n = n->next; continue;}
+            stb_union(I, st, &LR0_itemhash, n, &LR0_itemeq);
+            stb_clear(st);
         }
         n = n->next;
     }
@@ -26,8 +26,8 @@ void LR0_getitems(symbol X, SymTable st) {
         if (allitems[i]->p->lhs != X) continue;
         if (allitems[i]->before == 0) 
         {
-            ItemNode in = ST_node(allitems[i], &LR0_itemhash);
-            ST_put(st, in);
+            ItemNode in = stb_node(allitems[i], &LR0_itemhash);
+            stb_put(st, in);
         }
     }
 }
@@ -47,8 +47,8 @@ void LR0_goto(SymTable I, symbol X, SymTable G) {
             continue;
         }
         i = LR0_getindex((LR0_Item)(n->i));
-        ItemNode in = ST_node(allitems[i+1], &LR0_itemhash);
-        ST_put(G, in);
+        ItemNode in = stb_node(allitems[i+1], &LR0_itemhash);
+        stb_put(G, in);
         n = n->next;
     }
     LR0_closure(G);

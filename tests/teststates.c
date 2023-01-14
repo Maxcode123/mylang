@@ -7,20 +7,20 @@ Test(teststates, testedgeinit)
     LR0_inititems();
     LR0_Item *allitems = LR0_getallitems();
     
-    State I1 = ST_symtable();
-    State I2 = ST_symtable();
+    State I1 = stb_symtable();
+    State I2 = stb_symtable();
 
-    Node n1 = ST_node(allitems[4], &LR0_itemhash);
-    Node n2 = ST_node(allitems[2], &LR0_itemhash);
+    Node n1 = stb_node(allitems[4], &LR0_itemhash);
+    Node n2 = stb_node(allitems[2], &LR0_itemhash);
     
-    Node n3 = ST_node(allitems[6], &LR0_itemhash);
-    Node n4 = ST_node(allitems[11], &LR0_itemhash);
+    Node n3 = stb_node(allitems[6], &LR0_itemhash);
+    Node n4 = stb_node(allitems[11], &LR0_itemhash);
 
-    ST_put(I1, n1);
-    ST_put(I1, n2);
+    stb_put(I1, n1);
+    stb_put(I1, n2);
     
-    ST_put(I2, n3);
-    ST_put(I2, n4);
+    stb_put(I2, n3);
+    stb_put(I2, n4);
 
     Edge e = edge(S_T_MINUS, I1, I2);
     cr_assert(e->X == S_T_MINUS);
@@ -33,20 +33,20 @@ Test(teststates, testedgehash)
     LR0_inititems();
     LR0_Item *allitems = LR0_getallitems();
     
-    State I1 = ST_symtable();
-    State I2 = ST_symtable();
+    State I1 = stb_symtable();
+    State I2 = stb_symtable();
 
-    Node n1 = ST_node(allitems[4], &LR0_itemhash);
-    Node n2 = ST_node(allitems[2], &LR0_itemhash);
+    Node n1 = stb_node(allitems[4], &LR0_itemhash);
+    Node n2 = stb_node(allitems[2], &LR0_itemhash);
     
-    Node n3 = ST_node(allitems[6], &LR0_itemhash);
-    Node n4 = ST_node(allitems[11], &LR0_itemhash);
+    Node n3 = stb_node(allitems[6], &LR0_itemhash);
+    Node n4 = stb_node(allitems[11], &LR0_itemhash);
 
-    ST_put(I1, n1);
-    ST_put(I1, n2);
+    stb_put(I1, n1);
+    stb_put(I1, n2);
     
-    ST_put(I2, n3);
-    ST_put(I2, n4);
+    stb_put(I2, n3);
+    stb_put(I2, n4);
 
     Edge e = edge(S_T_MINUS, I1, I2);
     key hash = malloc(sizeof(char)*50);
@@ -59,25 +59,25 @@ Test(teststates, teststatehash)
     LR0_inititems();
     LR0_Item *allitems = LR0_getallitems();
     
-    State I = ST_symtable();
+    State I = stb_symtable();
 
-    Node n1 = ST_node(allitems[4], &LR0_itemhash);
-    Node n2 = ST_node(allitems[2], &LR0_itemhash);
-    Node n3 = ST_node(allitems[29], &LR0_itemhash);
+    Node n1 = stb_node(allitems[4], &LR0_itemhash);
+    Node n2 = stb_node(allitems[2], &LR0_itemhash);
+    Node n3 = stb_node(allitems[29], &LR0_itemhash);
     
-    ST_put(I, n1);
-    ST_put(I, n2);
-    ST_put(I, n3);
+    stb_put(I, n1);
+    stb_put(I, n2);
+    stb_put(I, n3);
 
     key hash = malloc(sizeof(char)*50);
     statehash(I, hash);
     cr_assert(strcmp(hash, "2429") == 0);
 
-    State I2 = ST_symtable();
+    State I2 = stb_symtable();
 
-    ST_put(I2, n3);
-    ST_put(I2, n1);
-    ST_put(I2, n2);
+    stb_put(I2, n3);
+    stb_put(I2, n1);
+    stb_put(I2, n2);
 
     cr_assert(I2->head != I->head);
 
@@ -90,7 +90,7 @@ Test(teststates, teststateinit)
 {
     LR0_inititems();
     LR0_Item *allitems = LR0_getallitems();
-    SymTable T = ST_symtable();
+    SymTable T = stb_symtable();
     stateinit(T);
     cr_assert(LR0_itemeq((LR0_Item)((Node)((State)((Node)(T->head))->i)->head)->i, allitems[0]));
 }

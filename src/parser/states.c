@@ -30,20 +30,20 @@ void printedge(Edge e) {
 
 void stateinit(StateSet T) {
     LR0_Item *allitems = LR0_getallitems();
-    State init = ST_symtable();
+    State init = stb_symtable();
 
-    ST_put(init, ST_node(allitems[0], LR0_itemhash));
+    stb_put(init, stb_node(allitems[0], LR0_itemhash));
     LR0_closure(init);
     
-    ST_put(T, ST_node(init, &statehash));
+    stb_put(T, stb_node(init, &statehash));
 }
 
 bool stateeq(State I1, State I2) {
-    if (ST_len(I1) != ST_len(I2)) return false;
+    if (stb_len(I1) != stb_len(I2)) return false;
     StateNode n = I1->head;
     while (n != NULL)
     {
-        if (!ST_haskey(I2, n->k)) return false;
+        if (!stb_haskey(I2, n->k)) return false;
         n = n->next;
     }
     return true;
@@ -53,7 +53,7 @@ void states(StateSet T, EdgeSet E) {
     stateinit(T);
     StateNode SN = T->head;
     symbol X;
-    StateSet tmp = ST_symtable(); // set used to host state J, { J }
+    StateSet tmp = stb_symtable(); // set used to host state J, { J }
 
     while (SN != NULL) // loop on states
     {
@@ -62,17 +62,17 @@ void states(StateSet T, EdgeSet E) {
         {
             if (((LR0_Item)in->i)->before == -1) {in = in->next; continue;}
 
-            State J = ST_symtable();
+            State J = stb_symtable();
             X = ((LR0_Item)in->i)->p->rhs[((LR0_Item)in->i)->before];
             LR0_goto((State)(SN->i), X, J);
             
-            if (ST_len(J) == 0) {in = in->next; continue;}
-            ST_put(tmp, ST_node(J, &statehash));
-            ST_union(T, tmp, &statehash, SN, &stateeq); // union to insert states after SN
-            ST_clear(tmp);
+            if (stb_len(J) == 0) {in = in->next; continue;}
+            stb_put(tmp, stb_node(J, &statehash));
+            stb_union(T, tmp, &statehash, SN, &stateeq); // union to insert states after SN
+            stb_clear(tmp);
 
             Edge e = edge(X, (State)(SN->i), J);
-            ST_put(E, ST_node(e, &edgehash));
+            stb_put(E, stb_node(e, &edgehash));
             
             in = in->next;
         }
@@ -82,7 +82,7 @@ void states(StateSet T, EdgeSet E) {
 }
 
 void statehash(State I, key hash) {
-    int i[ST_len(I)];
+    int i[stb_len(I)];
     int c = 0;
     Node n = I->head;
     while (n != NULL)
@@ -90,10 +90,10 @@ void statehash(State I, key hash) {
         i[c++] = LR0_getindex((LR0_Item)n->i);
         n = n->next;
     }
-    sorti(i, ST_len(I));
+    sorti(i, stb_len(I));
     char *buff = (char*)malloc(sizeof(char)*3);
     sprintf(hash, "%d", i[0]);
-    for (int j = 1; j < ST_len(I); j++)
+    for (int j = 1; j < stb_len(I); j++)
     {
         sprintf(buff, "%d", i[j]);
         strcat(hash, buff);
@@ -102,5 +102,5 @@ void statehash(State I, key hash) {
 }
 
 void printstate(State I) {
-    ST_print(I, &printit);
+    stb_print(I, &printit);
 }

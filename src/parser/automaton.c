@@ -52,11 +52,11 @@ StateActionsMap *parsetable(StateSet T) {
     StateActionsMap *m = malloc(SYMBOLS*sizeof(StateActionsMap));
     for (int i = 0; i < SYMBOLS; i++) 
     {
-        StateActionsMap map = ST_symtable();
+        StateActionsMap map = stb_symtable();
         StateNode n = T->head;
         while (n != NULL)
         {
-            ST_put(map, mapnode(n->k));
+            stb_put(map, mapnode(n->k));
             n = n->next;
         }
         m[i] = map;
@@ -93,7 +93,7 @@ void addact(symbol X, key fromhsh, key tohsh, enum Actype t) {
     ActionsMapNode m;
     key act = "shift";
     if (t == GOTO) act = "goto";
-    ST_getnode(ptable[X - S_NT_PROGRAM], fromhsh, &m);
+    stb_getnode(ptable[X - S_NT_PROGRAM], fromhsh, &m);
     ActionListNode an = node(String(act), action(t, valueh(tohsh)));
     lst_add(an, &(m->i));
 }
@@ -101,7 +101,7 @@ void addact(symbol X, key fromhsh, key tohsh, enum Actype t) {
 void reduces(StateSet T) {
     StateNode SN = T->head;
     int p;
-    SymbolSet S = ST_symtable();
+    SymbolSet S = stb_symtable();
     while (SN != NULL) // loop on states
     {
         ItemNode in = ((State)(SN->i))->head;
@@ -121,15 +121,15 @@ void reduces(StateSet T) {
 }
 
 void addrdc(int p, key hsh, SymbolSet S) {
-    if (ST_len(S) == 0) return;
+    if (stb_len(S) == 0) return;
     ActionsMapNode m;
     key k = malloc(sizeof(char)*2);
     // loop through terminal symbols
     for (int i = NON_TERMINALS; i < SYMBOLS; i++)
     {
         symbolhash(&i, k);
-        if (!ST_haskey(S, k)) continue;  
-        ST_getnode(ptable[i], hsh, &m);
+        if (!stb_haskey(S, k)) continue;  
+        stb_getnode(ptable[i], hsh, &m);
         ActionListNode an = node(String("reduce"), action(REDUCE, valuep(p)));
         lst_add(an, &(m->i));       
     }
@@ -150,7 +150,7 @@ void first(symbol X, SymbolSet S) {
     {
         int *it = malloc(sizeof(int));
         *it = X;
-        ST_put(S, ST_node(it, &symbolhash));
+        stb_put(S, stb_node(it, &symbolhash));
         return;
     }
     Production *p = getprods();
@@ -160,7 +160,7 @@ void first(symbol X, SymbolSet S) {
         {
             int *it = malloc(sizeof(int));
             *it = p[i]->rhs[0];
-            ST_put(S, ST_node(it, &symbolhash));
+            stb_put(S, stb_node(it, &symbolhash));
         }
     }
 }
@@ -173,14 +173,14 @@ void follow(symbol X, SymbolSet S) {
         for (int j = 0; j < p[i]->len; j++) // loop on production rhs
         {
             if (p[i]->rhs[j] != X) continue;
-            SymbolSet S2 = ST_symtable();
+            SymbolSet S2 = stb_symtable();
             if (j == p[i]->len - 1) // last rhs symbol
             {
                 if (p[i]->lhs == X) {free(S2); continue;}
                 follow(p[i]->lhs, S2);
             }
             else first(p[i]->rhs[j+1], S2);
-            if (ST_len(S2) > 0) ST_union(S, S2, &symbolhash, S->head, &symboleq);
+            if (stb_len(S2) > 0) stb_union(S, S2, &symbolhash, S->head, &symboleq);
             free(S2);
         }
     }
