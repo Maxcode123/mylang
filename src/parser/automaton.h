@@ -23,8 +23,6 @@ typedef SymTable StateActionsMap; // Mapping of state hash to Actions
 (StateActionsMap) where state hashes are keys and lists of Actions are items.*/
 static StateActionsMap *ptable;
 
-static key sthash; // hash of current state
-
 // Prints Action in nice format.
 void printaction(Action a);
 
@@ -62,7 +60,6 @@ void addact(symbol X, key fromhsh, key tohsh, enum Actype t);
 void reduces(StateSet T);
 
 typedef SymTable SymbolSet;
-typedef Node SymbolNode;
 
 // Adds reduce action in state with hash hsh for all terminals in S.
 void addrdc(int p, key hsh, SymbolSet S);

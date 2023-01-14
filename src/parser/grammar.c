@@ -87,7 +87,7 @@ Production *getprods() {
 
 int prodidx(Production p) {
     for (int i = 0; i < PRODUCTIONS; i++) {if (prodeq(p, prods[i])) return i;}
-    return -1;
+    return PRODUCTION_NOT_FOUND;
 }
 
 void printprod(Production p) {

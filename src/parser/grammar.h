@@ -11,33 +11,36 @@
 
 
 // Non terminal symbols
-# define S_NT_PROGRAM 10 // program should always be first non terminal symbol
-# define S_NT_STM 11
-# define S_NT_EXP 12
-# define S_NT_EXPLIST 13
-# define S_NT_BINOP 14
+#define S_NT_PROGRAM 10 // program should always be first non terminal symbol
+#define S_NT_STM 11
+#define S_NT_EXP 12
+#define S_NT_EXPLIST 13
+#define S_NT_BINOP 14
 
 // Terminal symbols
-# define S_T_ID 15
-# define S_T_NUM 16
-# define S_T_COMMA 17
-# define S_T_SEMICOLON 18
-# define S_T_PLUS 19
-# define S_T_MINUS 20
-# define S_T_TIMES 21
-# define S_T_DIV 22
-# define S_T_PRINT 23
-# define S_T_LPAREN 24
-# define S_T_RPAREN 25
-# define S_T_EQ 26
-# define S_T_EOF 27
+#define S_T_ID 15
+#define S_T_NUM 16
+#define S_T_COMMA 17
+#define S_T_SEMICOLON 18
+#define S_T_PLUS 19
+#define S_T_MINUS 20
+#define S_T_TIMES 21
+#define S_T_DIV 22
+#define S_T_PRINT 23
+#define S_T_LPAREN 24
+#define S_T_RPAREN 25
+#define S_T_EQ 26
+#define S_T_EOF 27
 
-# define NON_TERMINALS 5 // number of non terminal symbols
-# define SYMBOLS 18 // number of symbols
-# define PRODUCTIONS 14 // number of productions
-# define ITEMS 43 // number of items
+#define NON_TERMINALS 5 // number of non terminal symbols
+#define SYMBOLS 18 // number of symbols
+#define PRODUCTIONS 14 // number of productions
+#define ITEMS 43 // number of items
 
 #define IS_TERMINAL(x) x >= S_NT_PROGRAM + NON_TERMINALS
+#define IS_SEMANTIC(x) (x == S_T_NUM || x == S_T_ID || x == S_T_PLUS || x == S_T_MINUS || x == S_T_TIMES || x == S_T_DIV)
+
+#define PRODUCTION_NOT_FOUND -1
 
 static char *symbols[] = {
     "program",
@@ -96,7 +99,7 @@ void initprods();
 Production *getprods();
 
 /* Returns the index of the given production in the productions array. Returns
--1 if production is not found. */
+PRODUCTION_NOT_FOUND if production is not found. */
 int prodidx(Production p);
 
 // Prints production in nice format.

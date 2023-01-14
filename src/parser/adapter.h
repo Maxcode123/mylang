@@ -3,7 +3,7 @@
 #include "grammar.h"
 #include "../scanner/tokens.h"
 
-
+// Carries grammar symbol and semantic value
 typedef struct _Token {
     symbol s;
     int pos;
