@@ -5,10 +5,17 @@
 // Head node.
 typedef Node Stack; 
 
-Stack stack();
+/* Stack constructor; returns the pointer to the head of the stack with
+the initialization value. */
+Stack stk_stack();
 
-Node stk_pop(Stack *s);
+// Pops the top of the stack and returns it.
+Node stk_pop(Stack *sptr);
 
-void stk_push(Node n, Stack *s);
+// Pushes given node to top of stack.
+void stk_push(Node n, Stack *sptr);
 
-void stk_clear(Stack *s);
+// Clears whole stack.
+void stk_clear(Stack *sptr);
+
+int stk_len(Stack s);

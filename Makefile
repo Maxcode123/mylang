@@ -15,7 +15,7 @@ debug: $(TEST)/bin/main
 $(TEST)/bin/main: $(TEST)/main.c $(PARSERO) $(UTILSO) $(OBJ)/lex.yy.o 
 	$(CC) $^ -o $@
 
-test: test-automaton test-states test-operations test-symtable test-list test-productions test-items
+test: test-automaton test-states test-operations test-symtable test-stack test-list test-productions test-items
 
 test-automaton: $(TEST)/bin/automaton
 	$<
@@ -39,6 +39,12 @@ test-symtable: $(TEST)/bin/testsymtable
 	$<
 
 $(TEST)/bin/testsymtable: $(TEST)/testsymtable.c $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o
+	$(CC) $^ -o $@ -lcriterion
+
+test-stack: $(TEST)/bin/teststack
+	$<
+
+$(TEST)/bin/teststack: $(TEST)/teststack.c $(OBJ)/stack.o $(OBJ)/list.o
 	$(CC) $^ -o $@ -lcriterion
 
 test-list: $(TEST)/bin/testlist
