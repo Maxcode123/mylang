@@ -13,8 +13,10 @@ typedef struct _Token {
 // Length of token stream.
 static int tklen;
 
+// Increment scanned tokens coutner.
 static void incrtklen();
 
+// Returns number of scanned tokens.
 int gettklen();
 
 // Sets the input stream

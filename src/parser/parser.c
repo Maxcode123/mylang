@@ -14,30 +14,40 @@ ASTNode astTnode(Token t) {
     strcpy(k, getsymbols()[t->s-S_NT_PROGRAM]);
     switch (t->s) {
         case S_T_NUM:
-            int *i = malloc(sizeof(*i));
-            *i = t->ival;
-            return node(k, i);
+            int *n = malloc(sizeof(*n));
+            *n = t->ival;
+            return node(k, n);
         case S_T_PLUS:
-            enum Binop *i = malloc(sizeof(*i));
-            *i = PLUS_BINOP;
-            return node(k, i);
+            enum Binop *p = malloc(sizeof(*p));
+            *p = PLUS_BINOP;
+            return node(k, p);
         case S_T_MINUS:
-            enum Binop *i = malloc(sizeof(*i));
-            *i = MINUS_BINOP;
-            return node(k, i);
+            enum Binop *m = malloc(sizeof(*m));
+            *m = MINUS_BINOP;
+            return node(k, m);
         case S_T_TIMES:
-            enum Binop *i = malloc(sizeof(*i));
-            *i = TIMES_BINOP;
-            return node(k, i);
+            enum Binop *ti = malloc(sizeof(*ti));
+            *ti = TIMES_BINOP;
+            return node(k, ti);
         case S_T_DIV:
-            enum Binop *i = malloc(sizeof(*i));
-            *i = DIV_BINOP;
-            return node(k, i);
+            enum Binop *d = malloc(sizeof(*d));
+            *d = DIV_BINOP;
+            return node(k, d);
         case S_T_ID:
             char *i = malloc(sizeof(*i)*50);
             strcpy(i, (char*)&t->sval);
             return node(k, i);
     }
+}
+
+ASTNode astNTnode(symbol s, void *t) {
+    key k = malloc(sizeof(*k)*10);
+    strcpy(k, getsymbols()[s-S_NT_PROGRAM]);
+    return node(k, t);    
+}
+
+key getcsthash() {
+    return csthash;
 }
 
 void initparse() {
@@ -49,6 +59,26 @@ void initparse() {
     initptable(T);
     shiftgoto(E);
     reduces(T);
+    setstinit(T);
+}
+
+void setstinit(StateSet T) {
+    LR0_Item *items = LR0_getallitems();
+    StateNode SN = T->head;
+    while (SN != NULL) // loop on states
+    {
+        ItemNode in = ((State)(SN->i))->head;
+        while (in != NULL) // loop on state items
+        {
+            if (LR0_itemeq((LR0_Item)in->i, items[0]))
+            {
+                csthash = SN->k;
+                return;
+            }
+            in = in->next;
+        }
+        SN = SN->next;
+    }
 }
 
 AST parse(Token *ta) {
@@ -56,13 +86,15 @@ AST parse(Token *ta) {
     StateActionsMap *pt = getptable();
     int i, len = gettklen();
     Token t;
+    char **symbols = getsymbols();
     for (i = 0; i < len; i++)
     {
         t = ta[i];
         ActionListNode h;
-        stb_get(ptable[t->s - S_NT_PROGRAM], csthash, &h);
+        stb_get(pt[t->s - S_NT_PROGRAM], csthash, &h);
         Action a = h->i;
         apply(a, t);
+        printf("Parsed %s\n", symbols[t->s-S_NT_PROGRAM]);
     }
     if ((symbol)stk_pop(&symbolstk)->i == S_NT_STM) return;
     fprintf(stderr, "Stm not found in symbol stack after parsing.\n");
@@ -165,7 +197,7 @@ void prspairexplist() {
     stk_push(astNTnode(S_NT_EXPLIST, expl), &ASTstk);
 }
 
-void prslastexplit() {
+void prslastexplist() {
     ExpList expl = lastexplist((Exp)stk_pop(&ASTstk)->i);
     stk_push(astNTnode(S_NT_EXPLIST, expl), &ASTstk);
 }

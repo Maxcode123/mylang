@@ -8,9 +8,23 @@ UTILSO=$(patsubst $(SRC)/utils/%.c, $(OBJ)/%.o, $(UTILSC))
 ARGS=-g
 TEST=tests
 DB=gdb
+FILE=test.mylang
+
+debug-file: $(TEST)/bin/main
+	clear
+	$(DB) --args $< $(FILE)
 
 debug: $(TEST)/bin/main
+	clear
 	$(DB) $<
+
+run-file: $(TEST)/bin/main
+	clear
+	$< $(FILE)
+
+run: $(TEST)/bin/main
+	clear
+	$<
 
 $(TEST)/bin/main: $(TEST)/main.c $(PARSERO) $(UTILSO) $(OBJ)/lex.yy.o 
 	$(CC) $^ -o $@

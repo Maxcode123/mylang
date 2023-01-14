@@ -24,7 +24,7 @@ Token *scan(char *fname) {
         lst_add(node("tk", token(i)), &h);
     }
     Token *t = malloc(sizeof(Token)*lst_len(h));
-    int j = lst_len(h)-2;
+    int j = lst_len(h)-1;
     Node n = h;
     while (n != NULL) {
         t[j--] = (Token)n->i;

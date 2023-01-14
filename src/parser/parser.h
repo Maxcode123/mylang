@@ -20,6 +20,9 @@ ASTNode astNTnode(symbol s, void *t);
 // Current state hash
 static key csthash;
 
+// Returns current state hash.
+key getcsthash();
+
 // Grammar symbols stack.
 static Stack symbolstk;
 
@@ -29,6 +32,9 @@ static Stack ASTstk;
 /* Initializes all productions, items, states, edges and parse table to be used
 for parsing. */
 void initparse();
+
+// Sets current state to initial state.
+void setstinit(StateSet T);
 
 // Parses token array into abstract syntax tree.
 AST parse(Token *ta);
