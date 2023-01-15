@@ -2,7 +2,7 @@
 
 #include "operations.h"
 
-typedef SymTable State; // A state is a set of items.
+typedef ItemSet State; // A state is a set of items.
 typedef SymTable StateSet;
 typedef SymTable EdgeSet;
 typedef Node StateNode;

@@ -1,6 +1,6 @@
 #include "operations.h"
 
-void LR0_closure(SymTable I) {
+void LR0_closure(ItemSet I) {
     ItemNode n = I->head;
     SymTable st = stb_symtable();
     symbol X;
@@ -19,7 +19,7 @@ void LR0_closure(SymTable I) {
     free(st);
 }
 
-void LR0_getitems(symbol X, SymTable st) {
+void LR0_getitems(symbol X, ItemSet st) {
     LR0_Item *allitems = LR0_getallitems();
     for (int i = 0; i < ITEMS; i++)
     {
