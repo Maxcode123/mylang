@@ -38,19 +38,6 @@ void stateinit(StateSet T) {
     stb_put(T, stb_node(init, &statehash));
 }
 
-void statenums(StateSet T) {
-    StateNode SN = T->head;
-    int c = 0;
-    char *buff = malloc(sizeof(char)*3);
-    while (SN != NULL)
-    {
-        sprintf(buff, "-%d", c++);
-        strcat(SN->k, buff);
-        SN = SN->next;
-    }
-    free(buff);
-}
-
 bool stateeq(State I1, State I2) {
     if (stb_len(I1) != stb_len(I2)) return false;
     StateNode n = I1->head;
@@ -92,7 +79,6 @@ void states(StateSet T, EdgeSet E) {
         SN = SN->next;        
     }
     free(tmp);
-    statenums(T);
 }
 
 void statehash(State I, key hash) {

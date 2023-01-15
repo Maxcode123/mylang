@@ -30,9 +30,6 @@ void states(StateSet T, EdgeSet E);
 // Inserts initial state into T.
 void stateinit(StateSet T);
 
-// Appends state number to state hash.
-void statenums(StateSet T);
-
 // Equality comparison between two states.
 bool stateeq(State I1, State I2);
 
