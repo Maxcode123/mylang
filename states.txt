@@ -1,18 +1,18 @@
 
-state 0 (hash: 13):
+state 0 (hash: 13-0):
 program -> Stm •
 Stm -> Stm • ; Stm 
 
-state 1 (hash: 02610):
+state 1 (hash: 02610-1):
 Stm -> • Stm ; Stm 
 Stm -> • id = Exp 
 Stm -> • print ( ExpList ) 
 program -> • Stm 
 
-state 2 (hash: 11):
+state 2 (hash: 11-2):
 Stm -> print • ( ExpList ) 
 
-state 3 (hash: 12151719232933):
+state 3 (hash: 12151719232933-3):
 Exp -> • id 
 Exp -> • num 
 Exp -> • Exp BinOp Exp 
@@ -21,34 +21,34 @@ ExpList -> • Exp , ExpList
 ExpList -> • Exp 
 Stm -> print ( • ExpList ) 
 
-state 4 (hash: 261024):
+state 4 (hash: 261024-4):
 Stm -> • Stm ; Stm 
 Stm -> • id = Exp 
 Stm -> • print ( ExpList ) 
 Exp -> ( • Stm , Exp ) 
 
-state 5 (hash: 325):
+state 5 (hash: 325-5):
 Exp -> ( Stm • , Exp ) 
 Stm -> Stm • ; Stm 
 
-state 6 (hash: 24610):
+state 6 (hash: 24610-6):
 Stm -> • Stm ; Stm 
 Stm -> • id = Exp 
 Stm -> • print ( ExpList ) 
 Stm -> Stm ; • Stm 
 
-state 7 (hash: 35):
+state 7 (hash: 35-7):
 Stm -> Stm ; Stm •
 Stm -> Stm • ; Stm 
 
-state 8 (hash: 1517192326):
+state 8 (hash: 1517192326-8):
 Exp -> • id 
 Exp -> • num 
 Exp -> • Exp BinOp Exp 
 Exp -> • ( Stm , Exp ) 
 Exp -> ( Stm , • Exp ) 
 
-state 9 (hash: 202735373941):
+state 9 (hash: 202735373941-9):
 Exp -> ( Stm , Exp • ) 
 Exp -> Exp • BinOp Exp 
 BinOp -> • + 
@@ -56,26 +56,26 @@ BinOp -> • -
 BinOp -> • * 
 BinOp -> • / 
 
-state 10 (hash: 42):
+state 10 (hash: 42-10):
 BinOp -> / •
 
-state 11 (hash: 40):
+state 11 (hash: 40-11):
 BinOp -> * •
 
-state 12 (hash: 38):
+state 12 (hash: 38-12):
 BinOp -> - •
 
-state 13 (hash: 36):
+state 13 (hash: 36-13):
 BinOp -> + •
 
-state 14 (hash: 1517192123):
+state 14 (hash: 1517192123-14):
 Exp -> • id 
 Exp -> • num 
 Exp -> • Exp BinOp Exp 
 Exp -> • ( Stm , Exp ) 
 Exp -> Exp BinOp • Exp 
 
-state 15 (hash: 202235373941):
+state 15 (hash: 202235373941-15):
 Exp -> Exp BinOp Exp •
 Exp -> Exp • BinOp Exp 
 BinOp -> • + 
@@ -83,10 +83,10 @@ BinOp -> • -
 BinOp -> • * 
 BinOp -> • / 
 
-state 16 (hash: 28):
+state 16 (hash: 28-16):
 Exp -> ( Stm , Exp ) •
 
-state 17 (hash: 20303435373941):
+state 17 (hash: 20303435373941-17):
 ExpList -> Exp •
 ExpList -> Exp • , ExpList 
 Exp -> Exp • BinOp Exp 
@@ -95,7 +95,7 @@ BinOp -> • -
 BinOp -> • * 
 BinOp -> • / 
 
-state 18 (hash: 15171923293133):
+state 18 (hash: 15171923293133-18):
 Exp -> • id 
 Exp -> • num 
 Exp -> • Exp BinOp Exp 
@@ -104,26 +104,26 @@ ExpList -> • Exp , ExpList
 ExpList -> • Exp 
 ExpList -> Exp , • ExpList 
 
-state 19 (hash: 32):
+state 19 (hash: 32-19):
 ExpList -> Exp , ExpList •
 
-state 20 (hash: 18):
+state 20 (hash: 18-20):
 Exp -> num •
 
-state 21 (hash: 16):
+state 21 (hash: 16-21):
 Exp -> id •
 
-state 22 (hash: 7):
+state 22 (hash: 7-22):
 Stm -> id • = Exp 
 
-state 23 (hash: 815171923):
+state 23 (hash: 815171923-23):
 Exp -> • id 
 Exp -> • num 
 Exp -> • Exp BinOp Exp 
 Exp -> • ( Stm , Exp ) 
 Stm -> id = • Exp 
 
-state 24 (hash: 92035373941):
+state 24 (hash: 92035373941-24):
 Stm -> id = Exp •
 Exp -> Exp • BinOp Exp 
 BinOp -> • + 
