@@ -61,6 +61,26 @@ void stb_union(
     }
 }
 
+stb_unsert(
+    SymTable st1,
+    SymTable st2,
+    void (*hashf)(SymTableItem, key),
+    bool (*ieq)(SymTableItem, SymTableItem)
+    ) {
+    Node n = st2->head;
+    while (n != NULL) 
+    {
+        if (lst_haskey(n->k, st1->head)) 
+        {
+            n = n->next;
+            continue;
+        }
+        Node in = stb_node(n->i, hashf);
+        lst_insertat(&in, st1->head, &st1->head, ieq);
+        n = n->next;
+    }
+}
+
 Node stb_node(SymTableItem i, void (*hashf)(SymTableItem, key)) {
     key hash = (char*)malloc(sizeof(char)*50);
     (*hashf)(i, hash);

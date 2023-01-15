@@ -68,7 +68,8 @@ void states(StateSet T, EdgeSet E) {
             
             if (stb_len(J) == 0) {in = in->next; continue;}
             stb_put(tmp, stb_node(J, &statehash));
-            stb_union(T, tmp, &statehash, SN, &stateeq); // union to insert states after SN
+            if (SN == T->head) stb_unsert(T, tmp, &statehash, &stateeq); // only for first iteration
+            else stb_union(T, tmp, &statehash, SN, &stateeq); // union to insert states after SN
             stb_clear(tmp);
 
             Edge e = edge(X, (State)(SN->i), J);

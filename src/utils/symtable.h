@@ -35,7 +35,16 @@ void stb_union(
     SymTable st1,
     SymTable st2,
     void (*hashf)(SymTableItem, key),
-    Node after, bool (*ieq)(SymTableItem, SymTableItem)
+    Node after, 
+    bool (*ieq)(SymTableItem, SymTableItem)
+    );
+
+/* Puts the union of st1 and st2 into st1. All nodes are inserted after head.*/
+void stb_unsert(
+    SymTable st1,
+    SymTable st2,
+    void (*hashf)(SymTableItem, key),
+    bool (*ieq)(SymTableItem, SymTableItem)
     );
 
 /* Constructs node for symbol table. Allocates memory and creates hash from 
