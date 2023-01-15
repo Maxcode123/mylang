@@ -121,6 +121,32 @@ void reduces(StateSet T) {
     free(S);
 }
 
+void accept(StateSet T) {
+    StateNode SN = T->head;
+    LR0_Item *it = LR0_getallitems();
+    key hash;
+    while (SN != NULL)
+    {
+        ItemNode in = ((State)(SN->i))->head;
+        while (in != NULL)
+        {
+            if (LR0_itemeq((LR0_Item)in->i, it[1])) // item = program -> Stm • $ 
+            {
+                hash = malloc(sizeof(char)*50);
+                statehash((State)SN->i, hash);
+                ActionsMapNode m;
+                stb_getnode(ptable[S_T_EOF - S_NT_PROGRAM], hash, &m);
+                ActionListNode an = node(String("accept"), action(ACCEPT, NULL));
+                lst_add(an, &(m->i));
+                free(hash);
+                return;
+            }
+            in = in->next;
+        }
+        SN = SN->next;
+    }
+}
+
 void addrdc(int p, key hsh, SymbolSet S) {
     if (stb_len(S) == 0) return;
     ActionsMapNode m;

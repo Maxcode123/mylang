@@ -23,7 +23,9 @@ Token *scan(char *fname) {
         incrtklen();
         lst_add(node("tk", token(i)), &h);
     }
-    Token *t = malloc(sizeof(Token)*lst_len(h));
+    Token *t = malloc(sizeof(Token)*(lst_len(h)+1));
+    t[lst_len(h)] = token(-1);
+    incrtklen();
     int j = lst_len(h)-1;
     Node n = h;
     while (n != NULL) {
@@ -37,6 +39,7 @@ Token token(int i) {
     Token tk = malloc(sizeof(struct _Token));
     tk->pos = pos;
     switch (i) {
+        case -1: tk->s = S_T_EOF; break;
         case PLUS: tk->s = S_T_PLUS; break;
         case MINUS: tk->s = S_T_MINUS; break;
         case TIMES: tk->s = S_T_TIMES; break;

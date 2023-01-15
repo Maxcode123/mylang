@@ -64,6 +64,7 @@ void initparse() {
     states(T, E);
     initptable(T);
     shiftgoto(E);
+    accept(T);
     reduces(T);
     setstinit(T);
 }
@@ -103,10 +104,8 @@ AST parse(Token *ta) {
         Action a = h->i;
         apply(a, t);
         if (a->type == REDUCE) i--; // Token is not consumed from reduce action.
+        else if (a->type == ACCEPT) {printf("SYNTAX CORRECT, MOTHERFUCKER YOU MADE IT!!\n"); return;}
     }
-    if ((symbol)stk_pop(&symbolstk)->i == S_NT_STM) return;
-    fprintf(stderr, "Stm not found in symbol stack after parsing.\n");
-    exit(EXIT_FAILURE);
 }
 
 void apply(Action a, Token t) {
@@ -139,6 +138,7 @@ void apply(Action a, Token t) {
         }
         stk_push(statehnode(gta->val->h), &statestk);
     }
+    else if (a->type == ACCEPT) return;
 }
 
 void astadd(Production p) {
