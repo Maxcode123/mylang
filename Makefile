@@ -10,7 +10,7 @@ TEST=tests
 DB=gdb
 FILE=test.mylang
 
-bison-parser: $(SRC)/parser/y.tab.c
+bison-parser: $(SRC)/parser/bison/y.tab.c
 
 $(SRC)/parser/bison/y.tab.c: $(SRC)/parser/bison/mylang.grm
 	bison -v --header=$(SRC)/parser/y.tab.h -o $@ $<
@@ -111,4 +111,4 @@ $(OBJ)/%.o: $(SRC)/scanner/%.c
 	$(CC) $(ARGS) -c $< -o $@
 
 clean:
-	rm -rf obj/* src/scanner/lexer src/scanner/lex.yy.c tests/bin/*
+	rm -rf obj/* src/scanner/lexer src/scanner/lex.yy.c tests/bin/* src/parser/y.tab.h src/parser/bison/y.*
