@@ -12,61 +12,43 @@ program -> • Stm
 state 2 (hash: 11):
 Stm -> print • ( ExpList ) 
 
-state 3 (hash: 122933):
-ExpList -> • Exp , ExpList 
-ExpList -> • Exp 
-Stm -> print ( • ExpList ) 
-
-state 4 (hash: 3034):
-ExpList -> Exp •
-ExpList -> Exp • , ExpList 
-
-state 5 (hash: 293133):
-ExpList -> • Exp , ExpList 
-ExpList -> • Exp 
-ExpList -> Exp , • ExpList 
-
-state 6 (hash: 32):
-ExpList -> Exp , ExpList •
-
-state 7 (hash: 7):
-Stm -> id • = Exp 
-
-state 8 (hash: 815171923):
+state 3 (hash: 12151719232933):
 Exp -> • id 
 Exp -> • num 
 Exp -> • Exp BinOp Exp 
 Exp -> • ( Stm , Exp ) 
-Stm -> id = • Exp 
+ExpList -> • Exp , ExpList 
+ExpList -> • Exp 
+Stm -> print ( • ExpList ) 
 
-state 9 (hash: 261024):
+state 4 (hash: 261024):
 Stm -> • Stm ; Stm 
 Stm -> • id = Exp 
 Stm -> • print ( ExpList ) 
 Exp -> ( • Stm , Exp ) 
 
-state 10 (hash: 325):
+state 5 (hash: 325):
 Exp -> ( Stm • , Exp ) 
 Stm -> Stm • ; Stm 
 
-state 11 (hash: 24610):
+state 6 (hash: 24610):
 Stm -> • Stm ; Stm 
 Stm -> • id = Exp 
 Stm -> • print ( ExpList ) 
 Stm -> Stm ; • Stm 
 
-state 12 (hash: 35):
+state 7 (hash: 35):
 Stm -> Stm ; Stm •
 Stm -> Stm • ; Stm 
 
-state 13 (hash: 1517192326):
+state 8 (hash: 1517192326):
 Exp -> • id 
 Exp -> • num 
 Exp -> • Exp BinOp Exp 
 Exp -> • ( Stm , Exp ) 
 Exp -> ( Stm , • Exp ) 
 
-state 14 (hash: 202735373941):
+state 9 (hash: 202735373941):
 Exp -> ( Stm , Exp • ) 
 Exp -> Exp • BinOp Exp 
 BinOp -> • + 
@@ -74,26 +56,26 @@ BinOp -> • -
 BinOp -> • * 
 BinOp -> • / 
 
-state 15 (hash: 42):
+state 10 (hash: 42):
 BinOp -> / •
 
-state 16 (hash: 40):
+state 11 (hash: 40):
 BinOp -> * •
 
-state 17 (hash: 38):
+state 12 (hash: 38):
 BinOp -> - •
 
-state 18 (hash: 36):
+state 13 (hash: 36):
 BinOp -> + •
 
-state 19 (hash: 1517192123):
+state 14 (hash: 1517192123):
 Exp -> • id 
 Exp -> • num 
 Exp -> • Exp BinOp Exp 
 Exp -> • ( Stm , Exp ) 
 Exp -> Exp BinOp • Exp 
 
-state 20 (hash: 202235373941):
+state 15 (hash: 202235373941):
 Exp -> Exp BinOp Exp •
 Exp -> Exp • BinOp Exp 
 BinOp -> • + 
@@ -101,10 +83,47 @@ BinOp -> • -
 BinOp -> • * 
 BinOp -> • / 
 
-state 21 (hash: 28):
+state 16 (hash: 28):
 Exp -> ( Stm , Exp ) •
 
-state 22 (hash: 92035373941):
+state 17 (hash: 20303435373941):
+ExpList -> Exp •
+ExpList -> Exp • , ExpList 
+Exp -> Exp • BinOp Exp 
+BinOp -> • + 
+BinOp -> • - 
+BinOp -> • * 
+BinOp -> • / 
+
+state 18 (hash: 15171923293133):
+Exp -> • id 
+Exp -> • num 
+Exp -> • Exp BinOp Exp 
+Exp -> • ( Stm , Exp ) 
+ExpList -> • Exp , ExpList 
+ExpList -> • Exp 
+ExpList -> Exp , • ExpList 
+
+state 19 (hash: 32):
+ExpList -> Exp , ExpList •
+
+state 20 (hash: 18):
+Exp -> num •
+
+state 21 (hash: 16):
+Exp -> id •
+
+state 22 (hash: 7):
+Stm -> id • = Exp 
+
+state 23 (hash: 815171923):
+Exp -> • id 
+Exp -> • num 
+Exp -> • Exp BinOp Exp 
+Exp -> • ( Stm , Exp ) 
+Stm -> id = • Exp 
+
+state 24 (hash: 92035373941):
 Stm -> id = Exp •
 Exp -> Exp • BinOp Exp 
 BinOp -> • + 
@@ -112,18 +131,28 @@ BinOp -> • -
 BinOp -> • * 
 BinOp -> • / 
 
-state 23 (hash: 18):
-Exp -> num •
-
-state 24 (hash: 16):
-Exp -> id •
-
 Edges: {source-state hash} -> {target-state hash}, {symbol}
 92035373941 -> 42, /
 92035373941 -> 40, *
 92035373941 -> 38, -
 92035373941 -> 36, +
 92035373941 -> 1517192123, BinOp
+815171923 -> 261024, (
+815171923 -> 92035373941, Exp
+815171923 -> 18, num
+815171923 -> 16, id
+7 -> 815171923, =
+15171923293133 -> 32, ExpList
+15171923293133 -> 261024, (
+15171923293133 -> 20303435373941, Exp
+15171923293133 -> 18, num
+15171923293133 -> 16, id
+20303435373941 -> 42, /
+20303435373941 -> 40, *
+20303435373941 -> 38, -
+20303435373941 -> 36, +
+20303435373941 -> 1517192123, BinOp
+20303435373941 -> 15171923293133, ,
 202235373941 -> 42, /
 202235373941 -> 40, *
 202235373941 -> 38, -
@@ -152,17 +181,12 @@ Edges: {source-state hash} -> {target-state hash}, {symbol}
 261024 -> 11, print
 261024 -> 7, id
 261024 -> 325, Stm
-815171923 -> 261024, (
-815171923 -> 92035373941, Exp
-815171923 -> 18, num
-815171923 -> 16, id
-7 -> 815171923, =
-293133 -> 32, ExpList
-293133 -> 3034, Exp
-3034 -> 293133, ,
-122933 -> 13, ExpList
-122933 -> 3034, Exp
-11 -> 122933, (
+12151719232933 -> 13, ExpList
+12151719232933 -> 261024, (
+12151719232933 -> 20303435373941, Exp
+12151719232933 -> 18, num
+12151719232933 -> 16, id
+11 -> 12151719232933, (
 02610 -> 11, print
 02610 -> 7, id
 02610 -> 13, Stm
