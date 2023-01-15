@@ -20,6 +20,14 @@ void LR0_closure(ItemSet I) {
 }
 
 void LR0_getitems(symbol X, ItemSet st) {
+    Production *p = getprods();
+    for (int j = 0; j < PRODUCTIONS; j++)
+    {
+        if (p[j]->lhs == X && p[j]->len == 1 && !IS_TERMINAL(p[j]->rhs[0])) 
+        {
+            LR0_getitems(p[j]->rhs[0], st);
+        }
+    }
     LR0_Item *allitems = LR0_getallitems();
     for (int i = 0; i < ITEMS; i++)
     {
@@ -32,16 +40,16 @@ void LR0_getitems(symbol X, ItemSet st) {
     }
 }
 
-void LR0_goto(SymTable I, symbol X, SymTable G) {
+void LR0_goto(ItemSet I, symbol X, ItemSet G) {
     ItemNode n = I->head;
     int i;
     LR0_Item *allitems = LR0_getallitems();
     while (n != NULL)
     {
         if (
-            ((LR0_Item)n->i)->before == -1 ||
-            ((LR0_Item)n->i)->p->rhs[((LR0_Item)n->i)->before] != X
-            )
+            ((LR0_Item)n->i)->before == -1 || // dot in end
+            ((LR0_Item)n->i)->p->rhs[((LR0_Item)n->i)->before] != X // dot is not before X
+        )
         {
             n = n->next;
             continue;

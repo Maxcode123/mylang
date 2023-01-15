@@ -37,7 +37,7 @@
 #define PRODUCTIONS 14 // number of productions
 #define ITEMS 43 // number of items
 
-#define IS_TERMINAL(x) x >= S_NT_PROGRAM + NON_TERMINALS
+#define IS_TERMINAL(x) (x >= S_NT_PROGRAM + NON_TERMINALS)
 #define IS_SEMANTIC(x) (x == S_T_NUM || x == S_T_ID || x == S_T_PLUS || x == S_T_MINUS || x == S_T_TIMES || x == S_T_DIV)
 
 #define PRODUCTION_NOT_FOUND -1

@@ -13,6 +13,11 @@ Test(testoperations, testgetitems)
     cr_assert(LR0_itemeq(((Node)st->head)->i, allitems[10]));
     cr_assert(LR0_itemeq(((Node)st->head)->next->i, allitems[6]));
     cr_assert(LR0_itemeq(((Node)st->head)->next->next->i, allitems[2]));
+
+    SymTable st2 = stb_symtable();
+    
+    LR0_getitems(S_NT_EXPLIST, st2);
+    cr_assert(stb_len(st2) == 6);
 }
 
 Test(testoperations, testclosure)
