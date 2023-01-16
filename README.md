@@ -1,20 +1,27 @@
-**MYLANG GRAMMAR**
+# mylang compiler  
+Compiler for a simple straight-line language.
+## 1. Requirements
+- [gcc](https://gcc.gnu.org/) used to compile the compiler modules.
+- [criterionlib](https://github.com/Snaipe/Criterion) used to run tests.  
+Once requirements are met, running `make test` should run all tests.
 
-*Terminal symbols*
+## 2. Grammar
+
+### 2.1. Terminal symbols
 1) id
 2) num
-3) ,
-4) ;
+3) `,`
+4) `;`
 5) `+`
 6) `-`
 7) `*`
 8) `/`
 9) print
-10) (
-11) )
-12) =
+10) `(`
+11) `)`
+12) `=`
 
-*Productions*
+### 2.2. Production rules
 0) program -> Stm $
 
 1) Stm -> Stm ; Stm
@@ -34,75 +41,17 @@
 12) BinOp -> *
 13) BinOp -> /
 
-*Items*
+## 3. Modules
 
--- 1 program -> Stm $
-1) program -> • Stm $
-2) program -> Stm • $
+### 3.1. Scanner (lexical analyser)
+All modules relevant to lexical analysis are found in the [scanner](https://github.com/Maxcode123/mylang/tree/main/src/scanner) directory.  
+Lexical analysis is performed with scanner produced by lex.  
+Tokens of the language are defined in header file [tokens.h](https://github.com/Maxcode123/mylang/blob/main/src/scanner/tokens.h).  
+[mylang.lex](https://github.com/Maxcode123/mylang/blob/main/src/scanner/mylang.lex) is the configuration file of lex.  
+Running `make lexer` produces the scanner and running `src/scanner/lexer test.mylang` prints the sequence of scanned tokens from file test.mylang.  
 
--- 2 Stm -> Stm ; Stm\
-3) Stm -> • Stm ; Stm\
-4) Stm -> Stm • ; Stm\
-5) Stm -> Stm ; • Stm\
-6) Stm -> Stm ; Stm •
-
--- 3 Stm -> id = Exp\
-7) Stm -> • id = Exp\
-8) Stm -> id • = Exp\
-9) Stm -> id = • Exp\
-10) Stm -> id = Exp •
-
--- 4 Stm -> print ( ExpList )\
-11) Stm -> • print ( ExpList )\
-12) Stm -> print • ( ExpList )\
-13) Stm -> print ( • ExpList )\
-14) Stm -> print ( ExpList • )\
-15) Stm -> print ( ExpList ) •
-
--- 5 Exp -> id\
-16) Exp -> • id\
-17) Exp -> id •
-
--- 6 Exp -> num\
-18) Exp -> • num\
-19) Exp -> num •
-
--- 7 Exp -> Exp BinOp Exp\
-20) Exp -> • Exp BinOp Exp\
-21) Exp -> Exp • BinOp Exp\
-22) Exp -> Exp BinOp • Exp\
-23) Exp -> Exp BinOp Exp •
-
--- 8 Exp -> ( Stm, Exp )\
-24) Exp -> • ( Stm, Exp )\
-25) Exp -> ( • Stm, Exp )\
-26) Exp -> ( Stm •, Exp )\
-27) Exp -> ( Stm, • Exp )\
-28) Exp -> ( Stm, Exp • )\
-29) Exp -> ( Stm, Exp ) •
-
--- 9 ExpList -> Exp, ExpList\
-30) ExpList -> • Exp, ExpList\
-31) ExpList -> Exp •, ExpList\
-32) ExpList -> Exp, • ExpList\
-33) ExpList -> Exp, ExpList •
-
--- 10 ExpList -> Exp\
-34) ExpList -> • Exp\
-35) ExpList -> Exp •
-
--- 11 BinOp -> +\
-36) BinOp -> • +\
-37) BinOp -> + •
-
--- 12 BinOp -> -\
-38) BinOp -> • -\
-39) BinOp -> - •
-
--- 13 BinOp -> *\
-40) BinOp -> • *\
-41) BinOp -> * •
-
--- 14 BinOp -> /\
-42) BinOp -> • /\
-43) BinOp -> / •
+### 3.2. Parser (syntax analyser)
+All modules relevant to syntax analysis are found in the [parser](https://github.com/Maxcode123/mylang/tree/main/src/parser) directory.  
+The syntax analyser is an SLR parser, which is a slightly tweaked LR(0) parser.
+#### 3.2.1. LR(0) parser
+A production rule combined with a dot denoting the position of the parser in the right hand side of the production rule, is called an LR(0) item.
