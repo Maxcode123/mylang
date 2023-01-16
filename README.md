@@ -83,9 +83,9 @@ Here are the algorithms used for `closure` and `goto` [(operations.c)](https://g
 `return I`  
 
 `goto(I, X)`  
-`Initialize J to the empty set {}`
-`for each item i in I:`  
-`    if dot is in the end of i's rhs or dot is not before X: continue`
+`Initialize J to the empty set {}`  
+`for each item i in I:`   
+`    if dot is in the end of i's rhs or dot is not before X: continue`  
 `    add A -> α X • β to J where i = A -> α • X β`  
 `return closure(J)`  
 
