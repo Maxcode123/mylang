@@ -59,6 +59,9 @@ The syntax analyser is an SLR parser, which is a slightly tweaked LR(0) parser.
 #### 3.2.1. LR(0) parser
 A production rule combined with a dot denoting the position of the parser in the right hand side (rhs) of the production rule, is called an LR(0) item. e.g. `Stm -> Stm • ; Stm` is an item meaning that the parser has parsed the first `Stm` symbol and is now right after it.  
 Briefly, the parser is a Deterministic Finite State Automaton where each state is a set of items and edges are grammar symbols (both terminals and non-terminals).  
+
+LR(0) parsing is performed by consulting what is called a parse table and by keeping one stack for the states and one for the grammar symbols. The parse table is a table where each column corresponds to a grammar symbol, each row corresponds to a state and each cell contains an action. Available actions are: SHIFT, GOTO, REDUCE, ACCEPT and REJECT. SHIFT and GOTO actions transfer the automaton to another state (the difference between them being that SHIFT does so by popping a terminal symbol from the stack whereas GOTO pops a non-terminal symbol from the stack), REDUCE applies a production rule, i.e. it pops the rhs of a production rule from the stack and pushes the lhs, ACCEPT is the action denoting successfull parsing and REJECT is the action related to a syntax error.  
+
 In order to calculate the set of states and edges the following algorithm [(states.c)](https://github.com/Maxcode123/mylang/blob/main/src/parser/states.c) is used [(tiger book, p. 61)](https://www.goodreads.com/book/show/1190651.Modern_Compiler_Implementation_in_C?from_search=true&from_srp=true&qid=uuB0dsJUgw&rank=1):  
 `Let T be the set of states, E the set of edges`  
 `Initialize T to {closure({first_item})} where first_item = program -> • Stm $`  
