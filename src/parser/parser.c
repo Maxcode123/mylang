@@ -9,6 +9,10 @@ SymbolNode symbolnode(symbol s) {
     return sn;
 }
 
+AST popASTstk() {
+    return (AST)stk_pop(&ASTstk)->i;
+}
+
 ASTNode astTnode(Token t) {
     key k = malloc(sizeof(*k)*10);
     strcpy(k, getsymbols()[t->s-S_NT_PROGRAM]);
@@ -88,7 +92,7 @@ void setstinit(StateSet T) {
     }
 }
 
-AST parse(Token *ta) {
+void parse(Token *ta) {
     initparse();
     StateActionsMap *pt = getptable();
     int i, len = gettklen();
@@ -107,7 +111,7 @@ AST parse(Token *ta) {
         else if (a->type == ACCEPT) 
         {
             printf("SYNTAX CORRECT.\n");
-            return (Stm)stk_pop(&ASTstk)->i;
+            return;
         }
     }
 }

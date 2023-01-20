@@ -14,7 +14,7 @@ typedef struct _Token {
 static int tklen;
 
 // Increment scanned tokens coutner.
-static void incrtklen();
+void incrtklen();
 
 // Returns number of scanned tokens.
 int gettklen();

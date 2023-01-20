@@ -9,7 +9,7 @@ int gettklen() {
     return tklen;
 }
 
-static void incrtklen() {
+void incrtklen() {
     tklen++;
 }
 

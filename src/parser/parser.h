@@ -18,6 +18,9 @@ SymbolNode symbolnode(symbol s);
 // AST nodes stack, used as buffer for AST construction during parsing.
 static Stack ASTstk;
 
+// Pops AST stack
+AST popASTstk();
+
 // ASTNode constructor. Creates AST node from terminal symbol.
 ASTNode astTnode(Token t);
 
@@ -41,7 +44,7 @@ void initparse();
 void setstinit(StateSet T);
 
 // Parses token array into abstract syntax tree.
-AST parse(Token *ta);
+void parse(Token *ta);
 
 // Makes changes to stacks and state according to given action.
 void apply(Action a, Token t);
