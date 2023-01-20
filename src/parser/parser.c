@@ -104,7 +104,11 @@ AST parse(Token *ta) {
         Action a = h->i;
         apply(a, t);
         if (a->type == REDUCE) i--; // Token is not consumed from reduce action.
-        else if (a->type == ACCEPT) {printf("SYNTAX CORRECT, MOTHERFUCKER YOU MADE IT!!\n"); return;}
+        else if (a->type == ACCEPT) 
+        {
+            printf("SYNTAX CORRECT.\n");
+            return;
+        }
     }
 }
 
