@@ -6,8 +6,8 @@
 
 
 void main(int argc, char **argv) {
-    Token *ta = scan(argv[1]);
-    AST t = parse(ta);
+    Token *ta = scan(argv[1]);    
+    parse(ta);
 
     // printparsetable();
     // printstates();
