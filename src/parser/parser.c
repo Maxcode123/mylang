@@ -107,7 +107,7 @@ AST parse(Token *ta) {
         else if (a->type == ACCEPT) 
         {
             printf("SYNTAX CORRECT.\n");
-            return;
+            return (Stm)stk_pop(&ASTstk)->i;
         }
     }
 }

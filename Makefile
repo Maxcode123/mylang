@@ -34,12 +34,18 @@ run: $(TEST)/bin/main
 $(TEST)/bin/main: $(TEST)/main.c $(PARSERO) $(UTILSO) $(OBJ)/lex.yy.o 
 	$(CC) $^ -o $@
 
-test: test-automaton test-states test-operations test-symtable test-stack test-list test-productions test-items
+test: test-parser test-automaton test-states test-operations test-symtable test-stack test-list test-productions test-items
 
-test-automaton: $(TEST)/bin/automaton
+test-parser: $(TEST)/bin/testparser
 	$<
 
-$(TEST)/bin/automaton: $(TEST)/testautomaton.c $(OBJ)/automaton.o $(OBJ)/states.o $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o $(OBJ)/util.o
+$(TEST)/bin/testparser: $(TEST)/testparser.c $(PARSERO) $(UTILSO) $(OBJ)/lex.yy.o 
+	$(CC) $^ -o $@ -lcriterion
+
+test-automaton: $(TEST)/bin/testautomaton 
+	$<
+
+$(TEST)/bin/testautomaton: $(TEST)/testautomaton.c $(OBJ)/automaton.o $(OBJ)/states.o $(OBJ)/operations.o $(OBJ)/symtable.o $(OBJ)/list.o $(OBJ)/grammar.o $(OBJ)/util.o
 	$(CC) $^ -o $@ -lcriterion
 
 test-states: $(TEST)/bin/teststates
