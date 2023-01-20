@@ -31,7 +31,7 @@ num [0-9]+
 
 <INITIAL>print {adjust(); return PRINT;}
 
-<INITIAL>{id} {adjust(); yylval.sval = yytext; return ID;}
+<INITIAL>{id} {adjust(); yylval.sval = String(yytext); return ID;}
 <INITIAL>{num} {adjust(); yylval.ival = atoi(yytext); return NUM;}
 
 <INITIAL>"," {adjust(); return COMMA;}
