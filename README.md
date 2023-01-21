@@ -58,7 +58,7 @@ All modules relevant to syntax analysis are found in the [parser](https://github
 The syntax analyser is an SLR parser, which is a slightly tweaked LR(0) parser.
 #### 3.2.1. LR(0) parser
 A production rule combined with a dot denoting the position of the parser in the right hand side (rhs) of the production rule, is called an LR(0) item. e.g. `Stm -> Stm • ; Stm` is an item meaning that the parser has parsed the first `Stm` symbol and is now right after it.  
-Briefly, the parser is a Deterministic Finite State Automaton (DFA) where each state is a set of items and edges are grammar symbols (both terminals and non-terminals).  
+Briefly, the parser is a [Deterministic Finite Automaton](https://en.wikipedia.org/wiki/Deterministic_finite_automaton) (DFA) where each state is a set of items and edges are grammar symbols (both terminals and non-terminals).  
 
 LR(0) parsing is performed by consulting what is called a parse table and by keeping one stack for the states and one for the grammar symbols. The parse table is a table where each column corresponds to a grammar symbol, each row corresponds to a state and each cell contains an action. Available actions are: SHIFT, GOTO, REDUCE, ACCEPT and REJECT. SHIFT and GOTO actions transfer the automaton to another state (the difference between them being that SHIFT does so by popping a terminal symbol from the stack whereas GOTO pops a non-terminal symbol from the stack), REDUCE applies a production rule, i.e. it pops the rhs of a production rule from the stack and pushes the lhs, ACCEPT is the action denoting successfull parsing and REJECT is the action related to a syntax error.  
 
@@ -92,7 +92,7 @@ Here are the algorithms used for `closure` and `goto` [(operations.c)](https://g
 `    add A -> α X • β to J where i = A -> α • X β`  
 `return closure(J)`  
 
-Edges between states represent SHIFT and GOTO actions; REDUCE actions are calculated as below [(`reduces` in automaton.c)](https://github.com/Maxcode123/mylang/blob/main/src/parser/automaton.c):  
+Edges between states represent SHIFT and GOTO actions; REDUCE actions are calculated as below:  
 `Let R be the set of REDUCE actions, T the set of states`  
 `Initialize R to the empty set {}`  
 `for each state SN in T:`  
@@ -101,8 +101,20 @@ Edges between states represent SHIFT and GOTO actions; REDUCE actions are calcul
 `        let p be the production rule of item i`  
 `        add (REDUCE p, SN) in R`  
 
-where `(REDUCE p, SN)` means reduce by production rule p when in SN and rhs of p is the next symbol.   
+where `(REDUCE p, SN)` means reduce by production rule `p` when in `SN` and rhs of p is the next symbol.   
 Once states, edges and actions are all calculated the parse table is ready to be populated. However we might get what is called a conflict in the parse table, meaning that we might have a cell containing more than one action. Depending on the actions of the cell the conflict is called shift/shift, shift/reduce or reduce/reduce.
 
 #### 3.2.2. SLR parser
-To eliminate most conflicts of the LR(0) parsing table, SLR parsing is used (SLR standing for Simple LR). The only difference of SLR parsing from LR(0) is the algorithm by which REDUCE actions are calculated. 
+To eliminate most conflicts of the LR(0) parsing table, SLR parsing is used (SLR standing for Simple LR). The only difference of SLR parsing from LR(0) is the algorithm by which REDUCE actions are calculated [(`reduces` in automaton.c)](https://github.com/Maxcode123/mylang/blob/main/src/parser/automaton.c):  
+`Let R be the set of REDUCE actions, T the set of states`  
+`Initialize R to the empty set {}`  
+`for each state SN in T:`  
+`    for each item i in SN:`  
+`        if the dot is not last in i's rhs: continue`  
+`        let p be the production rule of item i`  
+`        S = follow(A) where A is the lhs of p`  
+`        for each token X in S:`  
+`            add (REDUCE p, SN, X) in R`  
+
+where `(REDUCE p, SN, X)` means reduce by production rule `p` when in `SN` and `X` is the next symbol.  
+`folow(A)`, for non-terminal `A`, is the set of terminals that can come after `A` in some production rule.
