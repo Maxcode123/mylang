@@ -10,10 +10,10 @@ Env getglobenv() {
 
 int lookupid(char *id) {
     int *i = malloc(sizeof(*i));
-    stb_get(env, id, i);
+    stb_get(env, id, &i);
     if (i == NULL) 
     {
-        fprintf(stderr, "Identifier %s used but not defined.\n", id);
+        fprintf(stderr, "SEMANTIC ERROR: Identifier '%s' is used before being defined.\n", id);
         exit(1);
     }
     return *i;
