@@ -130,3 +130,4 @@ Here is the algorithm used for `follow` [(`follow` in automaton.c)](https://gith
 `            S2 = follow(A)`  
 `        else S2 = first(a) where a the symbol after s`  
 `        S = S union S2`  
+`return S`  
