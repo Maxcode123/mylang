@@ -1,10 +1,10 @@
 #include "env.h"
 
-Env envinit() {
-    return stb_symtable();
+void envinit() {
+    env = stb_symtable();
 }
 
-Env getenv() {
+Env getglobenv() {
     return env;
 }
 

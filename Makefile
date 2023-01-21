@@ -5,6 +5,8 @@ PARSERC=$(wildcard $(SRC)/parser/*.c)
 PARSERO=$(patsubst $(SRC)/parser/%.c, $(OBJ)/%.o, $(PARSERC))
 UTILSC=$(wildcard $(SRC)/utils/*.c)
 UTILSO=$(patsubst $(SRC)/utils/%.c, $(OBJ)/%.o, $(UTILSC))
+SEMANTC=$(wildcard $(SRC)/semantics/*.c)
+SEMANTO=$(patsubst $(SRC)/semantics/%.c, $(OBJ)/%.o, $(SEMANTC))
 ARGS=-g
 TEST=tests
 DB=gdb
@@ -31,7 +33,7 @@ run: $(TEST)/bin/main
 	clear
 	$<
 
-$(TEST)/bin/main: $(TEST)/main.c $(PARSERO) $(UTILSO) $(OBJ)/lex.yy.o 
+$(TEST)/bin/main: $(TEST)/main.c $(SEMANTO) $(PARSERO) $(UTILSO) $(OBJ)/lex.yy.o 
 	$(CC) $^ -o $@
 
 test: test-parser test-automaton test-states test-operations test-symtable test-stack test-list test-productions test-items
@@ -114,6 +116,9 @@ $(OBJ)/%.o: $(SRC)/parser/%.c
 	$(CC) $(ARGS) -c $< -o $@
 
 $(OBJ)/%.o: $(SRC)/scanner/%.c
+	$(CC) $(ARGS) -c $< -o $@
+
+$(OBJ)/%.o: $(SRC)/semantics/%.c
 	$(CC) $(ARGS) -c $< -o $@
 
 clean:

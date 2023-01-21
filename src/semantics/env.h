@@ -8,11 +8,11 @@ typedef SymTable Env; // Environment is a symbol table.
 // Global environment.
 static Env env;
 
-// Initializes the global environment.
-static Env envinit();
+// Assigns the global environment.
+void envinit();
 
 // Returns the global environment.
-Env getenv();
+Env getglobenv();
 
 /* Looks up the given identifier in the global environment and returns the 
 value associated with it. If not found prints an error and exits. */

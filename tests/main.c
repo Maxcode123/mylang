@@ -3,46 +3,15 @@
 #include "../src/parser/parser.h"
 #include "../src/parser/automaton.h"
 #include "../src/parser/adapter.h"
+#include "../src/semantics/checker.h"
 
 
 void main(int argc, char **argv) {
     Token *ta = scan(argv[1]);    
     parse(ta);
-
-    // printparsetable();
-    // printstates();
-
-    // LR0_inititems();
-    // StateSet T = stb_symtable();
-    // EdgeSet E = stb_symtable();
-    // states(T, E);
-
-    // State J = stb_symtable();
-    // symbol X;
-
-    // StateNode SN = T->head;
-
-    // while (SN != NULL)
-    // {
-    //     if (strcmp(SN->k, "12151719232933") == 0)
-    //     {
-    //         ItemNode in = ((State)(SN->i))->head;
-    //         while (in != NULL)
-    //         {
-    //             printf("\nstate I: \n");
-    //             printstate((State)SN->i);
-    //             printf("\nitem: ");
-    //             printit((LR0_Item)in->i);
-    //             X = ((LR0_Item)in->i)->p->rhs[((LR0_Item)in->i)->before];
-    //             LR0_goto((State)(SN->i), X, J);
-    //             printf("\nGOTO(I,X(%d)): \n", X);
-    //             printstate(J);
-    //             in = in->next;
-    //         }
-    //     }
-    //     SN = SN->next;
-    // }
-
+    checkuses();
+    Env e = getglobenv();
+    stb_printk(e);
 }
 
 void printparsetable() {
