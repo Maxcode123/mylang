@@ -62,7 +62,7 @@ Briefly, the parser is a [Deterministic Finite Automaton](https://en.wikipedia.o
 
 LR(0) parsing is performed by consulting what is called a parse table and by keeping one stack for the states and one for the grammar symbols. The parse table is a table where each column corresponds to a grammar symbol, each row corresponds to a state and each cell contains an action. Available actions are: SHIFT, GOTO, REDUCE, ACCEPT and REJECT. SHIFT and GOTO actions transfer the automaton to another state (the difference between them being that SHIFT does so by popping a terminal symbol from the stack whereas GOTO pops a non-terminal symbol from the stack), REDUCE applies a production rule, i.e. it pops the rhs of a production rule from the stack and pushes the lhs, ACCEPT is the action denoting successfull parsing and REJECT is the action related to a syntax error.  
 
-In order to calculate the set of states and edges of the DFA the following algorithm [(states.c)](https://github.com/Maxcode123/mylang/blob/main/src/parser/states.c) is used [(tiger book, p. 61)](https://www.goodreads.com/book/show/1190651.Modern_Compiler_Implementation_in_C?from_search=true&from_srp=true&qid=uuB0dsJUgw&rank=1):  
+In order to calculate the set of states and edges of the DFA the following algorithm [(states.c)](https://github.com/Maxcode123/mylang/blob/main/src/parser/states.c) is used [(tiger book, p.61)](https://www.goodreads.com/book/show/1190651.Modern_Compiler_Implementation_in_C?from_search=true&from_srp=true&qid=uuB0dsJUgw&rank=1):  
 `Let T be the set of states, E the set of edges`  
 `Initialize T to {closure({first_item})} where first_item = program -> • Stm $`  
 `Initialize E to the empty set {}`  
@@ -117,4 +117,7 @@ To eliminate most conflicts of the LR(0) parsing table, SLR parsing is used (SLR
 `            add (REDUCE p, SN, X) in R`  
 
 where `(REDUCE p, SN, X)` means reduce by production rule `p` when in `SN` and `X` is the next symbol.  
-`folow(A)`, for non-terminal `A`, is the set of terminals that can come after `A` in some production rule.
+`folow(A)`, for non-terminal `A`, is the set of terminals that can come after `A` in some production rule [(MIT OCW notes, p.39)](https://ocw.mit.edu/courses/6-035-computer-language-engineering-spring-2010/resources/mit6_035s10_lec03b/).  
+Here is the algorithm used for `follow` [(`follow` in automaton.c)](https://github.com/Maxcode123/mylang/blob/main/src/parser/automaton.c):  
+`follow(X)`  
+``
