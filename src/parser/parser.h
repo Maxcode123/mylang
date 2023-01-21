@@ -78,6 +78,3 @@ void prspairexplist();
 
 // Parses last expression list.
 void prslastexplist();
-
-// Parses binary operator expression.
-void prsbinop();
