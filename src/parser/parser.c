@@ -101,8 +101,6 @@ void parse(Token *ta) {
     for (i = 0; i < len; i++)
     {
         t = ta[i];
-        stk_printk(symbolstk);
-        printf(" in state: %s, next token: %s\n", getcsthash(), symbols[t->s-S_NT_PROGRAM]);
         ActionListNode h;
         stb_get(pt[t->s - S_NT_PROGRAM], getcsthash(), &h);
         Action a = h->i;
