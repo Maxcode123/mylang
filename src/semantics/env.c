@@ -13,7 +13,7 @@ int lookupid(char *id) {
     stb_get(env, id, &i);
     if (i == NULL) 
     {
-        fprintf(stderr, "SEMANTIC ERROR: Identifier '%s' is used before being defined.\n", id);
+        fprintf(stderr, "SEMANTIC ERROR: Identifier '%s' is used before being assigned.\n", id);
         exit(1);
     }
     return *i;
