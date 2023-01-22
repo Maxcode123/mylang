@@ -122,7 +122,7 @@ Here is the algorithm used for `follow` [(`follow` in automaton.c)](https://gith
 `follow(X)`  
 `Initialize S to the empty set {}`  
 `for each production p:`  
-`    for each symbol s in p's rhs:`
+`    for each symbol s in p's rhs:`  
 `        if s != X: continue`  
 `        if s is last rhs symbol:`  
 `            let A be p's lhs`  
@@ -130,3 +130,4 @@ Here is the algorithm used for `follow` [(`follow` in automaton.c)](https://gith
 `            S2 = follow(A)`  
 `        else S2 = first(a) where a the symbol after s`  
 `        S = S union S2`  
+`return S`  
