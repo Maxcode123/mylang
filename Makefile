@@ -38,6 +38,12 @@ $(TEST)/bin/main: $(TEST)/main.c $(SEMANTO) $(PARSERO) $(UTILSO) $(OBJ)/lex.yy.o
 
 test: test-parser test-automaton test-states test-operations test-symtable test-stack test-list test-productions test-items
 
+test-checker: $(TEST)/bin/testchecker
+	$<
+
+$(TEST)/bin/testchecker: $(TEST)/testchecker.c $(SEMANTO) $(PARSERO) $(UTILSO) $(OBJ)/lex.yy.o
+	$(CC) $^ -o $@ -lcriterion
+
 test-parser: $(TEST)/bin/testparser
 	$<
 
