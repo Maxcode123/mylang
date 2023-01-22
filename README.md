@@ -114,7 +114,7 @@ To eliminate most conflicts of the LR(0) parsing table, SLR parsing is used (SLR
 `        let p be the production rule of item i`  
 `        S = follow(A) where A is the lhs of p`  
 `        for each token X in S:`  
-`            add (REDUCE p, SN, X) in R`  
+`            add (REDUCE p, SN, X) to R`  
 
 where `(REDUCE p, SN, X)` means reduce by production rule `p` when in `SN` and `X` is the next symbol.  
 `folow(A)`, for non-terminal `A`, is the set of terminals that can come after `A` in some production rule [(MIT OCW notes, p.39)](https://ocw.mit.edu/courses/6-035-computer-language-engineering-spring-2010/resources/mit6_035s10_lec03b/).  
@@ -131,3 +131,18 @@ Here is the algorithm used for `follow` [(`follow` in automaton.c)](https://gith
 `        else S2 = first(a) where a the symbol after s`  
 `        S = S union S2`  
 `return S`  
+
+`first(X)` is set of terminals that can begin strings derived from `X`  [(tiger book, p.49)](https://www.goodreads.com/book/show/1190651.Modern_Compiler_Implementation_in_C?from_search=true&from_srp=true&qid=uuB0dsJUgw&rank=1).  
+Here is the algorithm used for `first` [(`first` in automaton.c)](https://github.com/Maxcode123/mylang/blob/main/src/parser/automaton.c):  
+`first(X)`  
+`Intialize S to the empty set {}`  
+`if X is terminal: return {X}`  
+`for each production p:`  
+`    if p's lhs == X:`  
+`        let s be the first symbol of p's rhs`   
+`        if s is terminal:`  
+`            add s to S`  
+`        else if p's rhs has only one symbol:`   
+`            S2 = first(s)`  
+`            S = S union S2`  
+`return S`   
