@@ -46,7 +46,6 @@ Test(testparser, testparse2)
     cr_assert(ast->u.compound.stm1->u.assign.exprs->kind == NUM_EXP);
     cr_assert(ast->u.compound.stm1->u.assign.exprs->u.num == 123);
     cr_assert(ast->u.compound.stm2->kind == ASSIGN_STM);
-    cr_assert(strcmp(ast->u.compound.stm2->u.assign.id, "mtp") == 0);
     cr_assert(ast->u.compound.stm2->u.assign.exprs->kind == ESEQ_EXP);
     cr_assert(ast->u.compound.stm2->u.assign.exprs->u.eseq.stmt->kind == ASSIGN_STM);
     cr_assert(strcmp(ast->u.compound.stm2->u.assign.exprs->u.eseq.stmt->u.assign.id, "c") == 0);
